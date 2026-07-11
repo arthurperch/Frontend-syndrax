@@ -765,7 +765,7 @@ function scopeBar() {
   </div>` : '';
   const acctMenu = openScopeMenu === 'account' ? `<div class="sb-menu">
     <button class="sb-opt ${focusAccount === 'all' ? 'on' : ''}" data-setacct="all"><span class="sb-chip"></span>All accounts</button>
-    ${accounts.length ? accounts.map(a => { const m = marketplace(a.marketplace); const lg = marketplaceLogo(a.marketplace) || `<span style="font:800 10px var(--nav-font);color:#fff">${(m?.name || '?')[0]}</span>`; return `<button class="sb-opt ${String(focusAccount) === String(a.id) ? 'on' : ''}" data-setacct="${esc(a.id)}"><span class="sb-chip neutral">${lg}</span>${esc(a.label || m?.name || a.marketplace)}<span class="sb-sub">${esc(m?.name || a.marketplace)}</span></button>`; }).join('') : '<div style="padding:8px 10px;font-size:11px;color:#64748b">No accounts connected yet</div>'}
+    ${accounts.length ? accounts.map(a => { const m = marketplace(a.marketplace); const lg = marketplaceLogo(a.marketplace) || `<span style="font:800 10px var(--nav-font);color:#fff">${(m?.name || '?')[0]}</span>`; return `<button class="sb-opt ${String(focusAccount) === String(a.id) ? 'on' : ''}" data-setacct="${esc(a.id)}"><span class="sb-chip neutral">${lg}</span>${esc(a.label || m?.name || a.marketplace)}<span class="sb-sub">${esc(m?.name || a.marketplace)}</span></button>`; }).join('') : '<div style="padding:8px 10px;font-size:11px;color:rgba(255,255,255,0.35)">No accounts connected yet</div>'}
   </div>` : '';
 
   return `<div class="scope-bar" id="scopeBar">
@@ -839,9 +839,9 @@ function renderUpgradeLock(feature) {
     <div class="ws-empty" style="max-width:520px;margin:40px auto;padding:34px">
       <div style="width:46px;height:46px;border-radius:13px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#e5e5e5">${icon('lock')}</div>
       <h3 style="color:#f1f5f9;font:700 16px var(--nav-font);margin:4px 0">A ${np ? PLAN_LABEL[np] : 'higher'} feature</h3>
-      <p style="color:#94a3b8;font-size:13.5px;text-align:center;line-height:1.6;max-width:380px">Run on more devices and isolate each marketplace account on its own IP — that's how you scale without linked-account restrictions.</p>
+      <p style="color:rgba(255,255,255,0.45);font-size:13.5px;text-align:center;line-height:1.6;max-width:380px">Run on more devices and isolate each marketplace account on its own IP — that's how you scale without linked-account restrictions.</p>
       ${np ? `<button class="app-btn" id="lockUp">Upgrade to ${PLAN_LABEL[np]}</button>` : ''}
-      <p style="color:#475569;font-size:11px">You're on ${PLAN_LABEL[plan]}.</p>
+      <p style="color:rgba(255,255,255,0.4);font-size:11px">You're on ${PLAN_LABEL[plan]}.</p>
     </div>`;
   const b = $('#lockUp'); if (b) b.onclick = () => startCheckout(np).catch(e => showAlert(e.message));
 }
@@ -919,7 +919,7 @@ function areaChart(labels, sets) {
     svg += `<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
     s.data.forEach((v, i) => { svg += `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.4" fill="${s.color}"/>`; });
   });
-  labels.forEach((l, i) => { svg += `<text x="${x(i).toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="9" fill="#475569">${l}</text>`; });
+  labels.forEach((l, i) => { svg += `<text x="${x(i).toFixed(1)}" y="${H - 6}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.4)">${l}</text>`; });
   return svg + '</svg>';
 }
 
@@ -937,8 +937,8 @@ function barChart(data) {
     const x = pl + i * bw + bw * 0.24, w = bw * 0.52, y = H - pb - h;
     const c = d.color || '#d4d4d4';
     svg += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(2, h).toFixed(1)}" rx="5" fill="${c}" opacity=".9"/>`;
-    svg += `<text x="${(x + w / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="800" fill="#e2e8f0">${d.value}</text>`;
-    svg += `<text x="${(x + w / 2).toFixed(1)}" y="${H - 9}" text-anchor="middle" font-size="10" fill="#8295a8">${esc(d.label)}</text>`;
+    svg += `<text x="${(x + w / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="800" fill="#f5f5f5">${d.value}</text>`;
+    svg += `<text x="${(x + w / 2).toFixed(1)}" y="${H - 9}" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.35)">${esc(d.label)}</text>`;
   });
   return svg + '</svg>';
 }
@@ -969,7 +969,7 @@ function accountsStrip() {
     const logo = marketplaceLogo(m.id) || `<span style="font:800 16px var(--nav-font);color:#e5e5e5">${m.name[0]}</span>`;
     return `<div class="acct-chip add" data-connect="${m.id}"><span class="ac-logo">${logo}</span><div><div class="ac-name">${m.name}</div><div class="ac-sub">+ connect</div></div></div>`;
   }).join('');
-  return (connected + adds) || '<p style="font-size:12px;color:#64748b">No accounts yet.</p>';
+  return (connected + adds) || '<div class="empty-pro" style="padding:18px 0"><h3 style="font-size:14px;margin:0 0 6px">Connect eBay first</h3><p style="font-size:12.5px;color:rgba(255,255,255,0.45);margin:0 0 12px">Start the money loop: connect one eBay store, sync inventory, then run tools.</p><button class="app-btn sm" data-connect="ebay">Connect eBay</button></div>';
 }
 
 // Premium semi-3D AXIS agent. State drives eye/ring/core color + behaviour:
@@ -1176,7 +1176,7 @@ function openAnalyticsOverlay() {
           <div class="an-kpi"><span>In stock</span><b>${(inventorySummary?.total || 0).toLocaleString()}</b><i>${inventorySummary?.outOfStock || 0} out of stock</i></div>
         </div>
         <div class="an-chart-wrap">
-          <div class="an-chart" style="display:flex;align-items:center;justify-content:center;height:200px;color:#475569;font-size:13px;flex-direction:column;gap:8px">
+          <div class="an-chart" style="display:flex;align-items:center;justify-content:center;height:200px;color:rgba(255,255,255,0.4);font-size:13px;flex-direction:column;gap:8px">
             <span style="font-size:28px;opacity:.3">📊</span>
             <span>Run a Quick Sync to populate real analytics</span>
           </div>
@@ -1322,7 +1322,7 @@ function openInventoryItem(id) {
   document.querySelectorAll('.jd-bg').forEach(el => el.remove());
 
   const market = marketplace(it.marketplace);
-  const logo = marketplaceLogo(it.marketplace) || `<span style="font:800 22px var(--nav-font);color:#cbd5e1">${(market?.name || '?')[0]}</span>`;
+  const logo = marketplaceLogo(it.marketplace) || `<span style="font:800 22px var(--nav-font);color:rgba(255,255,255,0.55)">${(market?.name || '?')[0]}</span>`;
   const money = v => v != null ? (typeof fmt$ === 'function' ? fmt$(v) : `$${(+v).toFixed(2)}`) : '—';
 
   // Profitability — only when we have both price and cost.
@@ -1448,7 +1448,7 @@ function renderHome() {
     const stock = (invSum.inStockByMarketplace || {})[a.marketplace] || 0;
     const pct = totalItems > 0 ? Math.round(stock / totalItems * 100) : 0;
     const logoEl = logo ? logo : `<span style="font:800 12px var(--nav-font);color:#e5e5e5">${(mk?.name || '?')[0]}</span>`;
-    return `<div class="hb-bk-row"><span style="width:22px;display:flex;align-items:center;justify-content:center">${logoEl}</span><span style="font-size:11px;color:#94a3b8;min-width:52px">${esc(mk?.name || a.marketplace)}</span><div class="hb-bk-bar-wrap"><div class="hb-bk-bar" style="width:${pct}%"></div></div><span class="hb-bk-num">${stock || '—'}</span></div>`;
+    return `<div class="hb-bk-row"><span style="width:22px;display:flex;align-items:center;justify-content:center">${logoEl}</span><span style="font-size:11px;color:rgba(255,255,255,0.45);min-width:52px">${esc(mk?.name || a.marketplace)}</span><div class="hb-bk-bar-wrap"><div class="hb-bk-bar" style="width:${pct}%"></div></div><span class="hb-bk-num">${stock || '—'}</span></div>`;
   }).join('');
 
   // ── Analytics ─────────────────────────────────────────────────────────────
@@ -1481,7 +1481,7 @@ function renderHome() {
   const topCarriers  = Object.entries(carrierMap).sort((a, b) => b[1] - a[1]).slice(0, 3);
   const maxCarrier   = topCarriers[0]?.[1] || 1;
   const carrierRows  = topCarriers.map(([name, n]) =>
-    `<div class="hb-bk-row"><span style="font-size:11px;color:#64748b;min-width:55px">${esc(name)}</span><div class="hb-bk-bar-wrap"><div class="hb-bk-bar" style="width:${Math.round(n / maxCarrier * 100)}%"></div></div><span class="hb-bk-num">${n}</span></div>`
+    `<div class="hb-bk-row"><span style="font-size:11px;color:rgba(255,255,255,0.35);min-width:55px">${esc(name)}</span><div class="hb-bk-bar-wrap"><div class="hb-bk-bar" style="width:${Math.round(n / maxCarrier * 100)}%"></div></div><span class="hb-bk-num">${n}</span></div>`
   ).join('');
   const mapDots = [
     { t: 42, l: 22 }, { t: 38, l: 48 }, { t: 55, l: 62 },
@@ -1761,7 +1761,7 @@ function renderHome() {
         <div class="mc-seg-head"><span class="mc-seg-ic amber">${icon('truck')}</span><h4>Tracking</h4>
           ${trackingLoading ? `<span class="hb-pill neutral">Loading…</span>` : `<span class="hb-pill ${trackConf ? 'active' : 'neutral'}">${trackConf ? 'Active' : 'Setup'}</span>`}</div>
         ${trackingLoading ? `<div class="cc-skel-wrap">${skel(1, 'tall')}${skel(2)}</div>` : `
-          <div class="cc-track-cred"><span class="cc-online-dot ${trackCred > 0 ? 'on' : ''}"></span><span class="cc-track-num" style="color:${trackCred > 10 ? '#d4d4d4' : trackCred > 0 ? '#fbbf24' : '#64748b'}">${trackCred}</span><span class="cc-track-lbl">credits</span></div>
+          <div class="cc-track-cred"><span class="cc-online-dot ${trackCred > 0 ? 'on' : ''}"></span><span class="cc-track-num" style="color:${trackCred > 10 ? '#d4d4d4' : trackCred > 0 ? '#fbbf24' : 'rgba(255,255,255,0.35)'}">${trackCred}</span><span class="cc-track-lbl">credits</span></div>
           <div class="hb-stat-row cc-stat-row">
             <div class="hb-mini-stat"><div class="hb-mini-num c-amber">${pendingCnt}</div><div class="hb-mini-lbl">Pending</div></div>
             <div class="hb-mini-sep"></div>
@@ -2320,8 +2320,8 @@ function renderWorkspace() {
 
     <div class="ws2-cols">
       <div class="panel"><div class="panel-h">Recent jobs (${jobs.length}) ${jobs.length ? '<span class="link" id="clearJobs">clear</span>' : ''}</div>
-        ${jobs.length === 0 ? `<p style="font-size:12px;color:#64748b">No jobs yet — click a tool above.</p>` : jobs.slice(0, 6).map(jobRow).join('')}</div>
-      <div class="panel"><div class="panel-h">Automations (${automations.length}) <span style="color:#64748b;font-weight:500;text-transform:none;letter-spacing:0">audit-gated</span></div>
+        ${jobs.length === 0 ? `<p style="font-size:12px;color:rgba(255,255,255,0.35)">No jobs yet — click a tool above.</p>` : jobs.slice(0, 6).map(jobRow).join('')}</div>
+      <div class="panel"><div class="panel-h">Automations (${automations.length}) <span style="color:rgba(255,255,255,0.35);font-weight:500;text-transform:none;letter-spacing:0">audit-gated</span></div>
         ${renderAutomationsList()}</div>
     </div>`;
 
@@ -2374,14 +2374,14 @@ function describeAutomation(a) {
 }
 
 function renderAutomationsList() {
-  if (!automations.length) return `<p style="font-size:12px;color:#64748b">No automations yet. Click the <b style="color:#e5e5e5">sync-bot</b> on any tool to chain a custom workflow — multiple steps, connectors, audit agent.</p>`;
+  if (!automations.length) return `<p style="font-size:12px;color:rgba(255,255,255,0.35)">No automations yet. Click the <b style="color:#e5e5e5">sync-bot</b> on any tool to chain a custom workflow — multiple steps, connectors, audit agent.</p>`;
   const allMods = WORKFLOW.flatMap(s => s.modules);
   return automations.map(a => {
     const mini = (a.steps && a.steps.length)
       ? `<div class="wf-mini">${a.steps.map((k, i) => `${i ? '<span class="wm-arrow">→</span>' : ''}<span class="wm-box">${esc(allMods.find(m => m.key === k)?.label || k)}</span>`).join('')}</div>`
       : '';
     return `<div class="auto-row">
-      <div style="flex:1"><div class="ac-name">${esc(a.label)} <span style="color:#64748b;font-weight:500">→ ${esc(marketplace(a.marketplace)?.name || a.marketplace)}</span></div>
+      <div style="flex:1"><div class="ac-name">${esc(a.label)} <span style="color:rgba(255,255,255,0.35);font-weight:500">→ ${esc(marketplace(a.marketplace)?.name || a.marketplace)}</span></div>
         <div class="ac-plain">${esc(describeAutomation(a))}</div>
         <div class="ac-sub">${esc(a.interval)}${a.auditAgent ? ' · 🛡️ audit' : ''}${a.steps ? ' · ' + a.steps.length + ' steps' : ''}${a.rule ? ' · ' + esc(a.rule) : ''}</div>${mini}</div>
       <button class="app-btn ghost sm" data-autorun="${a.id}">${icon('play')} Run</button>
@@ -2402,7 +2402,7 @@ function openModuleModal(key) {
   host.innerHTML = `
     <div class="modal" onclick="event.stopPropagation()">
       <h3>${esc(mod.label)} → ${esc(mkName)}</h3>
-      <p class="modal-sub">${esc(mod.desc)}. Target: <b style="color:#cbd5e1">${esc(wsTarget?.label || 'your account')}</b>.</p>
+      <p class="modal-sub">${esc(mod.desc)}. Target: <b style="color:rgba(255,255,255,0.55)">${esc(wsTarget?.label || 'your account')}</b>.</p>
       ${autoDispatch
         ? `<button class="app-btn" id="mRun" style="width:100%">${icon('play')} Run now on This PC</button>`
         : isEbay && ebayUrl
@@ -2414,7 +2414,7 @@ function openModuleModal(key) {
       <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px">
         <label>Schedule (repeat)</label>
         <select id="mInt"><option>Every hour</option><option selected>Every 6 hours</option><option>Daily</option><option>Every 3 days</option><option>Weekly</option></select>
-        <label style="display:flex;align-items:center;gap:8px;margin-top:12px;text-transform:none;letter-spacing:0;font-size:13px;color:#cbd5e1"><input type="checkbox" id="mAudit" checked style="width:auto;accent-color:#d4d4d4"> Run the audit agent first (keeps the account human &amp; safe)</label>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:12px;text-transform:none;letter-spacing:0;font-size:13px;color:rgba(255,255,255,0.55)"><input type="checkbox" id="mAudit" checked style="width:auto;accent-color:#d4d4d4"> Run the audit agent first (keeps the account human &amp; safe)</label>
         <label>Rule (optional)</label>
         <input id="mRule" placeholder="e.g. only when trust score > 90, max 30 listings/day">
         <div class="app-btn-row" style="margin-top:14px">
@@ -2490,7 +2490,7 @@ function openAutomationBuilder(seed) {
   document.body.appendChild(host);
 
   function canvasHtml() {
-    if (!steps.length) return `<div style="text-align:center;color:#64748b;font-size:12.5px;padding:20px;border:1px dashed rgba(255,255,255,.12);border-radius:12px">No steps yet — add tools below to build your workflow.</div>`;
+    if (!steps.length) return `<div style="text-align:center;color:rgba(255,255,255,0.35);font-size:12.5px;padding:20px;border:1px dashed rgba(255,255,255,.12);border-radius:12px">No steps yet — add tools below to build your workflow.</div>`;
     return `<div class="wfb-canvas">${steps.map((k, i) => {
       const m = modOf(k); const tier = toolTier(k);
       return `<div class="wfb-step"><div class="wfb-node" data-i="${i}">
@@ -2504,12 +2504,12 @@ function openAutomationBuilder(seed) {
   function paint() {
     host.innerHTML = `<div class="modal builder" onclick="event.stopPropagation()">
       <h3>${icon('bot')} Automation Builder</h3>
-      <p class="modal-sub">Chain tools into one workflow — it runs each step in order with the audit agent keeping the account safe. Scoped to <b style="color:#cbd5e1">${esc(wsTarget?.label || mkName)}</b>.</p>
+      <p class="modal-sub">Chain tools into one workflow — it runs each step in order with the audit agent keeping the account safe. Scoped to <b style="color:rgba(255,255,255,0.55)">${esc(wsTarget?.label || mkName)}</b>.</p>
       <div id="wfbCanvas">${canvasHtml()}</div>
       <select id="wfbPick" style="margin-top:10px">${'<option value="">+ Add a step…</option>' + WORKFLOW.map(s => `<optgroup label="${esc(s.stage)}">${s.modules.map(m => `<option value="${m.key}">${esc(m.label)} · ${toolTier(m.key)}</option>`).join('')}</optgroup>`).join('')}</select>
       <label>Workflow name</label>
       <input id="wfbName" placeholder="e.g. Daily restock + reprice" value="${esc(presetName)}">
-      <label style="display:flex;align-items:center;gap:8px;margin-top:12px;text-transform:none;letter-spacing:0;font-size:13px;color:#cbd5e1"><input type="checkbox" id="wfbAudit" checked style="width:auto;accent-color:#d4d4d4"> Run the audit agent before each step (keeps the account human &amp; safe)</label>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:12px;text-transform:none;letter-spacing:0;font-size:13px;color:rgba(255,255,255,0.55)"><input type="checkbox" id="wfbAudit" checked style="width:auto;accent-color:#d4d4d4"> Run the audit agent before each step (keeps the account human &amp; safe)</label>
       <label>Schedule (optional)</label>
       <select id="wfbInt"><option value="Manual">Run manually</option><option>Every hour</option><option>Every 6 hours</option><option>Daily</option><option>Weekly</option></select>
       <div class="app-btn-row" style="margin-top:16px">
@@ -2604,8 +2604,8 @@ function openToolSettings(key) {
   host.innerHTML = `
     <div class="modal" onclick="event.stopPropagation()">
       <h3>${icon('refresh')} ${esc(mod.label)} settings</h3>
-      <p class="modal-sub">${esc(mod.desc)}. Feeds the <b style="color:#cbd5e1">${esc(parent)}</b> step${tier === 'todo' ? ' — runner still being built.' : '.'}</p>
-      <label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:13px;color:#cbd5e1"><input type="checkbox" id="tsEnabled" ${c.enabled ? 'checked' : ''} style="width:auto;accent-color:#d4d4d4"> Use ${esc(mod.label)} when ${esc(parent)} runs</label>
+      <p class="modal-sub">${esc(mod.desc)}. Feeds the <b style="color:rgba(255,255,255,0.55)">${esc(parent)}</b> step${tier === 'todo' ? ' — runner still being built.' : '.'}</p>
+      <label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:13px;color:rgba(255,255,255,0.55)"><input type="checkbox" id="tsEnabled" ${c.enabled ? 'checked' : ''} style="width:auto;accent-color:#d4d4d4"> Use ${esc(mod.label)} when ${esc(parent)} runs</label>
       <label>Rules / preferences (optional)</label>
       <textarea id="tsRules" rows="3" placeholder="e.g. titles under 80 chars · 8 images max · markup 1.35x">${esc(c.rules || '')}</textarea>
       <div class="app-btn-row" style="margin-top:14px">
@@ -2693,7 +2693,7 @@ function openScriptModal() {
   host.innerHTML = `
     <div class="modal" onclick="event.stopPropagation()">
       <h3>${icon('upload')} Run Lister → ${esc(marketplace(wsTarget?.marketplace)?.name || 'eBay')}</h3>
-      <p class="modal-sub">Listing to <b style="color:#cbd5e1">${esc(wsTarget?.label || 'your account')}</b> on ${esc(marketplace(wsTarget?.marketplace)?.name || 'eBay')}. Paste source URLs or product IDs — the Lister adapts to this marketplace and runs via the extension on this device.</p>
+      <p class="modal-sub">Listing to <b style="color:rgba(255,255,255,0.55)">${esc(wsTarget?.label || 'your account')}</b> on ${esc(marketplace(wsTarget?.marketplace)?.name || 'eBay')}. Paste source URLs or product IDs — the Lister adapts to this marketplace and runs via the extension on this device.</p>
       <label>Amazon URLs or ASINs</label>
       <textarea id="bArgs" rows="5" placeholder="B00RW5OWLE&#10;https://amazon.com/dp/B0..." style="font-family:ui-monospace,monospace;font-size:12px"></textarea>
       <div class="modal-row">
@@ -2904,12 +2904,12 @@ function openAddonModal(accountId) {
   host.innerHTML = `
     <div class="modal" onclick="event.stopPropagation()">
       <h3>${icon('plus')} Add a marketing add-on</h3>
-      <p class="modal-sub">Promote <b style="color:#cbd5e1">${esc(a.label || m?.name || a.marketplace)}</b>. Add-ons run alongside this account on its node.</p>
+      <p class="modal-sub">Promote <b style="color:rgba(255,255,255,0.55)">${esc(a.label || m?.name || a.marketplace)}</b>. Add-ons run alongside this account on its node.</p>
       <div class="mk-grid" style="grid-template-columns:repeat(2,1fr);gap:10px;margin-top:6px">
         ${choices.map(ad => `<button class="mk-tile" data-addon="${ad.id}" style="text-align:left;padding:12px">
           <span class="mk-badge ${ad.status === 'live' ? 'live' : 'soon'}">${ad.status === 'live' ? 'Live' : 'Soon'}</span>
           <div class="mk-name" style="margin-top:2px">${esc(ad.name)}</div>
-          <div style="font-size:11px;color:#64748b;margin-top:4px">${esc(ad.blurb)}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px">${esc(ad.blurb)}</div>
         </button>`).join('')}
       </div>
       <div class="app-btn-row" style="margin-top:16px"><button class="app-btn ghost" id="adCancel">Close</button></div>
@@ -2963,7 +2963,7 @@ function connectExtrasHtml(cn, opts2 = {}) {
       <div>
         <label style="margin:0 0 6px">Which device runs this account?</label>
         <select id="cNode">${opts}</select>
-        <div style="font-size:11px;color:#64748b;margin-top:4px">Each account stays on its own device/IP — that's how Syndrax avoids linked-account restrictions.</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px">Each account stays on its own device/IP — that's how Syndrax avoids linked-account restrictions.</div>
       </div>
       ${hideAccountMode ? '' : `
       <div>
@@ -2972,7 +2972,7 @@ function connectExtrasHtml(cn, opts2 = {}) {
           <button type="button" class="method-tab on" data-cmode="existing">I already have one</button>
           <button type="button" class="method-tab" data-cmode="create_new" disabled title="Coming soon" style="opacity:.4;cursor:not-allowed">Create a new one</button>
         </div>
-        <div id="cModeNote" style="font-size:11px;color:#64748b;margin-top:6px"></div>
+        <div id="cModeNote" style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:6px"></div>
       </div>`}
     </div>`;
 }
@@ -3003,7 +3003,7 @@ function openConnectModal() {
         <span class="mk-chip neutral" style="width:46px;height:46px;flex-shrink:0;border:1.5px solid ${m.color}55">${logo}</span>
         <div>
           <div style="font:800 16px var(--nav-font);color:#f1f5f9">${isSource ? 'Enable' : 'Connect'} ${esc(m.name)}</div>
-          <div style="font-size:12px;color:#64748b;margin-top:2px">${isSource ? 'Source / research mode' : isGated ? 'Requires approval' : isLive ? 'Automations live' : 'Automation building'}</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px">${isSource ? 'Source / research mode' : isGated ? 'Requires approval' : isLive ? 'Automations live' : 'Automation building'}</div>
         </div>
         <span class="mk-badge ${m.status === 'live' ? 'live' : m.status === 'beta' ? 'beta' : 'soon'}" style="margin-left:auto">${m.status === 'live' ? 'Live' : m.status === 'beta' ? 'Beta' : 'Soon'}</span>
       </div>
@@ -3011,7 +3011,7 @@ function openConnectModal() {
 
       ${isSource ? '' : connectExtrasHtml(cn, { oauthOnly: isEbayOAuth })}
       ${isSource ? `
-        <p class="modal-sub">${esc(m.name)} is your <b style="color:#cbd5e1">sourcing engine</b> — Syndrax reads it for product data, price history and winning ASINs to list on eBay, Etsy and others. Not a sell channel.</p>
+        <p class="modal-sub">${esc(m.name)} is your <b style="color:rgba(255,255,255,0.55)">sourcing engine</b> — Syndrax reads it for product data, price history and winning ASINs to list on eBay, Etsy and others. Not a sell channel.</p>
         <label>Amazon region</label>
         <select id="cRegion"><option value="US">United States (amazon.com)</option><option value="UK">UK (amazon.co.uk)</option><option value="CA">Canada (amazon.ca)</option><option value="DE">Germany (amazon.de)</option></select>
         <label>Associate tag (optional)</label>
@@ -3032,7 +3032,7 @@ function openConnectModal() {
           <button class="app-btn ghost" id="cCancel">Cancel</button>
         </div>
       ` : isEbayOAuth ? `
-        <p class="modal-sub">One click connects your eBay store. Syndrax opens eBay's secure sign-in, you approve read-only access, and we automatically pull your <b style="color:#cbd5e1">store name, seller standing, listings, and orders</b> — no typing needed. Works for any existing eBay account (Store or basic seller).</p>
+        <p class="modal-sub">One click connects your eBay store. Syndrax opens eBay's secure sign-in, you approve read-only access, and we automatically pull your <b style="color:rgba(255,255,255,0.55)">store name, seller standing, listings, and orders</b> — no typing needed. Works for any existing eBay account (Store or basic seller).</p>
         <div class="ctrust" style="margin-top:16px">${miniSteps}</div>
         <div class="app-btn-row" style="margin-top:18px">
           <button class="app-btn" id="cAdd">${icon('wifi')} Connect &amp; sync with eBay</button>
@@ -3142,7 +3142,7 @@ function openSyncModal() {
         </div>
         <div class="sync-bar-wrap" style="margin-top:16px">
           <div class="sync-bar"><div class="sync-fill" id="syncFill" style="width:${pct}%"></div></div>
-          <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px;color:#64748b">
+          <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px;color:rgba(255,255,255,0.35)">
             <span id="syncDetail">Starting…</span>
             <span id="syncPct">${pct}%</span>
           </div>
@@ -3289,7 +3289,7 @@ function trustCard(a, trust) {
     </div>
     <div class="trust-gate ${trust?.unlocked ? 'open' : ''}">${trust?.unlocked ? '✓ Audit passed — growth scripts unlocked' : '🛡️ Warm up this account (sales + age) to unlock growth scripts'}</div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
-      <span style="font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.05em">Marketing add-ons</span>
+      <span style="font-size:11px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:.05em">Marketing add-ons</span>
       <button class="app-btn ghost sm" data-addaddon="${a.id}">${icon('plus')} Add-on</button>
     </div>
     ${addonChips}
@@ -3607,7 +3607,7 @@ function paintTracking(content, orders) {
       <td style="font-family:ui-monospace,monospace;font-size:11px">${esc(o.orderId)}</td>
       <td>${esc(dest)}</td>
       <td>${dd}</td>
-      <td>${o.trackingNumber ? `<span style="font-family:ui-monospace,monospace;font-size:11px;color:#6ee7b7">${esc(o.trackingNumber)}</span>` : '<span style="color:#64748b">—</span>'}</td>
+      <td>${o.trackingNumber ? `<span style="font-family:ui-monospace,monospace;font-size:11px;color:#6ee7b7">${esc(o.trackingNumber)}</span>` : '<span style="color:rgba(255,255,255,0.35)">—</span>'}</td>
       <td style="text-align:right">${action}</td>
     </tr>`;
   };
@@ -3912,7 +3912,7 @@ function renderDevices() {
       <div class="page-head" style="margin-bottom:0">
         <div>
           <h2 style="font:800 20px var(--nav-font);letter-spacing:.14em;color:#e9f6ff;margin:0">NODE CLUSTER <span style="color:#18E4FF">// SYNDRAX</span></h2>
-          <p style="font-size:11px;color:#64748b;margin:4px 0 0">Your fleet, your control — every node on its own IP.</p>
+          <p style="font-size:11px;color:rgba(255,255,255,0.35);margin:4px 0 0">Your fleet, your control — every node on its own IP.</p>
         </div>
         <div style="display:flex;gap:8px;align-items:center">
           ${!ext.installed ? `<button class="app-btn sm" id="useThisPc">Use this PC</button>` : ''}
@@ -3953,9 +3953,9 @@ function renderDevices() {
             ${clusterActivityHtml(all)}
           </section>
 
-          ${cloudNodes.length ? `<div class="panel" style="margin-top:16px"><div class="panel-h">Node type override <span style="color:#64748b;font-weight:500;text-transform:none;letter-spacing:0">— auto-detected; override remote/RDP here</span></div>
+          ${cloudNodes.length ? `<div class="panel" style="margin-top:16px"><div class="panel-h">Node type override <span style="color:rgba(255,255,255,0.35);font-weight:500;text-transform:none;letter-spacing:0">— auto-detected; override remote/RDP here</span></div>
             ${cloudNodes.map(n => `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">
-              <span style="flex:1;color:#cbd5e1;font-size:12px">${esc(n.name || n.deviceId)} <span style="color:#64748b;font-size:10px">· ${esc(n.ip || '—')}</span></span>
+              <span style="flex:1;color:rgba(255,255,255,0.55);font-size:12px">${esc(n.name || n.deviceId)} <span style="color:rgba(255,255,255,0.35);font-size:10px">· ${esc(n.ip || '—')}</span></span>
               <select data-nodetype="${esc(n.id)}" style="width:auto;min-width:170px">
                 ${['current', 'remote', 'rdp'].map(t => `<option value="${t}" ${n.nodeType === t ? 'selected' : ''}>${t === 'current' ? 'This PC (local)' : t === 'rdp' ? 'RDP / remote desktop' : 'Remote node'}</option>`).join('')}
               </select>
@@ -3990,7 +3990,7 @@ function renderDevices() {
               <div class="setup-benefit"><strong>Isolated</strong><span>&amp; secure</span></div>
               <div class="setup-benefit"><strong>Auto-detects</strong><span>&amp; registers</span></div>
             </div>
-            <p style="margin-top:14px;font-size:10px;color:#64748b">After it runs, the node signs in and appears here automatically. Its MAC and static IP sync from the endpoint.</p>
+            <p style="margin-top:14px;font-size:10px;color:rgba(255,255,255,0.35)">After it runs, the node signs in and appears here automatically. Its MAC and static IP sync from the endpoint.</p>
           </div>
           <button class="app-btn sm ghost" style="width:100%;margin-top:12px" id="manualRegisterBtn">${icon('monitor')} Register manually instead</button>
         </aside>
@@ -4020,7 +4020,7 @@ function renderDevices() {
     playSfx('nav');
     const stab = b.dataset.stab;
     const stabContent = $('#stabContent');
-    if (stab === 'manual') { stabContent.innerHTML = `<div style="margin-top:12px"><p style="font-size:10px;color:#64748b;margin:0 0 10px">Enter the remote PC details — after you add it here, run the Syndrax extension on that machine and it will auto-link.</p><button class="app-btn sm" id="manualRegBtn2" style="width:100%">${icon('plus')} Open manual register</button></div>`; const m = $('#manualRegBtn2'); if (m) m.onclick = openAddDevice; }
+    if (stab === 'manual') { stabContent.innerHTML = `<div style="margin-top:12px"><p style="font-size:10px;color:rgba(255,255,255,0.35);margin:0 0 10px">Enter the remote PC details — after you add it here, run the Syndrax extension on that machine and it will auto-link.</p><button class="app-btn sm" id="manualRegBtn2" style="width:100%">${icon('plus')} Open manual register</button></div>`; const m = $('#manualRegBtn2'); if (m) m.onclick = openAddDevice; }
     else { stabContent.innerHTML = `<div class="command-box"><code>${esc(ps1)}</code><div class="copy-row"><div class="command-progress"></div><button class="app-btn sm" id="copyNodeCmd2">Copy</button></div></div><div class="secure-note">🔒 Installs the Chrome Web Store build as a locked endpoint. It accepts jobs from your main PC but cannot reverse-connect or read other nodes' IPs.</div><div class="setup-benefits"><div class="setup-benefit"><strong>One node</strong><span>per IP</span></div><div class="setup-benefit"><strong>Isolated</strong><span>&amp; secure</span></div><div class="setup-benefit"><strong>Auto-detects</strong><span>&amp; registers</span></div></div>`; const cc = $('#copyNodeCmd2'); if (cc) cc.onclick = () => { navigator.clipboard.writeText(ps1).then(() => { cc.textContent = 'Copied!'; setTimeout(() => { cc.textContent = 'Copy'; }, 2000); }); playSfx('confirm'); }; }
   });
   const rec = $('#recruit'); if (rec) rec.onclick = () => { playSfx('nav'); openAddDevice(); };
@@ -4164,19 +4164,19 @@ function openAddDevice() {
     // To verify before running: Get-FileHash (irm https://www.syndrax.io/connect.ps1 -OutFile $env:TEMP\syndrax-connect.ps1); $env:TEMP\syndrax-connect.ps1
     const CONNECT_SHA256 = '114f60896aeb8138ca2f36cbfd0ad4278839e7f47399fb6f98f5779f44e79efa';
     return `
-      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 8px">On the <b style="color:#cbd5e1">remote PC</b>, open PowerShell <b>as Administrator</b> and paste:</p>
+      <p style="font-size:12.5px;color:rgba(255,255,255,0.45);margin:0 0 8px">On the <b style="color:rgba(255,255,255,0.55)">remote PC</b>, open PowerShell <b>as Administrator</b> and paste:</p>
       <div class="ps1-box"><code id="ps1code">${esc(ps1)}</code><button class="app-btn sm" id="ps1copy">Copy</button></div>
       <div class="sec-note">🔒 Installs the <b>Chrome Web Store</b> build only, as a <b>locked endpoint</b> — it takes jobs from your main PC but can't reverse-connect or read other nodes' IPs. Secure by default for outside machines.</div>
       <details style="margin-top:10px;cursor:pointer">
-        <summary style="font-size:11px;color:#64748b;user-select:none">🛡️ Verify script integrity before running (recommended)</summary>
-        <div style="margin-top:6px;padding:8px;background:#0d1929;border:1px solid #1e3a5f;border-radius:6px;font-size:11px;color:#94a3b8">
+        <summary style="font-size:11px;color:rgba(255,255,255,0.35);user-select:none">🛡️ Verify script integrity before running (recommended)</summary>
+        <div style="margin-top:6px;padding:8px;background:#0d1929;border:1px solid #1e3a5f;border-radius:6px;font-size:11px;color:rgba(255,255,255,0.45)">
           <p style="margin:0 0 4px">This script writes to HKLM (Chrome managed policy) and records this PC's IP + MAC as a locked endpoint. That's intentional. To verify it hasn't been tampered with:</p>
           <pre style="margin:4px 0;padding:6px;background:#0a111f;border-radius:4px;color:#7dd3fc;white-space:pre-wrap;word-break:break-all">irm https://www.syndrax.io/connect.ps1 -OutFile "$env:TEMP\\syndrax-connect.ps1"\n(Get-FileHash "$env:TEMP\\syndrax-connect.ps1" -Algorithm SHA256).Hash</pre>
           <p style="margin:4px 0 0">Expected SHA-256: <code style="color:#34d399;word-break:break-all">${esc(CONNECT_SHA256)}</code></p>
-          <p style="margin:4px 0 0;color:#64748b">If the hash matches, run: <code style="color:#e2e8f0">Set-ExecutionPolicy Bypass -Scope Process; &amp; "$env:TEMP\\syndrax-connect.ps1"</code></p>
+          <p style="margin:4px 0 0;color:rgba(255,255,255,0.35)">If the hash matches, run: <code style="color:#f5f5f5">Set-ExecutionPolicy Bypass -Scope Process; &amp; "$env:TEMP\\syndrax-connect.ps1"</code></p>
         </div>
       </details>
-      <p style="font-size:11.5px;color:#64748b;margin-top:10px">After it runs, the node signs in and appears here automatically — its MAC + static IP sync from the endpoint. IP is required for the safety audit.</p>`;
+      <p style="font-size:11.5px;color:rgba(255,255,255,0.35);margin-top:10px">After it runs, the node signs in and appears here automatically — its MAC + static IP sync from the endpoint. IP is required for the safety audit.</p>`;
   }
 
   function manualBody() {
