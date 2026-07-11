@@ -32,7 +32,7 @@ html.dark { --text: #f1f5f9; }
   position: absolute;
   inset: -2px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #00CFFF, #0099cc, #FF00D4);
+  background: linear-gradient(135deg, #888 0%, #d4d4d4 40%, #f5f5f5 50%, #d4d4d4 60%, #888 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: -1;
@@ -41,9 +41,9 @@ html.dark { --text: #f1f5f9; }
 .theme-toggle:hover::after { opacity: 1; }
 
 .theme-toggle:hover::before {
-  background: rgba(0,207,255,0.08);
+  background: rgba(255,255,255,0.08);
   border-color: transparent;
-  box-shadow: 0 0 16px rgba(0,207,255,0.3);
+  box-shadow: 0 0 16px rgba(255,255,255,0.3);
 }
 
 .theme-toggle:active { transform: scale(0.9); }
@@ -62,7 +62,7 @@ html.dark { --text: #f1f5f9; }
   z-index: 1;
 }
 
-.theme-toggle:hover svg { stroke: #0099cc; transform: rotate(20deg); }
+.theme-toggle:hover svg { stroke: #a3a3a3; transform: rotate(20deg); }
 
 html.dark .theme-toggle::before {
   background: rgba(255,255,255,0.06);
@@ -70,12 +70,12 @@ html.dark .theme-toggle::before {
 }
 
 html.dark .theme-toggle:hover::before {
-  background: rgba(0,207,255,0.08);
-  box-shadow: 0 0 16px rgba(0,207,255,0.4);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 16px rgba(255,255,255,0.4);
 }
 
 html.dark .theme-toggle svg { stroke: #7a8fa8; }
-html.dark .theme-toggle:hover svg { stroke: #00CFFF; }
+html.dark .theme-toggle:hover svg { stroke: #d4d4d4; }
 
 .theme-toggle .icon-sun { display: none; }
 .theme-toggle .icon-moon { display: block; }
@@ -107,7 +107,7 @@ img { display: block; max-width: 100%; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #00CFFF, #0099cc, #FF00D4);
+  background: linear-gradient(135deg, #888 0%, #d4d4d4 40%, #f5f5f5 50%, #d4d4d4 60%, #888 100%);
   border-radius: 3px;
 }
 
@@ -138,8 +138,8 @@ img { display: block; max-width: 100%; }
 
 .navbar.scrolled {
   background: rgba(6,13,24,0.92);
-  border-color: rgba(0,207,255,0.1);
-  box-shadow: 0 2px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,207,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 2px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 html:not(.dark) .navbar {
@@ -254,11 +254,11 @@ html.dark .nav-logo-wordmark {
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #00CFFF, #FF00D4);
+  background: linear-gradient(135deg, #888 0%, #d4d4d4 40%, #f5f5f5 50%, #d4d4d4 60%, #888 100%);
   border-radius: 2px;
   transform: translateX(-50%);
   transition: width 0.3s ease-out;
-  box-shadow: 0 0 8px rgba(0,207,255,0.5);
+  box-shadow: 0 0 8px rgba(255,255,255,0.5);
 }
 
 .nav-links a:hover {
@@ -270,7 +270,7 @@ html.dark .nav-logo-wordmark {
 }
 
 .nav-links a.active {
-  color: #00CFFF;
+  color: #d4d4d4;
   background: none;
   -webkit-text-fill-color: unset;
   font-weight: 600;
@@ -282,7 +282,7 @@ html.dark .nav-logo-wordmark {
 
 html:not(.dark) .nav-links a { color: #5a6a7e; }
 html:not(.dark) .nav-links a:hover { color: #0f172a; }
-html:not(.dark) .nav-links a.active { color: #0099cc; }
+html:not(.dark) .nav-links a.active { color: #a3a3a3; }
 
 .nav-login {
   font-family: var(--nav-font);
@@ -314,7 +314,7 @@ html:not(.dark) .nav-signout:hover { color: #dc2626; border-color: rgba(220,38,3
 
 .nav-cta {
   font-family: var(--nav-font) !important;
-  background: linear-gradient(90deg, #00CFFF, #0099cc, #FF00D4) !important;
+  background: linear-gradient(135deg, #888 0%, #d4d4d4 40%, #f5f5f5 50%, #d4d4d4 60%, #888 100%) !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   padding: 11px 26px !important;
@@ -340,7 +340,7 @@ html:not(.dark) .nav-signout:hover { color: #dc2626; border-color: rgba(220,38,3
 }
 
 .nav-cta:hover {
-  box-shadow: 0 0 28px rgba(0,207,255,0.55), 0 4px 20px rgba(255,0,212,0.35) !important;
+  box-shadow: 0 0 28px rgba(255,255,255,0.55), 0 4px 20px rgba(255,0,212,0.35) !important;
   transform: translateY(-1px) scale(1.02) !important;
 }
 
@@ -392,7 +392,7 @@ html:not(.dark) .nav-signout:hover { color: #dc2626; border-color: rgba(220,38,3
   transition: color 0.15s, background 0.15s;
 }
 
-.nav-dropdown-menu a:hover { color: #00CFFF; background: rgba(0,207,255,0.06); }
+.nav-dropdown-menu a:hover { color: #d4d4d4; background: rgba(255,255,255,0.06); }
 
 .hamburger {
   display: none;
@@ -406,7 +406,7 @@ html:not(.dark) .nav-signout:hover { color: #dc2626; border-color: rgba(220,38,3
   transition: background 0.2s;
 }
 
-.hamburger:hover { background: rgba(0,207,255,0.08); }
+.hamburger:hover { background: rgba(255,255,255,0.08); }
 
 .hamburger span {
   display: block;
@@ -469,24 +469,24 @@ html:not(.dark) .nav-signout:hover { color: #dc2626; border-color: rgba(220,38,3
 .mobile-menu.open a:nth-child(6) { transition-delay: 0.3s; }
 
 .mobile-menu a:hover {
-  color: #00CFFF;
-  background: rgba(0,207,255,0.08);
+  color: #d4d4d4;
+  background: rgba(255,255,255,0.08);
   transform: scale(1.02);
 }
 
 .mobile-menu a.nav-cta-mobile {
-  background: linear-gradient(90deg, #00CFFF, #0099cc, #FF00D4) !important;
+  background: linear-gradient(135deg, #888 0%, #d4d4d4 40%, #f5f5f5 50%, #d4d4d4 60%, #888 100%) !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   font-weight: 700 !important;
   margin-top: 16px;
   border-radius: 12px;
   font-size: 16px;
-  box-shadow: 0 0 24px rgba(0,207,255,0.3);
+  box-shadow: 0 0 24px rgba(255,255,255,0.3);
 }
 
 .mobile-menu a.nav-cta-mobile:hover {
-  box-shadow: 0 0 36px rgba(0,207,255,0.5), 0 4px 16px rgba(255,0,212,0.3);
+  box-shadow: 0 0 36px rgba(255,255,255,0.5), 0 4px 16px rgba(255,0,212,0.3);
   transform: scale(1.04);
 }
 
@@ -507,7 +507,7 @@ html:not(.dark) .nav-signout:hover { color: #dc2626; border-color: rgba(220,38,3
 }
 
 .mobile-menu-close:hover {
-  background: rgba(0,207,255,0.15);
+  background: rgba(255,255,255,0.15);
   transform: rotate(90deg);
 }
 
@@ -529,8 +529,8 @@ html:not(.dark) .mobile-menu a {
 }
 
 html:not(.dark) .mobile-menu a:hover {
-  color: #0099cc;
-  background: rgba(0,207,255,0.06);
+  color: #a3a3a3;
+  background: rgba(255,255,255,0.06);
 }
 
 html:not(.dark) .mobile-menu-close svg {
