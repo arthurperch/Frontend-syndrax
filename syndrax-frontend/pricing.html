@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Try Syndrax free for 7 days, then $50/mo Business or $200/mo Enterprise. Transparent pricing, no hidden fees.">
+  <title>Pricing — Syndrax</title>
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="marketing-nav.css?v=5">
+  <link rel="stylesheet" href="home.css?v=31">
+  <link rel="stylesheet" href="pricing.css?v=1">
+  <script>document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');</script>
+</head>
+<body class="sx-home sx-pricing-page">
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="sx-logo" aria-label="Syndrax home">
+      <span class="sx-wordmark">SYNDRAX</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links nav-center">
+      <a href="/features">Features</a>
+      <a href="/pricing" aria-current="page">Pricing</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="/login" class="nav-login">Log in</a>
+      <a href="/signup" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="/features">Features</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/enterprise">Enterprise</a>
+  <a href="/about">About</a>
+  <a href="/login" class="mobile-menu-login">Log in</a>
+  <a href="/signup" class="nav-cta-mobile">Get Started</a>
+</div>
+
+<main>
+  <section class="sx-price-hero" data-reveal>
+    <p class="sx-label sx-label--mono" data-reveal-child style="--i:0">PRICING</p>
+    <h1 class="sx-price-hero__title" data-reveal-child style="--i:1">
+      Simple plans.<br>
+      <span class="sx-price-hero__title-muted">No setup fees.</span>
+    </h1>
+    <p class="sx-price-hero__sub" data-reveal-child style="--i:2">
+      Start free for 7 days. Upgrade when the store is running. Cancel anytime.
+    </p>
+  </section>
+
+  <section class="sx-price-grid" data-reveal>
+    <article class="sx-price-card" data-reveal-child style="--i:0">
+      <span class="sx-price-card__badge">7-day trial</span>
+      <h2 class="sx-price-card__name">Trial</h2>
+      <p class="sx-price-card__amount">Free<span>for 7 days</span></p>
+      <p class="sx-price-card__blurb">Full access for a week — then Business at $50/mo.</p>
+      <ul class="sx-price-card__list">
+        <li>One cluster node</li>
+        <li>eBay automation tools</li>
+        <li>Bulk lister + inventory sync</li>
+        <li>Profitability dashboard</li>
+        <li>Email support</li>
+      </ul>
+      <button type="button" class="sx-btn sx-btn--ghost js-checkout" data-plan="business">Start free trial</button>
+    </article>
+
+    <article class="sx-price-card sx-price-card--featured" data-reveal-child style="--i:1">
+      <span class="sx-price-card__badge sx-price-card__badge--hot">Most popular</span>
+      <h2 class="sx-price-card__name">Business</h2>
+      <p class="sx-price-card__amount">$50<span>/month</span></p>
+      <p class="sx-price-card__blurb">Run the store loop: research → list → inventory → orders.</p>
+      <ul class="sx-price-card__list">
+        <li>One cluster node</li>
+        <li>Full eBay flow end-to-end</li>
+        <li>Audit &amp; compliance checks</li>
+        <li>Full profitability suite</li>
+        <li>Priority support</li>
+      </ul>
+      <button type="button" class="sx-btn sx-btn--primary js-checkout" data-plan="business">Start free trial</button>
+    </article>
+
+    <article class="sx-price-card" data-reveal-child style="--i:2">
+      <span class="sx-price-card__badge">Scale</span>
+      <h2 class="sx-price-card__name">Enterprise</h2>
+      <p class="sx-price-card__amount">$200<span>/month</span></p>
+      <p class="sx-price-card__blurb">Multiple nodes, team roles, multi-marketplace fleet.</p>
+      <ul class="sx-price-card__list">
+        <li>Multiple cluster nodes</li>
+        <li>Team accounts &amp; roles</li>
+        <li>All marketplaces (eBay live; others rolling out)</li>
+        <li>Advanced audit &amp; KYC tracking</li>
+        <li>Dedicated support</li>
+      </ul>
+      <button type="button" class="sx-btn sx-btn--ghost js-checkout" data-plan="enterprise">Get Enterprise</button>
+    </article>
+  </section>
+
+  <section class="sx-price-compare" data-reveal>
+    <h2 class="sx-price-compare__title" data-reveal-child style="--i:0">Compare plans</h2>
+    <div class="sx-price-table-wrap" data-reveal-child style="--i:1">
+      <table class="sx-price-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Trial</th>
+            <th>Business</th>
+            <th>Enterprise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Marketplaces</td>
+            <td>3</td>
+            <td>Unlimited</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>Listings</td>
+            <td>100</td>
+            <td>5,000</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>Agents</td>
+            <td>1</td>
+            <td>5</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>Profitability dashboard</td>
+            <td class="is-yes">Yes</td>
+            <td class="is-yes">Yes</td>
+            <td class="is-yes">Yes</td>
+          </tr>
+          <tr>
+            <td>Team members</td>
+            <td>1</td>
+            <td>5</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>API access</td>
+            <td class="is-no">—</td>
+            <td class="is-yes">Yes</td>
+            <td class="is-yes">Yes</td>
+          </tr>
+          <tr>
+            <td>Priority support</td>
+            <td class="is-no">—</td>
+            <td class="is-yes">Yes</td>
+            <td class="is-yes">Yes</td>
+          </tr>
+          <tr>
+            <td>White-label</td>
+            <td class="is-no">—</td>
+            <td class="is-no">—</td>
+            <td class="is-yes">Yes</td>
+          </tr>
+          <tr>
+            <td>Custom integrations</td>
+            <td class="is-no">—</td>
+            <td class="is-no">—</td>
+            <td class="is-yes">Yes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sx-price-faq" data-reveal>
+    <h2 class="sx-price-faq__title" data-reveal-child style="--i:0">FAQ</h2>
+    <div class="sx-price-faq__grid">
+      <article class="sx-price-faq__item" data-reveal-child style="--i:0">
+        <h3>What’s in the 7-day trial?</h3>
+        <p>Full Business-path access for one week: node, eBay tools, bulk list + inventory sync, profitability dashboard, email support. Then $50/mo unless you cancel.</p>
+      </article>
+      <article class="sx-price-faq__item" data-reveal-child style="--i:1">
+        <h3>Can I change plans anytime?</h3>
+        <p>Yes. Upgrade takes effect immediately. Downgrade applies at the end of the billing cycle.</p>
+      </article>
+      <article class="sx-price-faq__item" data-reveal-child style="--i:2">
+        <h3>Any setup fees?</h3>
+        <p>No. No setup, onboarding, or hidden charges on Trial, Business, or Enterprise.</p>
+      </article>
+      <article class="sx-price-faq__item" data-reveal-child style="--i:3">
+        <h3>Need more than Enterprise?</h3>
+        <p>High-volume fleets and custom integrations can talk to sales via the Enterprise page.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sx-cta-final" data-reveal>
+    <h2 class="sx-cta-final__title" data-reveal-child style="--i:0">Start free. Scale when it works.</h2>
+    <p class="sx-cta-final__sub" data-reveal-child style="--i:1">Create an account in minutes. Connect a marketplace when you’re ready.</p>
+    <div class="sx-cta-final__actions" data-reveal-child style="--i:2">
+      <a href="/signup" class="sx-btn sx-btn--primary sx-btn--lg">Start for free</a>
+      <a href="/features" class="sx-btn sx-btn--ghost sx-btn--lg">View features</a>
+    </div>
+  </section>
+</main>
+
+<footer class="sx-footer">
+  <p>&copy; 2026 Syndrax LLC — Commerce operating system</p>
+</footer>
+
+<script src="home.js?v=31"></script>
+<script src="extension-check.js?v=1"></script>
+<script type="module" src="/billing.js"></script>
+<script type="module" src="/nav-auth.js"></script>
+</body>
+</html>

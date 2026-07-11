@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Contact — Syndrax</title>
+  <meta name="description" content="Contact Syndrax for sales, support, enterprise, and partnerships.">
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="marketing-nav.css?v=5">
+  <link rel="stylesheet" href="home.css?v=31">
+  <link rel="stylesheet" href="pages-marketing.css?v=2">
+  <script>document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');</script>
+</head>
+<body class="sx-home sx-mkt">
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="sx-logo" aria-label="Syndrax home"><span class="sx-wordmark">SYNDRAX</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links nav-center">
+      <a href="/features">Features</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="/login" class="nav-login">Log in</a>
+      <a href="/signup" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="/features">Features</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/enterprise">Enterprise</a>
+  <a href="/about">About</a>
+  <a href="/login" class="mobile-menu-login">Log in</a>
+  <a href="/signup" class="nav-cta-mobile">Get Started</a>
+</div>
+
+<main>
+  <section class="sx-mkt-hero" data-reveal>
+    <p class="sx-label sx-label--mono" data-reveal-child style="--i:0">CONTACT</p>
+    <h1 class="sx-mkt-hero__title" data-reveal-child style="--i:1">
+      Talk to the team.<br>
+      <span class="sx-mkt-hero__title-muted">We reply within a day.</span>
+    </h1>
+    <p class="sx-mkt-hero__sub" data-reveal-child style="--i:2">
+      Sales, support, enterprise, or partnerships — send a note or email hello@syndrax.io directly.
+    </p>
+  </section>
+
+  <section class="sx-mkt-contact" data-reveal>
+    <form class="sx-mkt-form" id="contactForm" data-reveal-child style="--i:0">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@company.com">
+      </div>
+      <div>
+        <label for="company">Company</label>
+        <input id="company" name="company" type="text" autocomplete="organization" placeholder="Optional">
+      </div>
+      <div>
+        <label for="topic">Topic</label>
+        <select id="topic" name="topic">
+          <option value="sales">Sales / pricing</option>
+          <option value="support">Support</option>
+          <option value="enterprise">Enterprise</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required placeholder="What do you need?"></textarea>
+      </div>
+      <button type="submit" class="sx-btn sx-btn--primary">Send message</button>
+      <p id="contactStatus" style="margin:0;font-size:13px;color:rgba(255,255,255,0.45)"></p>
+    </form>
+
+    <div class="sx-mkt-side" data-reveal-child style="--i:1">
+      <article class="sx-mkt-card">
+        <h3>Email</h3>
+        <p><a href="mailto:hello@syndrax.io" style="color:#fff;font-weight:600;text-decoration:none">hello@syndrax.io</a></p>
+      </article>
+      <article class="sx-mkt-card">
+        <h3>Enterprise</h3>
+        <p>Multi-node fleets, white-label, integrations.</p>
+        <p style="margin-top:10px"><a href="/enterprise" style="color:#fff;font-weight:600">Enterprise page →</a></p>
+      </article>
+      <article class="sx-mkt-card">
+        <h3>Product</h3>
+        <p>See features and pricing before you write.</p>
+        <p style="margin-top:10px"><a href="/features" style="color:#fff;font-weight:600">Features →</a></p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="sx-footer">
+  <p>&copy; 2026 Syndrax LLC — Commerce operating system</p>
+</footer>
+
+<script src="home.js?v=31"></script>
+<script type="module" src="/nav-auth.js"></script>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var topic = document.getElementById('topic').value;
+    var message = document.getElementById('message').value.trim();
+    var company = document.getElementById('company').value.trim();
+    var body = [
+      'Name: ' + name,
+      'Email: ' + email,
+      company ? 'Company: ' + company : '',
+      'Topic: ' + topic,
+      '',
+      message
+    ].filter(Boolean).join('\\n');
+    var mailto = 'mailto:hello@syndrax.io?subject=' + encodeURIComponent('[Syndrax] ' + topic) +
+      '&body=' + encodeURIComponent(body);
+    document.getElementById('contactStatus').textContent = 'Opening your email client…';
+    window.location.href = mailto;
+  });
+</script>
+</body>
+</html>

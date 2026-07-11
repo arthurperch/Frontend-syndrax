@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>About — Syndrax</title>
+  <meta name="description" content="Syndrax is a compliance-first marketplace automation platform for multi-channel sellers.">
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="marketing-nav.css?v=5">
+  <link rel="stylesheet" href="home.css?v=31">
+  <link rel="stylesheet" href="pages-marketing.css?v=1">
+  <script>document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');</script>
+</head>
+<body class="sx-home sx-mkt">
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="sx-logo" aria-label="Syndrax home"><span class="sx-wordmark">SYNDRAX</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links nav-center">
+      <a href="/features">Features</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about" aria-current="page">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="/login" class="nav-login">Log in</a>
+      <a href="/signup" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="/features">Features</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/enterprise">Enterprise</a>
+  <a href="/about">About</a>
+  <a href="/login" class="mobile-menu-login">Log in</a>
+  <a href="/signup" class="nav-cta-mobile">Get Started</a>
+</div>
+
+<main>
+  <section class="sx-mkt-hero sx-mkt-hero--center" data-reveal>
+    <p class="sx-label sx-label--mono" data-reveal-child style="--i:0">ABOUT</p>
+    <h1 class="sx-mkt-hero__title" data-reveal-child style="--i:1">
+      Commerce OS with<br>
+      <span class="sx-mkt-hero__title-muted">safety in the architecture.</span>
+    </h1>
+    <p class="sx-mkt-hero__sub" data-reveal-child style="--i:2">
+      Syndrax helps multi-channel sellers run pricing, inventory, and orders — with account health treated as a first-class system, not a bolt-on.
+    </p>
+  </section>
+
+  <div class="sx-mkt-prose" data-reveal>
+    <h2>What Syndrax is</h2>
+    <p>A compliance-first marketplace automation platform for resellers on eBay and expanding channels. Listings, pricing, inventory sync, and order visibility — with real-time risk signals so restrictions are caught early.</p>
+
+    <h2>What we do with an eBay connection</h2>
+    <p>When you connect eBay, Syndrax requests access needed to read seller performance, account limits, inventory, and order status through official APIs. That data powers AXIS risk surfaces. Syndrax does not create, modify, or delete listings without your explicit action.</p>
+    <ul>
+      <li><strong>Seller performance</strong> — standing, defects, shipping, policy signals</li>
+      <li><strong>Account information</strong> — privileges and limits</li>
+      <li><strong>Inventory</strong> — active listing / stock status</li>
+      <li><strong>Orders</strong> — open orders and fulfillment status</li>
+    </ul>
+
+    <h2>Account safety</h2>
+    <ul>
+      <li>OAuth 2.0 — your eBay password is never shared with Syndrax</li>
+      <li>Tokens encrypted and refreshed; they expire</li>
+      <li>You can revoke access anytime in eBay account settings</li>
+      <li>Official APIs only — no hostile scraping bots</li>
+    </ul>
+
+    <h2>Company</h2>
+    <p>Syndrax LLC is a US-based software company building marketplace automation tools for operators who need speed without burning accounts.</p>
+
+    <div class="sx-mkt-links">
+      <a href="mailto:support@syndrax.io">support@syndrax.io</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/app">Dashboard</a>
+    </div>
+  </div>
+</main>
+
+<footer class="sx-footer">
+  <p>&copy; 2026 Syndrax LLC — Commerce operating system</p>
+</footer>
+
+<script src="home.js?v=31"></script>
+<script type="module" src="/nav-auth.js"></script>
+</body>
+</html>
