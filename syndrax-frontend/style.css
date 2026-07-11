@@ -16,7 +16,7 @@
   --border: rgba(15,23,42,0.08);
   --text: #0f172a;
   --text-gray: #475569;
-  --text-muted: #94a3b8;
+  --text-muted: rgba(255,255,255,0.45);
   --radius: 14px;
   --radius-sm: 8px;
   --radius-lg: 20px;
@@ -112,7 +112,7 @@ html.dark .hero-badge {
 html.dark .tech-pill {
   background: rgba(255,255,255,0.04);
   border-color: rgba(255,255,255,0.08);
-  color: #94a3b8;
+  color: rgba(255,255,255,0.45);
 }
 html.dark .tech-pill:hover {
   color: #d4d4d4;
@@ -139,7 +139,7 @@ html.dark .footer-bottom {
   color: #475569;
 }
 html.dark .footer-col h4 { color: #f1f5f9; }
-html.dark .footer-col a, html.dark .footer-col span { color: #94a3b8; }
+html.dark .footer-col a, html.dark .footer-col span { color: rgba(255,255,255,0.45); }
 html.dark .footer-col a:hover { color: #d4d4d4; }
 
 html.dark .page-hero { background: var(--bg); }
@@ -517,7 +517,7 @@ html:not(.dark) .nav-links a.active { color: #a3a3a3; }
 
 .nav-login {
   font-family: var(--nav-font);
-  color: #94a3b8;
+  color: rgba(255,255,255,0.45);
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -532,13 +532,13 @@ html:not(.dark) .nav-login:hover { color: #0f172a; background: rgba(0,0,0,0.05);
 
 /* Logged-in nav state */
 .nav-user-wrap { display: flex; align-items: center; gap: 6px; }
-.nav-user-name { font-family: var(--nav-font); font-size: 14px; font-weight: 600; color: #94a3b8; text-decoration: none; padding: 10px 14px; border-radius: 10px; white-space: nowrap; transition: color .2s, background .2s; }
+.nav-user-name { font-family: var(--nav-font); font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.45); text-decoration: none; padding: 10px 14px; border-radius: 10px; white-space: nowrap; transition: color .2s, background .2s; }
 .nav-user-name:hover { color: #fff; background: rgba(255,255,255,.06); }
 html:not(.dark) .nav-user-name { color: #475569; }
 html:not(.dark) .nav-user-name:hover { color: #0f172a; background: rgba(0,0,0,.05); }
-.nav-signout { font-family: var(--nav-font); font-size: 13px; font-weight: 600; color: #94a3b8; background: transparent; border: 1px solid rgba(148,163,184,.25); padding: 7px 13px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: color .2s, border-color .2s, background .2s; }
+.nav-signout { font-family: var(--nav-font); font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.45); background: transparent; border: 1px solid rgba(148,163,184,.25); padding: 7px 13px; border-radius: 10px; cursor: pointer; white-space: nowrap; transition: color .2s, border-color .2s, background .2s; }
 .nav-signout:hover { color: #ff7d72; border-color: rgba(255,125,114,.45); background: rgba(255,125,114,.07); }
-html:not(.dark) .nav-signout { color: #64748b; border-color: rgba(100,116,139,.25); }
+html:not(.dark) .nav-signout { color: rgba(255,255,255,0.35); border-color: rgba(100,116,139,.25); }
 html:not(.dark) .nav-signout:hover { color: #dc2626; border-color: rgba(220,38,38,.4); background: rgba(220,38,38,.06); }
 .nav-user-wrap--mobile { flex-direction: column; align-items: flex-start; gap: 8px; }
 .nav-user-wrap--mobile .nav-signout { border: none; padding: 10px 0; font-size: 14px; }
@@ -3462,7 +3462,7 @@ html.dark .cmp-row:hover { background: rgba(255, 255, 255,0.06); }
 }
 
 .form-group input::placeholder,
-.form-group textarea::placeholder { color: #94a3b8; }
+.form-group textarea::placeholder { color: rgba(255,255,255,0.45); }
 
 .form-group select option { background: #ffffff; color: #0f172a; }
 
@@ -4191,7 +4191,7 @@ footer {
 
 .footer-brand p {
   font-size: 13px;
-  color: #64748b;
+  color: rgba(255,255,255,0.35);
   line-height: 1.65;
   max-width: 240px;
 }
@@ -4210,7 +4210,7 @@ footer {
 .footer-col span {
   display: block;
   font-size: 13.5px;
-  color: #64748b;
+  color: rgba(255,255,255,0.35);
   margin-bottom: 10px;
   transition: color 0.2s;
   line-height: 1.5;
