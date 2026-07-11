@@ -1,3 +1,11 @@
 
 __pycache__/
 *.pyc
+
+# local-only / large / scratch
+assets/video/
+assets/TOPLOGO/testpng.png
+APP_PREVIEW.html
+index.legacy.html
+*.mp4
+*.webm
