@@ -1,0 +1,221 @@
+/* Features page — extends homepage design system (home.css) */
+
+body.sx-home.sx-features-page {
+  min-height: 100vh;
+}
+
+.sx-feat-hero {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 140px 24px 64px;
+}
+
+.sx-feat-hero__title {
+  font-size: clamp(36px, 5.5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 12px 0 18px;
+  color: var(--sx-white);
+}
+
+.sx-feat-hero__title-muted {
+  color: var(--sx-muted);
+}
+
+.sx-feat-hero__sub {
+  max-width: 52ch;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--sx-muted);
+  margin: 0 0 28px;
+}
+
+.sx-feat-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Capability grid */
+.sx-feat-grid-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.sx-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+}
+
+.sx-feat-card {
+  grid-column: span 6;
+  background: var(--sx-card);
+  border: 1px solid var(--sx-border);
+  border-radius: 16px;
+  padding: 24px 24px 22px;
+  transition:
+    border-color var(--sx-hover) var(--sx-ease),
+    transform var(--sx-hover) var(--sx-ease);
+}
+
+.sx-feat-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+.sx-feat-card--wide {
+  grid-column: span 12;
+}
+
+.sx-feat-card__kicker {
+  font-family: var(--sx-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+  margin: 0 0 10px;
+}
+
+.sx-feat-card__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
+  color: var(--sx-white);
+}
+
+.sx-feat-card__body {
+  margin: 0 0 16px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--sx-muted);
+}
+
+.sx-feat-card__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.sx-feat-card__list li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sx-feat-card__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.sx-feat-card__list li.is-live::before {
+  background: var(--sx-green);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.35);
+}
+
+/* Agent strip */
+.sx-feat-agents {
+  max-width: 1120px;
+  margin: 0 auto 80px;
+  padding: 0 24px;
+}
+
+.sx-feat-agents__head {
+  margin-bottom: 20px;
+}
+
+.sx-feat-agents__title {
+  font-size: clamp(26px, 3.5vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 10px 0 8px;
+}
+
+.sx-feat-agents__sub {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--sx-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.sx-feat-agents__row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.sx-feat-agent {
+  background: var(--sx-card-dark);
+  border: 1px solid var(--sx-border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: border-color var(--sx-hover) var(--sx-ease);
+}
+
+.sx-feat-agent:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.sx-feat-agent__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sx-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+  margin-bottom: 12px;
+}
+
+.sx-feat-agent__status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sx-green);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.45);
+  display: inline-block;
+}
+
+.sx-feat-agent h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.sx-feat-agent p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--sx-muted);
+}
+
+@media (max-width: 860px) {
+  .sx-feat-card,
+  .sx-feat-card--wide {
+    grid-column: span 12;
+  }
+
+  .sx-feat-agents__row {
+    grid-template-columns: 1fr;
+  }
+
+  .sx-feat-hero {
+    padding-top: 120px;
+  }
+}

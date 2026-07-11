@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get started — Syndrax</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <link rel="stylesheet" href="style.css?v=28">
+  <link rel="stylesheet" href="app.css?v=20">
+  <script>document.documentElement.classList.add("dark");localStorage.setItem("theme","dark");</script>
+</head>
+<body class="app-shell">
+<div class="auth-grid-bg"></div>
+
+<div class="wiz-shell">
+  <div class="wiz-logo"><a href="/"><img src="assets/TOPLOGO/BANNEREFFECT.png" alt="Syndrax"></a></div>
+  <div class="wiz-steps" id="wizSteps"></div>
+  <div class="wiz-card" id="wizCard"><!-- step renders here --></div>
+</div>
+
+<script src="/extension-check.js"></script>
+
+<script type="module">
+  import { getSession } from '/auth-cognito.js';
+  import { saveProfile, addMarketplaceAccount, getMarketplaces, startTrial } from '/app-api.js';
+  import { MARKETPLACES, marketplace, marketplaceLogo } from '/plans.js';
+
+  const session = getSession();
+  if (!session) location.replace('/login');
+
+  const TOTAL = 2;
+  let step = 0;
+  const state = { marketplaces: [] };
+
+  // Resume any earlier selection.
+  (async () => {
+    try {
+      const mk = await getMarketplaces();
+      if (mk.accounts?.length) state.marketplaces = [...new Set(mk.accounts.map(a => a.marketplace))];
+    } catch { /* offline */ }
+    render();
+  })();
+
+  const card = document.getElementById('wizCard');
+  const stepsEl = document.getElementById('wizSteps');
+
+  function renderSteps() {
+    stepsEl.innerHTML = '';
+    for (let i = 0; i < TOTAL; i++) {
+      const d = document.createElement('div');
+      d.className = 'wiz-dot' + (i < step ? ' done' : i === step ? ' active' : '');
+      stepsEl.appendChild(d);
+    }
+  }
+
+  function render() { renderSteps(); [stepMarkets, stepGo][step](); }
+
+  // Brand tile markup (shared look with the dashboard).
+  function tile(m, selected) {
+    const logo = marketplaceLogo(m.id);
+    const mark = logo || `<span style="font:800 18px var(--nav-font);color:#fff">${m.name[0]}</span>`;
+    const badge = m.access === 'gated' ? ['gated','Gated'] : m.status === 'live' ? ['live','Live'] : m.status === 'beta' ? ['beta','Beta'] : ['soon','Soon'];
+    return `
+      <button class="mk-tile big${selected ? ' selected' : ''}" data-id="${m.id}">
+        <span class="mk-badge ${badge[0]}">${badge[1]}</span>
+        <span class="mk-chip" style="background:linear-gradient(135deg, ${m.color}, ${m.color}cc)">${mark}</span>
+        <span class="mk-name">${m.name}</span>
+        ${selected ? '<span class="mk-check">✓</span>' : ''}
+      </button>`;
+  }
+
+  // STEP 1 — where do you sell (visual, multi-select, no questions)
+  function stepMarkets() {
+    const count = state.marketplaces.length;
+    card.innerHTML = `
+      <div class="wiz-step-num">Step 1 of ${TOTAL}</div>
+      <div class="wiz-h">Where do you sell?</div>
+      <p class="wiz-p">Tap the marketplaces you sell on — we’ll connect them on this device. Add or remove any anytime.</p>
+      <div class="mk-grid big" id="mkGrid">${MARKETPLACES.map(m => tile(m, state.marketplaces.includes(m.id))).join('')}</div>
+    `;
+    card.querySelectorAll('.mk-tile').forEach(el => {
+      el.onclick = () => {
+        const id = el.dataset.id;
+        state.marketplaces = state.marketplaces.includes(id)
+          ? state.marketplaces.filter(x => x !== id)
+          : [...state.marketplaces, id];
+        stepMarkets(); // re-render with updated selection + button label
+      };
+    });
+    nav({
+      back: false,
+      next: count ? `Continue with ${count} marketplace${count === 1 ? '' : 's'}` : 'Continue',
+      onNext: async () => {
+        try {
+          for (const id of state.marketplaces) {
+            await addMarketplaceAccount({ marketplace: id, label: marketplace(id)?.name || id, deviceId: 'this-device' });
+          }
+        } catch { /* offline mirror */ }
+        step++; render();
+      },
+      skip: { label: 'I’ll pick later', onClick: () => { step++; render(); } },
+    });
+  }
+
+  // STEP 2 — you're in: connect device + start free trial (NO card)
+  function stepGo() {
+    const ext = window.SyndraxExt || { installed: false };
+    const connected = !!ext.installed;
+    card.innerHTML = `
+      <div class="wiz-step-num">Step 2 of ${TOTAL}</div>
+      <div class="wiz-h">You’re in — start free 🚀</div>
+      <p class="wiz-p">No card required. Explore the full dashboard free for 14 days; add your details and upgrade whenever you’re ready.</p>
+      <div class="device-status ${connected ? 'connected' : 'missing'}">
+        <div class="ds-icon">${connected ? '✓' : '🧩'}</div>
+        <div>
+          <div class="ds-title">${connected ? 'This device is connected' : 'Install the Syndrax extension'}</div>
+          <div class="ds-sub">${connected ? 'Ready to run automations on this device — your accounts stay on their trusted IP.' : 'Optional now — the extension runs automations safely on this device. You can add it from the dashboard.'}</div>
+        </div>
+      </div>
+      ${connected ? '' : '<div class="app-btn-row"><a class="app-btn ghost" href="https://chromewebstore.google.com/detail/mgapfpdkkihbeehfkgoajhealmgpnglo" target="_blank" rel="noopener">Add to Chrome</a></div>'}
+    `;
+    nav({
+      back: true,
+      next: 'Start free trial →',
+      onNext: async (btn) => {
+        if (btn) { btn.disabled = true; btn.textContent = 'Setting up…'; }
+        try { await startTrial(); } catch { /* offline mirror */ }
+        try { await saveProfile({ onboarding_complete: true, marketplaces: state.marketplaces }); } catch {}
+        location.href = '/app';
+      },
+    });
+  }
+
+  function nav({ back = true, next = 'Continue', onNext, skip } = {}) {
+    const wrap = document.createElement('div');
+    wrap.className = 'wiz-nav';
+    const left = document.createElement('div');
+    if (back && step > 0) {
+      const b = document.createElement('button');
+      b.className = 'wiz-skip'; b.textContent = '← Back';
+      b.onclick = () => { step--; render(); };
+      left.appendChild(b);
+    }
+    const right = document.createElement('div');
+    right.style.display = 'flex'; right.style.gap = '14px'; right.style.alignItems = 'center';
+    if (skip) {
+      const s = document.createElement('button');
+      s.className = 'wiz-skip'; s.textContent = skip.label; s.onclick = skip.onClick;
+      right.appendChild(s);
+    }
+    const n = document.createElement('button');
+    n.className = 'app-btn'; n.textContent = next; n.setAttribute('data-next', '1');
+    n.onclick = () => onNext(n);
+    right.appendChild(n);
+    wrap.appendChild(left); wrap.appendChild(right);
+    card.appendChild(wrap);
+  }
+</script>
+</body>
+</html>

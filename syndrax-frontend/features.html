@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Features — Syndrax</title>
+  <meta name="description" content="Multi-channel pricing, inventory sync, order routing, profitability, and AXIS agents — from one commerce operating system.">
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="marketing-nav.css?v=5">
+  <link rel="stylesheet" href="home.css?v=31">
+  <link rel="stylesheet" href="features.css?v=1">
+  <script>document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');</script>
+</head>
+<body class="sx-home sx-features-page">
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="sx-logo" aria-label="Syndrax home">
+      <span class="sx-wordmark">SYNDRAX</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links nav-center">
+      <a href="/features" aria-current="page">Features</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="/login" class="nav-login">Log in</a>
+      <a href="/signup" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="/features">Features</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/enterprise">Enterprise</a>
+  <a href="/about">About</a>
+  <a href="/login" class="mobile-menu-login">Log in</a>
+  <a href="/signup" class="nav-cta-mobile">Get Started</a>
+</div>
+
+<main>
+  <section class="sx-feat-hero" data-reveal>
+    <p class="sx-label sx-label--mono" data-reveal-child style="--i:0">FEATURES</p>
+    <h1 class="sx-feat-hero__title" data-reveal-child style="--i:1">
+      Everything that keeps channels<br>
+      <span class="sx-feat-hero__title-muted">in sync — from one system.</span>
+    </h1>
+    <p class="sx-feat-hero__sub" data-reveal-child style="--i:2">
+      Pricing, inventory, orders, profit, and safety checks across marketplaces.
+      Built as product surfaces you can run daily — not a poster of features.
+    </p>
+    <div class="sx-feat-hero__actions" data-reveal-child style="--i:3">
+      <a href="/signup" class="sx-btn sx-btn--primary">Start for free</a>
+      <a href="/pricing" class="sx-btn sx-btn--ghost">View pricing</a>
+    </div>
+  </section>
+
+  <section class="sx-feat-grid-wrap" data-reveal>
+    <div class="sx-feat-grid">
+      <article class="sx-feat-card" data-reveal-child style="--i:0">
+        <p class="sx-feat-card__kicker">Sync</p>
+        <h2 class="sx-feat-card__title">List once. Sell everywhere.</h2>
+        <p class="sx-feat-card__body">Publish and keep listings aligned across channels. Inventory and availability move together so you don’t oversell.</p>
+        <ul class="sx-feat-card__list">
+          <li class="is-live">Multi-marketplace inventory sync</li>
+          <li>Centralized listing management</li>
+          <li>Bulk edits across channels</li>
+          <li>Availability + price push</li>
+        </ul>
+      </article>
+
+      <article class="sx-feat-card" data-reveal-child style="--i:1">
+        <p class="sx-feat-card__kicker">Pricing</p>
+        <h2 class="sx-feat-card__title">Rules you set. Prices that hold.</h2>
+        <p class="sx-feat-card__body">Floor, ceiling, and strategy — applied across channels without spreadsheet babysitting.</p>
+        <ul class="sx-feat-card__list">
+          <li class="is-live">Rule-based repricing</li>
+          <li>Competitor watch within your bounds</li>
+          <li>Channel-specific overrides</li>
+          <li>Audit trail of price moves</li>
+        </ul>
+      </article>
+
+      <article class="sx-feat-card" data-reveal-child style="--i:2">
+        <p class="sx-feat-card__kicker">Profit</p>
+        <h2 class="sx-feat-card__title">Real P&amp;L after fees.</h2>
+        <p class="sx-feat-card__body">Revenue is not profit. See product and channel margin after marketplace fees, COGS, returns, and ad spend.</p>
+        <ul class="sx-feat-card__list">
+          <li class="is-live">True profit per SKU / channel</li>
+          <li>Fee-aware margin views</li>
+          <li>Return impact</li>
+          <li>Exportable reports</li>
+        </ul>
+      </article>
+
+      <article class="sx-feat-card" data-reveal-child style="--i:3">
+        <p class="sx-feat-card__kicker">Orders</p>
+        <h2 class="sx-feat-card__title">Route work after the sale.</h2>
+        <p class="sx-feat-card__body">Keep post-sale flow visible: orders, tracking, and handoffs so nothing stalls between channels.</p>
+        <ul class="sx-feat-card__list">
+          <li>Unified order view</li>
+          <li>Tracking status</li>
+          <li>Channel-aware exceptions</li>
+          <li>Ops-ready queue</li>
+        </ul>
+      </article>
+
+      <article class="sx-feat-card" data-reveal-child style="--i:4">
+        <p class="sx-feat-card__kicker">Inventory</p>
+        <h2 class="sx-feat-card__title">Stock before stockouts.</h2>
+        <p class="sx-feat-card__body">Velocity, thresholds, and reorder signals so inventory decisions are early — not reactive.</p>
+        <ul class="sx-feat-card__list">
+          <li>Sales velocity per SKU</li>
+          <li>Reorder thresholds</li>
+          <li>Overstock signals</li>
+          <li>Supplier lead-time aware</li>
+        </ul>
+      </article>
+
+      <article class="sx-feat-card" data-reveal-child style="--i:5">
+        <p class="sx-feat-card__kicker">AXIS safety</p>
+        <h2 class="sx-feat-card__title">Catch risk early.</h2>
+        <p class="sx-feat-card__body">Account health and listing risk surfaces before they become suspensions or silent suppressions.</p>
+        <ul class="sx-feat-card__list">
+          <li class="is-live">Policy / listing risk flags</li>
+          <li>Account health signals</li>
+          <li>Suppression alerts</li>
+          <li>Fix-next recommendations</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="sx-feat-agents" data-reveal>
+    <div class="sx-feat-agents__head">
+      <p class="sx-label sx-label--mono" data-reveal-child style="--i:0">AXIS AGENTS</p>
+      <h2 class="sx-feat-agents__title" data-reveal-child style="--i:1">Agents that follow your rules.</h2>
+      <p class="sx-feat-agents__sub" data-reveal-child style="--i:2">
+        You set the bounds. AXIS executes inside them — pricing, inventory, and compliance checks without corny “AI magic” framing.
+      </p>
+    </div>
+    <div class="sx-feat-agents__row">
+      <article class="sx-feat-agent" data-reveal-child style="--i:0">
+        <div class="sx-feat-agent__status"><i></i> Live rules</div>
+        <h3>Pricing agent</h3>
+        <p>Watches channels and moves price only inside the floor/ceiling you define.</p>
+      </article>
+      <article class="sx-feat-agent" data-reveal-child style="--i:1">
+        <div class="sx-feat-agent__status"><i></i> Guarded</div>
+        <h3>Compliance agent</h3>
+        <p>Surfaces policy and listing risk so you can fix issues before marketplaces do.</p>
+      </article>
+      <article class="sx-feat-agent" data-reveal-child style="--i:2">
+        <div class="sx-feat-agent__status"><i></i> Stock watch</div>
+        <h3>Inventory agent</h3>
+        <p>Tracks velocity and triggers reorder signals before you hit zero.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sx-cta-final" data-reveal>
+    <h2 class="sx-cta-final__title" data-reveal-child style="--i:0">Run the channels. Not the tabs.</h2>
+    <p class="sx-cta-final__sub" data-reveal-child style="--i:1">Start free. Connect a marketplace. See pricing, inventory, and profit in one place.</p>
+    <div class="sx-cta-final__actions" data-reveal-child style="--i:2">
+      <a href="/signup" class="sx-btn sx-btn--primary sx-btn--lg">Start for free</a>
+      <a href="/pricing" class="sx-btn sx-btn--ghost sx-btn--lg">View pricing</a>
+    </div>
+  </section>
+</main>
+
+<footer class="sx-footer">
+  <p>&copy; 2026 Syndrax LLC — Commerce operating system</p>
+</footer>
+
+<script src="home.js?v=31"></script>
+<script type="module" src="/nav-auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accept invitation — Syndrax</title>
+<link rel="icon" type="image/png" href="assets/images/synball.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--text:#fff;--muted:rgba(255,255,255,.45);--bg:#000;--card:#0a0a0a;--line:rgba(255,255,255,.1);--silver:linear-gradient(135deg,#888 0%,#d4d4d4 40%,#f5f5f5 50%,#d4d4d4 60%,#888 100%);--green:#22c55e;--font:'Space Grotesk',system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;width:100%;max-width:420px}
+  .logo-band{padding:28px 32px 20px;border-bottom:1px solid var(--line);text-align:center}
+  .logo-band .wm{font-weight:800;font-size:20px;letter-spacing:-.03em;text-transform:uppercase;background:var(--silver);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .logo-band .sub{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.18em;margin-top:8px;font-family:ui-monospace,monospace}
+  .body{padding:28px 28px 32px}
+  .badge{display:inline-block;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.1em;margin-bottom:16px;font-family:ui-monospace,monospace}
+  h1{font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+  .email-tag{font-size:14px;color:var(--muted);margin-bottom:20px}
+  .email-tag strong{color:#fff}
+  label{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.08em;margin-bottom:6px;margin-top:14px;font-family:ui-monospace,monospace}
+  input[type=password],input[type=text]{width:100%;background:#000;border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none;font-family:var(--font)}
+  input:focus{border-color:rgba(255,255,255,.35)}
+  .btn{display:block;width:100%;margin-top:22px;background:var(--silver);color:#000;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .msg{margin-top:14px;font-size:13px;text-align:center;min-height:20px}
+  .msg.error{color:rgba(255,255,255,.75)}
+  .msg.success{color:var(--green)}
+  .loading{text-align:center;padding:40px 0;color:var(--muted)}
+  .spinner{display:inline-block;width:28px;height:28px;border:2px solid var(--line);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:12px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .error-state{text-align:center;padding:32px 0}
+  .error-state h2{margin-bottom:8px}
+  .error-state p{color:var(--muted);font-size:13px}
+  .success-cta{display:inline-block;background:var(--silver);color:#000;text-decoration:none;font-weight:700;font-size:14px;padding:13px 28px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo-band">
+    <div class="wm">SYNDRAX</div>
+    <div class="sub">INVITATION</div>
+  </div>
+  <div class="body" id="main-body">
+    <div class="loading">
+      <div class="spinner"></div><br>Loading your invitation…
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://api.syndrax.io';
+
+// Extract token from ?token= query param (Vercel redirects /invite/TOKEN → /invite?token=TOKEN)
+// Also support the old path style as fallback
+const params = new URLSearchParams(location.search);
+const token = params.get('token') || location.pathname.replace(/^\/invite\/?/, '').split('?')[0].trim();
+
+async function loadInvite() {
+  const body = document.getElementById('main-body');
+  if (!token) {
+    body.innerHTML = '<div class="error-state"><h2>Invalid link</h2><p>This invitation link is not valid.</p></div>';
+    return;
+  }
+  try {
+    const r = await fetch(API + '/invite/' + token);
+    if (r.status === 404) throw new Error('not_found');
+    if (r.status === 410) {
+      const t = await r.text();
+      const msg = t.includes('expired') ? 'This invite link has expired. Ask your admin to send a new one.' : 'This invite has already been accepted.';
+      body.innerHTML = '<div class="error-state"><h2>Link unavailable</h2><p>' + msg + '</p></div>';
+      return;
+    }
+    if (!r.ok) throw new Error('server');
+
+    // Parse the HTML form the API returns to extract email + tenant
+    const html = await r.text();
+    const emailM = html.match(/value="([^"]*@[^"]*)"/) || html.match(/placeholder="([^"]*@[^"]*)"/);
+    const tenantM = html.match(/joining\s+<[^>]*>([^<]+)</) || html.match(/Syndrax workspace[^<]*<[^>]*>([^<]+)</);
+    const email = emailM ? emailM[1] : '';
+    const tenant = tenantM ? tenantM[1] : 'Syndrax';
+
+    renderForm(email, tenant);
+  } catch(e) {
+    const body2 = document.getElementById('main-body');
+    body2.innerHTML = '<div class="error-state"><h2>Link not found</h2><p>This invitation link is invalid or has expired.</p></div>';
+  }
+}
+
+function renderForm(email, tenant) {
+  const body = document.getElementById('main-body');
+  body.innerHTML = `
+    <div class="badge">OWNER · FULL ACCESS</div>
+    <h1>Create your password</h1>
+    <p class="email-tag">Setting up account for <strong>${escHtml(email)}</strong></p>
+    <form id="inv-form" autocomplete="off">
+      <label>FULL NAME</label>
+      <input type="text" id="f-name" placeholder="Your name" required>
+      <label>PASSWORD</label>
+      <input type="password" id="f-pass" placeholder="Min 8 characters" required minlength="8">
+      <label>CONFIRM PASSWORD</label>
+      <input type="password" id="f-pass2" placeholder="Repeat password" required minlength="8">
+      <button type="submit" class="btn">Create my account →</button>
+    </form>
+    <div class="msg" id="form-msg"></div>`;
+
+  document.getElementById('inv-form').onsubmit = submitForm;
+}
+
+async function submitForm(e) {
+  e.preventDefault();
+  const name = document.getElementById('f-name').value.trim();
+  const pass = document.getElementById('f-pass').value;
+  const pass2 = document.getElementById('f-pass2').value;
+  const msg = document.getElementById('form-msg');
+  const btn = document.querySelector('.btn');
+
+  msg.className = 'msg'; msg.textContent = '';
+
+  if (pass !== pass2) { msg.className='msg error'; msg.textContent='Passwords do not match.'; return; }
+  if (pass.length < 8)  { msg.className='msg error'; msg.textContent='Password must be at least 8 characters.'; return; }
+
+  btn.disabled = true; btn.textContent = 'Creating account…';
+
+  try {
+    const r = await fetch(API + '/invite/' + token, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ fullName: name, password: pass, confirmPassword: pass2 })
+    });
+    const data = await r.json().catch(() => ({}));
+    if (r.ok) {
+      document.getElementById('main-body').innerHTML = `
+        <div style="text-align:center;padding:32px 0">
+          <h1 style="margin-bottom:10px">Account created</h1>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:24px">You can sign in to Syndrax.</p>
+          <a href="https://www.syndrax.io/login" class="success-cta">Go to sign in →</a>
+        </div>`;
+    } else {
+      msg.className = 'msg error';
+      msg.textContent = data.error || 'Something went wrong. Please try again.';
+      btn.disabled = false; btn.textContent = 'Create my account →';
+    }
+  } catch(err) {
+    msg.className = 'msg error'; msg.textContent = 'Network error. Please try again.';
+    btn.disabled = false; btn.textContent = 'Create my account →';
+  }
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+loadInvite();
+</script>
+</body>
+</html>

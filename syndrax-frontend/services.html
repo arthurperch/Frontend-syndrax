@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Services — Syndrax</title>
+  <meta name="description" content="Syndrax product services for multi-channel sellers.">
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="marketing-nav.css?v=5">
+  <link rel="stylesheet" href="home.css?v=31">
+  <link rel="stylesheet" href="pages-marketing.css?v=3">
+  <script>document.documentElement.classList.add('dark');localStorage.setItem('theme','dark');</script>
+</head>
+<body class="sx-home sx-mkt">
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="sx-logo" aria-label="Syndrax home"><span class="sx-wordmark">SYNDRAX</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links nav-center">
+      <a href="/features">Features</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="/login" class="nav-login">Log in</a>
+      <a href="/signup" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="/features">Features</a><a href="/pricing">Pricing</a><a href="/enterprise">Enterprise</a><a href="/about">About</a>
+  <a href="/login" class="mobile-menu-login">Log in</a><a href="/signup" class="nav-cta-mobile">Get Started</a>
+</div>
+<main>
+
+  <section class="sx-mkt-hero" data-reveal>
+    <p class="sx-label sx-label--mono" data-reveal-child style="--i:0">SERVICES</p>
+    <h1 class="sx-mkt-hero__title" data-reveal-child style="--i:1">What Syndrax runs<br><span class="sx-mkt-hero__title-muted">for multi-channel sellers.</span></h1>
+    <p class="sx-mkt-hero__sub" data-reveal-child style="--i:2">Product services — not a generic IT brochure. Pricing, inventory, orders, profit, AXIS safety.</p>
+  </section>
+  <section class="sx-mkt-grid" data-reveal>
+    <article class="sx-mkt-card" data-reveal-child style="--i:0"><h3>Marketplace sync</h3><p>List once, keep inventory and availability aligned across channels.</p></article>
+    <article class="sx-mkt-card" data-reveal-child style="--i:1"><h3>Pricing rules</h3><p>Floor/ceiling strategies applied without spreadsheet babysitting.</p></article>
+    <article class="sx-mkt-card" data-reveal-child style="--i:2"><h3>Order routing</h3><p>Post-sale visibility so nothing stalls between marketplaces.</p></article>
+    <article class="sx-mkt-card" data-reveal-child style="--i:3"><h3>True P&amp;L</h3><p>Margin after fees, COGS, returns, and ads — by SKU and channel.</p></article>
+    <article class="sx-mkt-card" data-reveal-child style="--i:4"><h3>AXIS safety</h3><p>Risk flags and account health before suspensions hit.</p></article>
+    <article class="sx-mkt-card" data-reveal-child style="--i:5"><h3>Enterprise ops</h3><p>Multi-node fleets, team roles, white-label for agencies.</p></article>
+  </section>
+  <section class="sx-cta-final" data-reveal>
+    <h2 class="sx-cta-final__title" data-reveal-child style="--i:0">See the full product map.</h2>
+    <div class="sx-cta-final__actions" data-reveal-child style="--i:1">
+      <a href="/features" class="sx-btn sx-btn--primary sx-btn--lg">Features</a>
+      <a href="/pricing" class="sx-btn sx-btn--ghost sx-btn--lg">Pricing</a>
+    </div>
+  </section>
+
+</main>
+<footer class="sx-footer"><p>&copy; 2026 Syndrax LLC — Commerce operating system</p></footer>
+<script src="home.js?v=31"></script>
+<script type="module" src="/nav-auth.js"></script>
+</body>
+</html>
