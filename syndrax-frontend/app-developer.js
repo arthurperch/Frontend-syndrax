@@ -415,7 +415,7 @@ export function injectDevStyles() {
       text-transform:uppercase; letter-spacing:.06em;
     }
     .mem-brain-state-dormant { background:rgba(71,85,105,.15); color:#64748b; border:1px solid rgba(71,85,105,.2); }
-    .mem-brain-state-learning { background:rgba(34,211,238,.12); color:#22d3ee; border:1px solid rgba(34,211,238,.25); }
+    .mem-brain-state-learning { background:rgba(255, 255, 255,.12); color:#d4d4d4; border:1px solid rgba(255, 255, 255,.25); }
     .mem-brain-state-active { background:rgba(59,130,246,.12); color:#60a5fa; border:1px solid rgba(59,130,246,.25); }
     .mem-brain-state-mastered { background:rgba(129,140,248,.15); color:#818cf8; border:1px solid rgba(129,140,248,.3); }
     .mem-hero-sub { font-size:12px; color:var(--ds-t3); margin-top:6px; line-height:1.6; }
@@ -429,7 +429,7 @@ export function injectDevStyles() {
       border-radius:12px; padding:14px;
       transition: border-color .15s, transform .15s;
     }
-    .ds-memory-card:hover { border-color:rgba(34,211,238,.2); transform:translateY(-1px); }
+    .ds-memory-card:hover { border-color:rgba(255, 255, 255,.2); transform:translateY(-1px); }
     .ds-stat {
       background:var(--ds-card); border:1px solid var(--ds-border);
       border-radius:10px; padding:16px 18px;
@@ -1807,8 +1807,8 @@ export async function renderDevMemory({ api, render }) {
       // More entries = more synapses firing. Empty = dormant (just the outline).
       const activity = total === 0 ? 0 : Math.min(1, total / 25);
       const brainState = total === 0 ? 'dormant' : activity < 0.4 ? 'learning' : activity < 0.8 ? 'active' : 'mastered';
-      const brainColor = brainState === 'dormant' ? '#475569' : brainState === 'learning' ? '#22d3ee' : brainState === 'active' ? '#3b82f6' : '#818cf8';
-      const brainGlow = brainState === 'dormant' ? 'rgba(71,85,105,.15)' : brainState === 'mastered' ? 'rgba(129,140,248,.35)' : 'rgba(34,211,238,.25)';
+      const brainColor = brainState === 'dormant' ? '#475569' : brainState === 'learning' ? '#d4d4d4' : brainState === 'active' ? '#3b82f6' : '#818cf8';
+      const brainGlow = brainState === 'dormant' ? 'rgba(71,85,105,.15)' : brainState === 'mastered' ? 'rgba(129,140,248,.35)' : 'rgba(255, 255, 255,.25)';
 
       // Generate synapse nodes (neural network connections). Count scales with entries.
       const synapseCount = Math.min(12, Math.max(0, total));
@@ -1819,7 +1819,7 @@ export async function renderDevMemory({ api, render }) {
         const cx = 60 + Math.cos(angle) * r;
         const cy = 55 + Math.sin(angle) * r * 0.85;
         const delay = (i * 0.3).toFixed(1);
-        const nodeColor = i % 3 === 0 ? '#22d3ee' : i % 3 === 1 ? '#3b82f6' : '#818cf8';
+        const nodeColor = i % 3 === 0 ? '#d4d4d4' : i % 3 === 1 ? '#3b82f6' : '#818cf8';
         synapses += `
           <line x1="60" y1="55" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="${brainColor}" stroke-width="0.5" opacity="0.15" />
           <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="2" fill="${nodeColor}" opacity="0.8">
@@ -1862,7 +1862,7 @@ export async function renderDevMemory({ api, render }) {
               <!-- Synapse firing (only if learning) -->
               ${brainState !== 'dormant' ? `
                 <!-- Pulse traveling along center -->
-                <circle r="2.5" fill="#22d3ee" opacity="0.9">
+                <circle r="2.5" fill="#d4d4d4" opacity="0.9">
                   <animateMotion dur="3s" repeatCount="indefinite" path="M 60 28 Q 58 40 60 52 Q 62 64 60 75"/>
                   <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
                 </circle>
@@ -1891,7 +1891,7 @@ export async function renderDevMemory({ api, render }) {
               ? 'No learned fixes yet — the brain is dormant. Click <strong>⚡ AI Fix</strong> on a broken workflow and the system learns permanently.'
               : `<strong>${total}</strong> error patterns learned · <strong>${totalFixed}</strong> fixes applied · <strong>${overallRate}%</strong> success rate`}</div>
             <div class="mem-hero-stats">
-              <div class="mem-stat"><span class="mem-stat-val" style="color:${total > 0 ? '#22d3ee' : '#475569'}">${total}</span><span class="mem-stat-lbl">Learned</span></div>
+              <div class="mem-stat"><span class="mem-stat-val" style="color:${total > 0 ? '#d4d4d4' : '#475569'}">${total}</span><span class="mem-stat-lbl">Learned</span></div>
               <div class="mem-stat"><span class="mem-stat-val" style="color:${overallRate >= 70 ? '#4ade80' : overallRate >= 40 ? '#fbbf24' : '#f87171'}">${overallRate}%</span><span class="mem-stat-lbl">Success</span></div>
               <div class="mem-stat"><span class="mem-stat-val" style="color:${highConf > 0 ? '#4ade80' : '#475569'}">${highConf}</span><span class="mem-stat-lbl">High Conf</span></div>
               <div class="mem-stat"><span class="mem-stat-val" style="color:#3b82f6">${uniqueErrors}</span><span class="mem-stat-lbl">Error Types</span></div>
@@ -1912,8 +1912,8 @@ export async function renderDevMemory({ api, render }) {
               ${STRATEGIES.map(s => `<option value="${s}" ${strategyFilter === s ? 'selected' : ''}>${STRATEGY_LABELS[s]}</option>`).join('')}
             </select>
             <div style="display:flex;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden">
-              <button id="mem-view-grid" class="ds-btn ds-btn-sm" style="border:none;border-radius:0;padding:7px 12px;font-size:11px;font-weight:${viewMode==='grid'?'700':'400'};background:${viewMode==='grid'?'rgba(34,211,238,.12)':'transparent'};color:${viewMode==='grid'?'#22d3ee':'var(--ds-t3)'}">▦ Grid</button>
-              <button id="mem-view-graph" class="ds-btn ds-btn-sm" style="border:none;border-radius:0;padding:7px 12px;font-size:11px;font-weight:${viewMode==='graph'?'700':'400'};background:${viewMode==='graph'?'rgba(34,211,238,.12)':'transparent'};color:${viewMode==='graph'?'#22d3ee':'var(--ds-t3)'}">🕸 Graph</button>
+              <button id="mem-view-grid" class="ds-btn ds-btn-sm" style="border:none;border-radius:0;padding:7px 12px;font-size:11px;font-weight:${viewMode==='grid'?'700':'400'};background:${viewMode==='grid'?'rgba(255, 255, 255,.12)':'transparent'};color:${viewMode==='grid'?'#d4d4d4':'var(--ds-t3)'}">▦ Grid</button>
+              <button id="mem-view-graph" class="ds-btn ds-btn-sm" style="border:none;border-radius:0;padding:7px 12px;font-size:11px;font-weight:${viewMode==='graph'?'700':'400'};background:${viewMode==='graph'?'rgba(255, 255, 255,.12)':'transparent'};color:${viewMode==='graph'?'#d4d4d4':'var(--ds-t3)'}">🕸 Graph</button>
             </div>
           </div>
           ${viewMode === 'graph' ? renderMemGraph(entries, stats) : `
@@ -2038,11 +2038,11 @@ function renderMemGraph(entries, stats) {
     if (i === 0) return;
     const prev = clusterCenters[clusterKeys[i - 1]];
     const curr = clusterCenters[key];
-    edges += `<line x1="${prev.x.toFixed(1)}" y1="${prev.y.toFixed(1)}" x2="${curr.x.toFixed(1)}" y2="${curr.y.toFixed(1)}" stroke="rgba(34,211,238,0.06)" stroke-width="0.5" stroke-dasharray="3,3"/>`;
+    edges += `<line x1="${prev.x.toFixed(1)}" y1="${prev.y.toFixed(1)}" x2="${curr.x.toFixed(1)}" y2="${curr.y.toFixed(1)}" stroke="rgba(255, 255, 255,0.06)" stroke-width="0.5" stroke-dasharray="3,3"/>`;
   });
 
   // Cluster center nodes (strategy hubs)
-  const strategyColors = { declare_or_import:'#3b82f6', add_import:'#818cf8', type_cast:'#22d3ee', syntax_fix:'#fbbf24', fix_selector:'#f59e0b', fix_wait:'#a78bfa', general:'#64748b' };
+  const strategyColors = { declare_or_import:'#3b82f6', add_import:'#818cf8', type_cast:'#d4d4d4', syntax_fix:'#fbbf24', fix_selector:'#f59e0b', fix_wait:'#a78bfa', general:'#64748b' };
   const strategyLabels = { declare_or_import:'Declare', add_import:'Import', type_cast:'Type Cast', syntax_fix:'Syntax', fix_selector:'Selector', fix_wait:'Wait', general:'General' };
 
   const clusterHubs = clusterKeys.map(key => {
@@ -2082,17 +2082,17 @@ function renderMemGraph(entries, stats) {
       <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;min-height:400px">
         <defs>
           <radialGradient id="graphBg" cx="50%" cy="50%">
-            <stop offset="0%" stop-color="rgba(34,211,238,0.03)"/>
+            <stop offset="0%" stop-color="rgba(255, 255, 255,0.03)"/>
             <stop offset="100%" stop-color="transparent"/>
           </radialGradient>
         </defs>
         <rect width="${W}" height="${H}" fill="url(#graphBg)"/>
         <!-- Central brain core -->
-        <circle cx="${CX}" cy="${CY}" r="3" fill="#22d3ee" opacity="0.6">
+        <circle cx="${CX}" cy="${CY}" r="3" fill="#d4d4d4" opacity="0.6">
           <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="${CX}" cy="${CY}" r="8" fill="none" stroke="#22d3ee" stroke-width="0.3" opacity="0.2">
+        <circle cx="${CX}" cy="${CY}" r="8" fill="none" stroke="#d4d4d4" stroke-width="0.3" opacity="0.2">
           <animate attributeName="r" values="8;20;8" dur="3s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0;0.2" dur="3s" repeatCount="indefinite"/>
         </circle>
@@ -2305,7 +2305,7 @@ export async function renderDevWorkflows({ api, render }) {
         <div style="flex:1"></div>
         <button class="ds-btn ds-btn-sm" id="wf-save-btn">Save</button>
         <button class="ds-btn ds-btn-sm" style="background:linear-gradient(95deg,#22c55e,#10b981);color:#0b0e17;font-weight:800;border:none" id="wf-testrun-btn" title="Run this workflow through the test executor (safe_test mode)">▶ Test Run</button>
-        <button class="ds-btn ds-btn-sm" style="background:linear-gradient(95deg,#22d3ee,#3b82f6);color:#0b0e17;font-weight:800;border:none" id="wf-codegen-btn">⚡ Generate TypeScript</button>
+        <button class="ds-btn ds-btn-sm" style="background:linear-gradient(95deg,#d4d4d4,#3b82f6);color:#0b0e17;font-weight:800;border:none" id="wf-codegen-btn">⚡ Generate TypeScript</button>
         <button class="ds-btn ds-btn-sm ds-btn-danger" id="wf-delete-btn">Delete</button>
       </div>
       <div class="wf-palette">
@@ -2732,7 +2732,7 @@ async function prePromoteCheck(api, recId, recLabel) {
     overlay.innerHTML = `
       <div style="background:#0f1722;border:1px solid rgba(59,130,246,.2);border-radius:16px;max-width:680px;width:100%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column">
         <div style="display:flex;align-items:center;gap:12px;padding:16px 24px;border-bottom:1px solid rgba(59,130,246,.2)">
-          <span style="font-size:16px;font-weight:800;color:#22d3ee">🔍 Pre-promote check</span>
+          <span style="font-size:16px;font-weight:800;color:#d4d4d4">🔍 Pre-promote check</span>
           <span style="font-size:11px;color:#64748b">${esc(recLabel)}</span>
           <div style="flex:1"></div>
           <button class="ds-btn ds-btn-sm ds-btn-ghost" id="pp-cancel">✕</button>
@@ -2789,7 +2789,7 @@ async function prePromoteCheck(api, recId, recLabel) {
           </div>
           <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end">
             <button class="ds-btn ds-btn-sm ds-btn-ghost" id="pp-cancel3">Cancel</button>
-            <button class="ds-btn ds-btn-sm ds-btn-primary" id="pp-promote-go" style="background:linear-gradient(95deg,#10b981,#22d3ee);color:#0b0e17;font-weight:800;border:none">✓ Promote & Open</button>
+            <button class="ds-btn ds-btn-sm ds-btn-primary" id="pp-promote-go" style="background:linear-gradient(95deg,#10b981,#d4d4d4);color:#0b0e17;font-weight:800;border:none">✓ Promote & Open</button>
           </div>`;
         overlay.querySelector('#pp-cancel3').onclick = close;
         overlay.querySelector('#pp-promote-go').onclick = () => { overlay.remove(); resolve(true); };
@@ -3402,12 +3402,12 @@ function showCodegenModal(wf, api) {
   overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;flex-direction:column;backdrop-filter:blur(8px)';
   overlay.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:16px 24px;border-bottom:1px solid rgba(59,130,246,0.2)">
-      <span style="font-size:16px;font-weight:800;color:#22d3ee">⚡ TypeScript — ${esc(wf.name)}</span>
+      <span style="font-size:16px;font-weight:800;color:#d4d4d4">⚡ TypeScript — ${esc(wf.name)}</span>
       <span style="font-size:11px;color:#64748b">${(Array.isArray(wf.nodes) ? wf.nodes : []).length} nodes</span>
       <div style="flex:1"></div>
-      <button class="ds-btn ds-btn-sm" id="cg-test" style="background:linear-gradient(95deg,#10b981,#22d3ee);color:#0b0e17;font-weight:800;border:none">🔬 Lint &amp; Test</button>
+      <button class="ds-btn ds-btn-sm" id="cg-test" style="background:linear-gradient(95deg,#10b981,#d4d4d4);color:#0b0e17;font-weight:800;border:none">🔬 Lint &amp; Test</button>
       <button class="ds-btn ds-btn-sm" id="cg-sandbox" style="background:linear-gradient(95deg,#f59e0b,#ef4444);color:#0b0e17;font-weight:800;border:none" title="Run the code in a headless browser in the cloud — no download needed">▶ Run Sandbox</button>
-      <button class="ds-btn ds-btn-sm" id="cg-copy" style="background:rgba(34,211,238,0.12);color:#22d3ee;border:1px solid rgba(34,211,238,0.3)">📋 Copy</button>
+      <button class="ds-btn ds-btn-sm" id="cg-copy" style="background:rgba(255, 255, 255,0.12);color:#d4d4d4;border:1px solid rgba(255, 255, 255,0.3)">📋 Copy</button>
       <button class="ds-btn ds-btn-sm" id="cg-download" style="background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.3)">⬇ Download .ts</button>
       <button class="ds-btn ds-btn-sm ds-btn-ghost" id="cg-close">✕ Close</button>
     </div>
@@ -3420,7 +3420,7 @@ function showCodegenModal(wf, api) {
         <div style="font-size:13px;font-weight:800;color:#a5b4fc">✨ AI Edit</div>
         <div style="font-size:11px;color:#64748b">Describe what to change. The AI edits the code — your API key stays hidden on the server.</div>
         <textarea id="cg-ai-input" placeholder="e.g. add error handling with try/catch around each step, add a screenshot on failure, increase WPM to 80..." style="flex:1;width:100%;box-sizing:border-box;padding:10px 12px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f1f5f9;font-size:12px;font-family:inherit;resize:none;min-height:80px"></textarea>
-        <button class="ds-btn ds-btn-sm" id="cg-ai-send" style="background:linear-gradient(95deg,#3b82f6,#22d3ee);color:#0b0e17;font-weight:800;border:none;padding:10px;border-radius:10px;cursor:pointer">⚡ Edit with AI</button>
+        <button class="ds-btn ds-btn-sm" id="cg-ai-send" style="background:linear-gradient(95deg,#3b82f6,#d4d4d4);color:#0b0e17;font-weight:800;border:none;padding:10px;border-radius:10px;cursor:pointer">⚡ Edit with AI</button>
         <div id="cg-ai-status" style="font-size:11px;color:#64748b;min-height:16px"></div>
         <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;margin-top:auto">
           <div style="font-size:10px;color:#475569;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Quick actions</div>
@@ -3450,7 +3450,7 @@ function showCodegenModal(wf, api) {
     const bg = ok ? 'rgba(34,197,94,0.08)' : 'rgba(248,113,113,0.08)';
     const border = ok ? 'rgba(34,197,94,0.35)' : 'rgba(248,113,113,0.35)';
     const head = ok ? '✅ Code passes lint + type-check' : `❌ ${r.errors.length} error${r.errors.length>1?'s':''} found`;
-    const fixBtn = (!ok) ? `<button class="ds-btn ds-btn-sm" id="cg-aifix" style="background:linear-gradient(95deg,#3b82f6,#22d3ee);color:#0b0e17;font-weight:800;border:none">⚡ AI Fix &amp; Retry</button>` : '';
+    const fixBtn = (!ok) ? `<button class="ds-btn ds-btn-sm" id="cg-aifix" style="background:linear-gradient(95deg,#3b82f6,#d4d4d4);color:#0b0e17;font-weight:800;border:none">⚡ AI Fix &amp; Retry</button>` : '';
     const attempts = (r.attempts && r.attempts.length > 1)
       ? `<div style="font-size:10px;color:#64748b;margin-top:6px">AI fix loop: ${r.attempts.map(a => a.ok ? '✓' : a.errorCount + ' err').join(' → ')}</div>` : '';
     const errs = r.errors.map(e => `
@@ -3609,7 +3609,7 @@ function showNewWorkflowOverlay(api, workflows, renderSidebar, openWorkflow) {
   overlay.innerHTML = `
     <div style="width:500px;max-height:80vh;display:flex;flex-direction:column;background:rgba(11,14,23,0.85);backdrop-filter:blur(20px);border:1px solid rgba(59,130,246,0.3);border-radius:16px;box-shadow:0 0 30px rgba(59,130,246,0.2),0 20px 60px rgba(0,0,0,0.6);padding:24px;color:#e2e8f0;font-family:inherit;font-size:13px;animation:sx-rec-pop .25s ease">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
-        <span style="font-size:16px;font-weight:800;color:#22d3ee">+ New Workflow</span>
+        <span style="font-size:16px;font-weight:800;color:#d4d4d4">+ New Workflow</span>
       </div>
       <div style="font-size:11px;color:#64748b;margin-bottom:14px">Import a promoted recording as an editable workflow, or start blank.</div>
       <div id="wf-new-recs" style="flex:1;overflow-y:auto;max-height:300px;margin-bottom:12px">
@@ -3651,12 +3651,12 @@ function showNewWorkflowOverlay(api, workflows, renderSidebar, openWorkflow) {
               <div style="font-size:12px;font-weight:600;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.label)}</div>
               <div style="font-size:10px;color:#64748b">${esc(r.marketplace)} · ${esc(String(r.step_count))} steps · ${esc(r.status)}</div>
             </div>
-            <span style="font-size:11px;color:#22d3ee;font-weight:700">Import →</span>
+            <span style="font-size:11px;color:#d4d4d4;font-weight:700">Import →</span>
           </div>`;
       }).join('');
 
       container.querySelectorAll('.wf-new-rec-row').forEach(row => {
-        row.onmouseenter = () => row.style.borderColor = 'rgba(34,211,238,0.3)';
+        row.onmouseenter = () => row.style.borderColor = 'rgba(255, 255, 255,0.3)';
         row.onmouseleave = () => row.style.borderColor = 'rgba(255,255,255,0.06)';
         row.onclick = async () => {
           try {
@@ -3748,7 +3748,7 @@ export async function renderDevElements({ api, render }) {
     return `
       <div class="el-domain-card" style="background:var(--ds-card);border:1px solid var(--ds-border);border-radius:14px;overflow:hidden;margin-bottom:14px">
         <div class="el-domain-head" style="display:flex;align-items:center;gap:10px;padding:14px 18px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--ds-border);cursor:pointer" data-domain-toggle>
-          <span style="width:32px;height:32px;border-radius:8px;background:rgba(34,211,238,.1);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#22d3ee">${esc((d.domain[0]||'?').toUpperCase())}</span>
+          <span style="width:32px;height:32px;border-radius:8px;background:rgba(255, 255, 255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#d4d4d4">${esc((d.domain[0]||'?').toUpperCase())}</span>
           <div style="flex:1">
             <div style="font-size:13px;font-weight:700;color:var(--ds-t1)">${esc(d.domain)}</div>
             <div style="font-size:10px;color:var(--ds-t3)">${esc(d.pageType)} · ${esc(d.url.slice(0,60))}</div>
@@ -3808,7 +3808,7 @@ export async function renderDevElements({ api, render }) {
     ` : `
       <div class="ds-grid" style="margin:14px 0 18px">
         ${statCard('Elements', totalElements, 'captured across all domains', '#3b82f6')}
-        ${statCard('Domains', totalDomains, 'unique domain/page types', '#22d3ee')}
+        ${statCard('Domains', totalDomains, 'unique domain/page types', '#d4d4d4')}
         ${statCard('Ambiguous', totalAmbiguous, 'selectors with multiple matches', totalAmbiguous > 0 ? '#f87171' : '#4ade80')}
         ${statCard('Avg Confidence', avgConfidence + '%', `overall locator quality`, avgConfidence >= 70 ? '#4ade80' : avgConfidence >= 50 ? '#fbbf24' : '#f87171')}
       </div>
