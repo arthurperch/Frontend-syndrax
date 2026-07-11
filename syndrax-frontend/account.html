@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account — Syndrax</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <!-- account.html is now the app dashboard at /app. Redirect, preserving the
+       Stripe post-checkout ?status=success param so the success banner shows. -->
+  <script>
+    location.replace('/app' + (location.search || ''));
+  </script>
+</head>
+<body></body>
+</html>
