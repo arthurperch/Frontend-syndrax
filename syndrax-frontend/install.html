@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Install Dev Studio — Syndrax</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/images/synball.png">
+  <link rel="stylesheet" href="style.css?v=27">
+  <script>document.documentElement.classList.add("dark");localStorage.setItem("theme","dark");</script>
+  <style>
+    :root {
+      --id-bg:      #060810;
+      --id-surf:    #0c0f1c;
+      --id-card:    #101322;
+      --id-line:    rgba(99,102,241,.14);
+      --id-t1:      #f1f5f9;
+      --id-t2:      #94a3b8;
+      --id-t3:      #475569;
+      --id-indigo:  #6366f1;
+      --id-violet:  #8b5cf6;
+      --id-green:   #22c55e;
+      --id-red:     #ef4444;
+      --id-amber:   #f59e0b;
+      --id-mono:    'Cascadia Code','Fira Code',ui-monospace,monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: var(--id-bg);
+      color: var(--id-t1);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0 16px 80px;
+      /* subtle dot grid */
+      background-image: radial-gradient(circle, rgba(99,102,241,.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* ── Top bar ── */
+    .id-topbar {
+      width: 100%; max-width: 640px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0 0;
+    }
+    .id-logo img { height: 26px; }
+    .id-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; letter-spacing: .02em;
+      color: var(--id-t3); text-decoration: none;
+      transition: color .15s;
+    }
+    .id-back svg { opacity: .7; }
+    .id-back:hover { color: var(--id-indigo); }
+    .id-back:hover svg { opacity: 1; }
+
+    /* ── Page wrapper ── */
+    .id-page { width: 100%; max-width: 520px; margin-top: 52px; }
+
+    /* ── Spinner ── */
+    .id-loading { text-align: center; padding: 90px 0; color: var(--id-t3); font-size: 13px; }
+    @keyframes id-spin { to { transform: rotate(360deg); } }
+    .id-spinner {
+      width: 24px; height: 24px; margin: 0 auto 18px;
+      border: 2px solid rgba(99,102,241,.15);
+      border-top-color: var(--id-indigo);
+      border-radius: 50%;
+      animation: id-spin .65s linear infinite;
+    }
+
+    /* ── Hero ── */
+    .id-hero { text-align: center; margin-bottom: 40px; }
+    .id-hero-mark {
+      width: 60px; height: 60px; margin: 0 auto 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(99,102,241,.18), rgba(139,92,246,.1));
+      border: 1px solid rgba(99,102,241,.3);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 32px rgba(99,102,241,.15), 0 0 0 1px rgba(99,102,241,.08);
+    }
+    .id-hero-mark svg { color: var(--id-indigo); }
+    .id-hero h1 {
+      font-size: 22px; font-weight: 700; color: var(--id-t1);
+      margin: 0 0 10px; letter-spacing: -.02em;
+    }
+    .id-hero p {
+      font-size: 13.5px; color: var(--id-t2); line-height: 1.7; margin: 0;
+    }
+
+    /* ── Access badge ── */
+    .id-access-row {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .id-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 99px;
+      color: var(--id-green);
+      border: 1px solid rgba(34,197,94,.22);
+      background: rgba(34,197,94,.07);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .id-badge svg { flex-shrink: 0; }
+    .id-email {
+      font-size: 11.5px; color: var(--id-t3); font-family: var(--id-mono);
+      max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+
+    /* ── Cards ── */
+    .id-card {
+      background: var(--id-card);
+      border: 1px solid var(--id-line);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .id-card-hd {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px 12px;
+      border-bottom: 1px solid var(--id-line);
+    }
+    .id-step-num {
+      width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+      background: rgba(99,102,241,.15);
+      border: 1px solid rgba(99,102,241,.25);
+      color: var(--id-indigo);
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .id-card-title {
+      font-size: 13.5px; font-weight: 700; color: var(--id-t1); letter-spacing: -.01em;
+    }
+    .id-card-body { padding: 16px 18px; }
+    .id-card-body p {
+      font-size: 13px; color: var(--id-t2); line-height: 1.7; margin: 0 0 14px;
+    }
+    .id-card-body p:last-child { margin-bottom: 0; }
+
+    /* ── Download button ── */
+    .id-dl-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 13px 20px; border-radius: 9px; border: none;
+      cursor: pointer; font-size: 14px; font-weight: 700; font-family: inherit;
+      letter-spacing: -.01em;
+      background: linear-gradient(135deg, #6366f1, #7c3aed);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(99,102,241,.35), 0 1px 0 rgba(255,255,255,.08) inset;
+      transition: box-shadow .2s, transform .15s, opacity .15s;
+      position: relative; overflow: hidden;
+    }
+    .id-dl-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), transparent);
+      pointer-events: none;
+    }
+    .id-dl-btn:hover:not(:disabled) {
+      box-shadow: 0 6px 32px rgba(99,102,241,.5), 0 1px 0 rgba(255,255,255,.08) inset;
+      transform: translateY(-1px);
+    }
+    .id-dl-btn:active:not(:disabled) { transform: translateY(0); }
+    .id-dl-btn:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
+    @keyframes id-dl-pulse { 0%,100% { opacity:1 } 50% { opacity:.5 } }
+    .id-dl-btn.loading svg { animation: id-dl-pulse .8s ease infinite; }
+
+    /* ── Ghost button ── */
+    .id-ghost-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 10px 20px; border-radius: 9px;
+      border: 1px solid var(--id-line); background: transparent;
+      color: var(--id-t2); font-size: 13px; font-weight: 600; font-family: inherit;
+      cursor: pointer; text-decoration: none;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    .id-ghost-btn:hover { border-color: rgba(99,102,241,.4); color: var(--id-indigo); background: rgba(99,102,241,.05); }
+    .id-ghost-btn-full { width: 100%; }
+
+    /* ── Download status ── */
+    #dl-msg {
+      margin-top: 10px; font-size: 12px; color: var(--id-t3);
+      min-height: 18px; line-height: 1.5;
+    }
+
+    /* ── Steps list ── */
+    .id-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .id-step {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13px; color: var(--id-t2); line-height: 1.65;
+    }
+    .id-step > *:not(.id-step-dot) { flex: 1; min-width: 0; word-break: break-word; }
+    .id-step-dot {
+      width: 20px; height: 20px; border-radius: 5px; flex-shrink: 0; margin-top: 1px;
+      background: rgba(99,102,241,.1);
+      color: var(--id-indigo);
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .id-step-dot svg { width: 10px; height: 10px; }
+    .id-step strong { color: var(--id-t1); font-weight: 600; }
+
+    code {
+      font-family: var(--id-mono);
+      font-size: 11.5px;
+      background: rgba(99,102,241,.08);
+      border: 1px solid rgba(99,102,241,.18);
+      border-radius: 4px; padding: 1px 6px;
+      color: #a5b4fc;
+      word-break: break-all;
+    }
+
+    /* ── Notice banners ── */
+    .id-notice {
+      display: flex; align-items: flex-start; gap: 10px;
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 12.5px; color: var(--id-t2); line-height: 1.65;
+      margin-bottom: 14px; border: 1px solid;
+    }
+    .id-notice.amber {
+      background: rgba(245,158,11,.06); border-color: rgba(245,158,11,.2);
+    }
+    .id-notice.green {
+      background: rgba(34,197,94,.06); border-color: rgba(34,197,94,.2);
+    }
+    .id-notice.red {
+      background: rgba(239,68,68,.06); border-color: rgba(239,68,68,.2);
+    }
+    .id-notice svg { flex-shrink: 0; margin-top: 1px; }
+    .id-notice.amber svg { color: var(--id-amber); }
+    .id-notice.green svg { color: var(--id-green); }
+    .id-notice.red svg { color: var(--id-red); }
+
+    /* ── Req card (info accent) ── */
+    .id-card.info { border-color: rgba(99,102,241,.22); }
+    .id-card.info .id-card-hd { border-bottom-color: rgba(99,102,241,.12); }
+    .id-card.info .id-step-num {
+      background: rgba(99,102,241,.08);
+      border-color: rgba(99,102,241,.2);
+    }
+
+    /* ── Login / gate card ── */
+    .id-gate { text-align: center; }
+    .id-gate-mark {
+      width: 52px; height: 52px; margin: 0 auto 16px;
+      border-radius: 14px;
+      background: rgba(99,102,241,.1);
+      border: 1px solid rgba(99,102,241,.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .id-gate-mark svg { color: var(--id-indigo); }
+    .id-gate h2 { font-size: 18px; font-weight: 700; color: var(--id-t1); margin: 0 0 8px; }
+    .id-gate p { font-size: 13px; color: var(--id-t2); margin: 0 0 20px; line-height: 1.65; }
+
+    /* ── Link ── */
+    .id-link { color: var(--id-indigo); text-decoration: none; }
+    .id-link:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .id-footer {
+      margin-top: 40px; text-align: center;
+      font-size: 12px; color: var(--id-t3); line-height: 2;
+    }
+    .id-footer a { color: var(--id-t3); text-decoration: none; }
+    .id-footer a:hover { color: var(--id-t2); }
+
+    /* ── Terminal-style separator ── */
+    .id-sep {
+      display: flex; align-items: center; gap: 10px;
+      margin: 20px 0 24px; color: var(--id-t3); font-size: 11px;
+      font-family: var(--id-mono); letter-spacing: .04em;
+    }
+    .id-sep::before, .id-sep::after {
+      content: ''; flex: 1; height: 1px; background: var(--id-line);
+    }
+  </style>
+</head>
+<body>
+
+<div class="id-topbar">
+  <a class="id-logo" href="/"><img src="assets/TOPLOGO/BANNEREFFECT.png" alt="Syndrax"></a>
+  <a class="id-back" href="/app/developer">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+    Dev Studio
+  </a>
+</div>
+
+<div class="id-page" id="inst-root">
+  <div class="id-loading" id="inst-loading">
+    <div class="id-spinner"></div>
+    Verifying access
+  </div>
+</div>
+
+<div class="id-footer" id="inst-footer" style="display:none">
+  <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a>
+  &middot; <a href="mailto:hello@syndrax.io">hello@syndrax.io</a>
+</div>
+
+<script type="module">
+import { getSession, login, signOut } from '/auth-cognito.js';
+
+const API_BASE = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+  ? '' : 'https://api.syndrax.io';
+
+const sp           = new URLSearchParams(location.search);
+const INVITE_TOKEN = sp.get('accept_invite');
+const root         = document.getElementById('inst-root');
+const footer       = document.getElementById('inst-footer');
+
+/* SVG icon helpers */
+const SVG = (d, size = 16) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+
+const ICONS = {
+  download: SVG('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>'),
+  check:    SVG('<polyline points="20 6 9 17 4 12"/>'),
+  lock:     SVG('<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'),
+  terminal: SVG('<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>'),
+  user:     SVG('<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'),
+  warn:     SVG('<path d="M10.3 3.3 3 16a1.9 1.9 0 0 0 1.6 2.9h14.8A1.9 1.9 0 0 0 21 16L13.7 3.3a1.9 1.9 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>'),
+  info:     SVG('<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>'),
+  party:    SVG('<path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24 2.24"/><path d="M22 13.5 13.5 22"/><path d="M13.5 22 11 19.5"/><path d="M22 13.5 19.5 11"/>'),
+  shield:   SVG('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>'),
+  node:     SVG('<circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="16"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="16" x2="5" y2="19"/><line x1="12" y1="16" x2="19" y2="19"/>'),
+};
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+async function apiFetch(path, opts = {}) {
+  const session = getSession();
+  const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  if (session?.idToken) headers['Authorization'] = `Bearer ${session.idToken}`;
+  const r = await fetch(API_BASE + path, { ...opts, headers });
+  if (!r.ok) {
+    const body = await r.json().catch(() => ({}));
+    const err = new Error(body.error || body.detail || `HTTP ${r.status}`);
+    err.status = r.status;
+    throw err;
+  }
+  return r.status === 204 ? null : r.json();
+}
+
+async function downloadLauncher() {
+  const session = getSession();
+  const headers = session?.idToken ? { 'Authorization': `Bearer ${session.idToken}` } : {};
+  const r = await fetch(API_BASE + '/api/dev-access/launcher', { headers });
+  if (!r.ok) {
+    const body = await r.json().catch(() => ({}));
+    throw new Error(body.error || `HTTP ${r.status}`);
+  }
+  const blob = await r.blob();
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'SyndraxDevStudio.bat'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function main() {
+  footer.style.display = '';
+  const session = getSession();
+
+  if (!session) {
+    const returnUrl = encodeURIComponent(location.href);
+    root.innerHTML = `
+      <div class="id-card">
+        <div class="id-card-body id-gate">
+          <div class="id-gate-mark">${ICONS.lock}</div>
+          <h2>Sign in to continue</h2>
+          <p>Dev Studio access is restricted to authorized team members.<br>
+             Sign in with the email your invite was sent to.</p>
+          <a class="id-dl-btn" style="text-decoration:none;display:flex" href="/login?return=${returnUrl}">
+            ${ICONS.user}&nbsp; Sign In
+          </a>
+          <p style="margin-top:12px;font-size:12px;color:var(--id-t3)">
+            New here? <a href="/signup" class="id-link">Create a free account</a>
+          </p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  if (INVITE_TOKEN) {
+    root.innerHTML = `<div class="id-loading"><div class="id-spinner"></div>Accepting your invite</div>`;
+    try {
+      const r = await apiFetch('/api/dev-team/accept', {
+        method: 'POST', body: JSON.stringify({ token: INVITE_TOKEN }),
+      });
+      history.replaceState(null, '', location.pathname);
+      renderInstallPage({ welcomed: true, role: r.role });
+    } catch (e) {
+      if (e.status === 404) {
+        history.replaceState(null, '', location.pathname);
+        await renderCheckAccess({ inviteExpired: true });
+      } else {
+        root.innerHTML = `
+          <div class="id-card">
+            <div class="id-card-body id-gate">
+              <div class="id-gate-mark" style="background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.22)">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </div>
+              <h2>Invite not valid</h2>
+              <p>${esc(e.message || 'This invite link may have already been used or expired.')}<br>Ask the workspace owner to send a fresh invite.</p>
+              <a class="id-ghost-btn id-ghost-btn-full" href="/app/developer">Back to Dev Studio</a>
+            </div>
+          </div>`;
+      }
+    }
+    return;
+  }
+
+  await renderCheckAccess({});
+}
+
+async function renderCheckAccess({ inviteExpired = false } = {}) {
+  root.innerHTML = `<div class="id-loading"><div class="id-spinner"></div>Checking your access</div>`;
+  try {
+    const me = await apiFetch('/api/dev-access/me');
+    renderInstallPage({ role: me.devRole, inviteExpired });
+  } catch (e) {
+    if (e.status === 403) {
+      renderNoAccess();
+    } else if (e.status === 401) {
+      signOut(); location.reload();
+    } else {
+      root.innerHTML = `
+        <div class="id-card">
+          <div class="id-card-body id-gate">
+            <div class="id-gate-mark" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.22)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.3 3 16a1.9 1.9 0 0 0 1.6 2.9h14.8A1.9 1.9 0 0 0 21 16L13.7 3.3a1.9 1.9 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h2>Could not reach server</h2>
+            <p>${esc(e.message)}</p>
+            <button class="id-ghost-btn id-ghost-btn-full" onclick="location.reload()">Retry</button>
+          </div>
+        </div>`;
+    }
+  }
+}
+
+function renderNoAccess() {
+  root.innerHTML = `
+    <div class="id-card">
+      <div class="id-card-body id-gate">
+        <div class="id-gate-mark">${ICONS.lock}</div>
+        <h2>Access not granted</h2>
+        <p>Your account doesn't have Dev Studio access yet.<br>
+        Ask the Syndrax owner to invite you, then click your invite link to activate.</p>
+        <p style="font-size:12px;color:var(--id-t3);margin-bottom:16px">
+          Signed in as <code>${esc(getSession()?.email || '')}</code>
+          &nbsp;&middot;&nbsp; <a href="#" id="signout-link" class="id-link" style="color:var(--id-t3)">Not you?</a>
+        </p>
+        <a class="id-ghost-btn id-ghost-btn-full" href="/app/developer">Back to Dev Studio</a>
+      </div>
+    </div>`;
+  document.getElementById('signout-link')?.addEventListener('click', e => {
+    e.preventDefault(); signOut(); location.href = '/login';
+  });
+}
+
+const CHECK_SVG = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+function renderInstallPage({ welcomed = false, role = 'member', inviteExpired = false } = {}) {
+  const ROLE_LABEL = { owner: 'Owner', co_owner: 'Co-Owner', engineer: 'Engineer', prompt_engineer: 'Prompt Engineer' };
+  const roleLabel = ROLE_LABEL[role] || 'Team Member';
+  const session = getSession();
+
+  root.innerHTML = `
+    ${welcomed ? `
+    <div class="id-notice green">
+      ${ICONS.party}
+      <div><strong style="color:var(--id-t1)">Invite accepted.</strong> Welcome to the Dev Studio team — your access is now active.</div>
+    </div>` : ''}
+    ${inviteExpired ? `
+    <div class="id-notice amber">
+      ${ICONS.info}
+      <div>That invite link has already been used. Your access status is shown below.</div>
+    </div>` : ''}
+
+    <div class="id-hero">
+      <div class="id-hero-mark">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </div>
+      <h1>Dev Studio Launcher</h1>
+      <p>One double-click starts all three local services — Cloud API, Site, and AI Runner.<br>
+         No terminal, no Vercel CLI, no setup after the first run.</p>
+    </div>
+
+    <div class="id-access-row">
+      <span class="id-badge">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        ${esc(roleLabel)} access
+      </span>
+      <span class="id-email">${esc(session?.email || '')}</span>
+    </div>
+
+    <!-- Step 1: Download -->
+    <div class="id-card">
+      <div class="id-card-hd">
+        <span class="id-step-num">1</span>
+        <span class="id-card-title">Download the launcher</span>
+      </div>
+      <div class="id-card-body">
+        <p>Personalized to your account — only authorized members can generate a copy.</p>
+        <button class="id-dl-btn" id="dl-btn">
+          ${ICONS.download}
+          Download SyndraxDevStudio.bat
+        </button>
+        <div id="dl-msg"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Unblock -->
+    <div class="id-card">
+      <div class="id-card-hd">
+        <span class="id-step-num">2</span>
+        <span class="id-card-title">Unblock it — one time</span>
+      </div>
+      <div class="id-card-body">
+        <p>Windows marks downloaded files until you explicitly trust them:</p>
+        <ul class="id-steps">
+          <li class="id-step">
+            <span class="id-step-dot" style="font-family:var(--id-mono)">a</span>
+            Right-click <code>SyndraxDevStudio.bat</code> &rarr; <strong>Properties</strong>
+          </li>
+          <li class="id-step">
+            <span class="id-step-dot" style="font-family:var(--id-mono)">b</span>
+            Tick <strong>Unblock</strong> at the bottom &rarr; <strong>OK</strong>
+          </li>
+          <li class="id-step">
+            <span class="id-step-dot">${CHECK_SVG}</span>
+            Skip this if the file was saved to OneDrive — it's usually pre-trusted.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Step 3: Run -->
+    <div class="id-card">
+      <div class="id-card-hd">
+        <span class="id-step-num">3</span>
+        <span class="id-card-title">Run it</span>
+      </div>
+      <div class="id-card-body">
+        <p>Double-click the file to launch. On first run it will ask for your repo paths — press Enter to accept the defaults, then it remembers for next time.</p>
+        <ul class="id-steps">
+          <li class="id-step">
+            <span class="id-step-dot">${CHECK_SVG}</span>
+            Starts <strong>Cloud API</strong> on port 3001, <strong>Site</strong> on 3000, <strong>AI Runner</strong> on 8000
+          </li>
+          <li class="id-step">
+            <span class="id-step-dot">${CHECK_SVG}</span>
+            Opens your browser to Dev Studio automatically when all services are up
+          </li>
+          <li class="id-step">
+            <span class="id-step-dot">${CHECK_SVG}</span>
+            Press <code>Ctrl+C</code> or close the window to stop all services cleanly
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Requirements -->
+    <div class="id-card info">
+      <div class="id-card-hd">
+        <span class="id-step-num">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </span>
+        <span class="id-card-title">Requirements</span>
+      </div>
+      <div class="id-card-body">
+        <ul class="id-steps">
+          <li class="id-step">
+            <span class="id-step-dot">${CHECK_SVG}</span>
+            <span><strong>Node.js 18+</strong> &mdash; <a href="https://nodejs.org/" target="_blank" rel="noopener" class="id-link">nodejs.org</a></span>
+          </li>
+          <li class="id-step">
+            <span class="id-step-dot">${CHECK_SVG}</span>
+            <span><strong>Python 3.10+</strong> (optional, for AI Runner) &mdash; <a href="https://www.python.org/" target="_blank" rel="noopener" class="id-link">python.org</a></span>
+          </li>
+          <li class="id-step">
+            <span class="id-step-dot">${CHECK_SVG}</span>
+            <strong>Windows 10 / 11</strong> &mdash; PowerShell 5.1 built-in
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="id-sep">open in browser</div>
+
+    <div style="text-align:center">
+      <a class="id-ghost-btn" href="/app/developer">
+        ${ICONS.terminal}
+        Open Dev Studio
+      </a>
+    </div>`;
+
+  const dlBtn = document.getElementById('dl-btn');
+  const dlMsg = document.getElementById('dl-msg');
+
+  dlBtn.addEventListener('click', async () => {
+    dlBtn.disabled = true;
+    dlBtn.classList.add('loading');
+    dlBtn.innerHTML = `${ICONS.download} Preparing download&hellip;`;
+    dlMsg.innerHTML = '';
+    try {
+      await downloadLauncher();
+      dlBtn.classList.remove('loading');
+      dlBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Saved to Downloads`;
+      dlMsg.innerHTML = `<span style="color:var(--id-t3)">Personalized for <code>${esc(session?.email || 'you')}</code> &mdash; do not share the file; share this page URL instead.</span>`;
+      setTimeout(() => {
+        dlBtn.disabled = false;
+        dlBtn.classList.remove('loading');
+        dlBtn.innerHTML = `${ICONS.download} Download again`;
+        dlMsg.innerHTML = '';
+      }, 6000);
+    } catch (e) {
+      dlBtn.disabled = false;
+      dlBtn.classList.remove('loading');
+      dlBtn.innerHTML = `${ICONS.download} Download SyndraxDevStudio.bat`;
+      dlMsg.innerHTML = `<span style="color:var(--id-red)">Download failed: ${esc(e.message)}</span>`;
+    }
+  });
+}
+
+main().catch(err => {
+  root.innerHTML = `<div class="id-loading" style="color:var(--id-red)">${esc(err.message)}</div>`;
+});
+</script>
+</body>
+</html>
