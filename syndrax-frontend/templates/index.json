@@ -1,8 +1,8 @@
 {
-  "version": "1.3.1",
-  "updatedAt": "2026-07-14T12:27:35Z",
+  "version": "1.4.0",
+  "updatedAt": "2026-07-14T12:46:49Z",
   "owner": "danish",
-  "count": 34,
+  "count": 44,
   "kinds": [
     "automation-module",
     "buyer-message",
@@ -11,6 +11,19 @@
     "workflow"
   ],
   "templates": [
+    {
+      "id": "listing.auto-parts-vin",
+      "kind": "listing-description",
+      "title": "Auto parts (VIN check)",
+      "status": "ready",
+      "path": "listing-descriptions/auto-parts-vin",
+      "tags": [
+        "listing",
+        "auto",
+        "parts",
+        "vin"
+      ]
+    },
     {
       "id": "listing.bundle-kit",
       "kind": "listing-description",
@@ -34,6 +47,18 @@
         "minimal",
         "specs",
         "high-trust"
+      ]
+    },
+    {
+      "id": "listing.collectible-condition",
+      "kind": "listing-description",
+      "title": "Collectible (condition ladder)",
+      "status": "ready",
+      "path": "listing-descriptions/collectible-condition",
+      "tags": [
+        "listing",
+        "collectible",
+        "condition"
       ]
     },
     {
@@ -62,6 +87,18 @@
       ]
     },
     {
+      "id": "listing.electronics-dropship",
+      "kind": "listing-description",
+      "title": "Electronics (dropship-ready)",
+      "status": "ready",
+      "path": "listing-descriptions/electronics-dropship",
+      "tags": [
+        "listing",
+        "electronics",
+        "dropship"
+      ]
+    },
+    {
       "id": "listing.fashion-size-care",
       "kind": "listing-description",
       "title": "Fashion size + care",
@@ -71,6 +108,18 @@
         "listing",
         "fashion",
         "apparel"
+      ]
+    },
+    {
+      "id": "listing.home-goods-dims",
+      "kind": "listing-description",
+      "title": "Home goods (dims + care)",
+      "status": "ready",
+      "path": "listing-descriptions/home-goods-dims",
+      "tags": [
+        "listing",
+        "home",
+        "dims"
       ]
     },
     {
@@ -149,6 +198,18 @@
       ]
     },
     {
+      "id": "message.bundle-missing-piece",
+      "kind": "buyer-message",
+      "title": "Bundle missing piece",
+      "status": "ready",
+      "path": "buyer-messages/bundle-missing-piece",
+      "tags": [
+        "messages",
+        "bundle",
+        "defect"
+      ]
+    },
+    {
       "id": "message.cancel-before-ship",
       "kind": "buyer-message",
       "title": "Cancel before ship",
@@ -158,6 +219,18 @@
         "messages",
         "cancel",
         "service"
+      ]
+    },
+    {
+      "id": "message.customs-hold",
+      "kind": "buyer-message",
+      "title": "Customs / international hold",
+      "status": "ready",
+      "path": "buyer-messages/customs-hold",
+      "tags": [
+        "messages",
+        "shipping",
+        "international"
       ]
     },
     {
@@ -197,6 +270,19 @@
       ]
     },
     {
+      "id": "message.holiday-delay",
+      "kind": "buyer-message",
+      "title": "Holiday / peak delay",
+      "status": "ready",
+      "path": "buyer-messages/holiday-delay",
+      "tags": [
+        "messages",
+        "delay",
+        "holiday",
+        "peak"
+      ]
+    },
+    {
       "id": "message.invoice-request",
       "kind": "buyer-message",
       "title": "Invoice / receipt",
@@ -206,6 +292,18 @@
         "messages",
         "invoice",
         "b2b"
+      ]
+    },
+    {
+      "id": "message.not-as-described",
+      "kind": "buyer-message",
+      "title": "Not as described",
+      "status": "ready",
+      "path": "buyer-messages/not-as-described",
+      "tags": [
+        "messages",
+        "defect",
+        "listing"
       ]
     },
     {
@@ -233,6 +331,18 @@
       ]
     },
     {
+      "id": "message.partial-ship",
+      "kind": "buyer-message",
+      "title": "Partial shipment",
+      "status": "ready",
+      "path": "buyer-messages/partial-ship",
+      "tags": [
+        "messages",
+        "shipping",
+        "partial"
+      ]
+    },
+    {
       "id": "message.refund-full",
       "kind": "buyer-message",
       "title": "Full refund issued",
@@ -242,6 +352,18 @@
         "messages",
         "refund",
         "service"
+      ]
+    },
+    {
+      "id": "message.request-photos",
+      "kind": "buyer-message",
+      "title": "Request buyer photos",
+      "status": "ready",
+      "path": "buyer-messages/request-photos",
+      "tags": [
+        "messages",
+        "photos",
+        "defect"
       ]
     },
     {

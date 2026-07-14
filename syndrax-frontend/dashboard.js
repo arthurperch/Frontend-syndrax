@@ -208,19 +208,19 @@ const WORKFLOW = [
   ]},
   { stage: 'List', icon: 'upload', modules: [
     { key: 'seo', label: 'SEO Generator', desc: 'Keywords • competitor titles • optimized copy' },
-    { key: 'description', label: 'Description Builder', desc: 'HTML templates • 5 styles' },
-    { key: 'images', label: 'Image Pipeline', desc: 'Fetch • resize • optimize' },
-    { key: 'lister', label: 'Lister', desc: 'List in bulk • pricing • markup • margin', run: 'lister' },
-  ]},
-  { stage: 'Manage', icon: 'tag', modules: [
-    { key: 'optimizer', label: 'Listing Optimizer', desc: 'End & sell similar • price drops' },
-    { key: 'pricing', label: 'Pricing Strategy', desc: 'Rules engine • dynamic pricing • margin' },
-    { key: 'accounts', label: 'Account Manager', desc: 'Tiers • warmup • daily limits • risk' },
-    { key: 'warmup', label: 'Warmup Agent', desc: 'Daily limits • safe listing schedule' },
-    { key: 'trust', label: 'Trust Audit', desc: 'Trust score • defects • feedback • holds' },
-    { key: 'messages', label: 'Message Tool', desc: '5 buyer templates • OOS • shipping • returns' },
-  ]},
-];
+    { key: 'description', label: 'Description Builder', desc: 'HTML listing packs • niche styles' },
+        { key: 'images', label: 'Image Pipeline', desc: 'Fetch • resize • optimize' },
+        { key: 'lister', label: 'Lister', desc: 'List in bulk • pricing • markup • margin', run: 'lister' },
+      ]},
+      { stage: 'Manage', icon: 'tag', modules: [
+        { key: 'optimizer', label: 'Optimizer', desc: 'Reprice • rules • protect margin' },
+        { key: 'pricing', label: 'Pricing', desc: 'Markup floors • competitor watch' },
+        { key: 'accounts', label: 'Accounts', desc: 'Connect • health • limits' },
+        { key: 'warmup', label: 'Warmup Agent', desc: 'Daily limits • safe listing schedule' },
+        { key: 'trust', label: 'Trust Audit', desc: 'Trust score • defects • feedback • holds' },
+        { key: 'messages', label: 'Message Tool', desc: 'Buyer reply packs • fill • copy' },
+      ]},
+    ];
 // Scripts that dispatch to the extension today (auto-run via chrome.runtime.sendMessage).
 const RUNNABLE = { lister: 'bulklister', research: 'research', quicksync: 'quicksync', inventory: 'inventory' };
 
@@ -2337,8 +2337,22 @@ function renderWorkspace() {
 
     ${!live ? `<div class="wf-note">${esc(mkName)} runners are being built — <b>eBay is live today</b>. The same workflow lights up here once ${esc(mkName)} ships. You can still schedule automations now.</div>` : ''}
 
-    <div class="tools-head"><h3>Launch tools</h3><span class="th-note">Four stages, scoped to ${esc(mkName)}. Each card runs its main action — open <b>Advanced settings</b> to tune its sub-tools, or the 🤖 sync-bot to automate it.</span></div>
-    ${stages}
+        <div class="tpl-ws-bar">
+          <div class="tpl-ws-copy">
+            <div class="tpl-kicker">Templates</div>
+            <div class="tpl-ws-title">Buyer messages &amp; listing packs</div>
+            <div class="tpl-ws-sub">Fill tokens → copy → paste into eBay. Full catalog + workflow packs also live under Workflows.</div>
+          </div>
+          <div class="tpl-ws-actions">
+            <button type="button" class="mc-btn mc-btn--secondary mc-btn--sm" data-run="messages">${icon('refresh')} Message Tool</button>
+            <button type="button" class="mc-btn mc-btn--secondary mc-btn--sm" data-run="description">${icon('upload')} Description Builder</button>
+            <button type="button" class="mc-btn mc-btn--ghost mc-btn--sm" data-go="jobs">Workflow packs</button>
+            <a class="tpl-link" href="/templates.html" target="_blank" rel="noopener">Open library ↗</a>
+          </div>
+        </div>
+
+        <div class="tools-head"><h3>Launch tools</h3><span class="th-note">Four stages, scoped to ${esc(mkName)}. Each card runs its main action — open <b>Advanced settings</b> to tune its sub-tools, or the sync-bot to automate it.</span></div>
+        ${stages}
 
     <div class="ws2-cols">
       <div class="panel"><div class="panel-h">Recent jobs (${jobs.length}) ${jobs.length ? '<span class="link" id="clearJobs">clear</span>' : ''}</div>
@@ -2441,10 +2455,10 @@ function renderAutomationsList() {
     </div>`;
 
   if (!packs.length) {
-    packBar += `<p class="tpl-empty">Catalog not loaded yet.</p></div>`;
-  } else if (!available.length) {
-    packBar += `<p class="tpl-empty">All library packs are already in Saved. Remove one below if you want to re-add it cleanly.</p></div>`;
-  } else {
+      packBar += `<p class="tpl-empty">Catalog not loaded. <button type="button" class="tpl-link" id="tplLoadCat">Load catalog</button> or check that the local server is serving <code>/templates/catalog.json</code>.</p></div>`;
+    } else if (!available.length) {
+      packBar += `<p class="tpl-empty">All library packs are already in Saved. Remove one below if you want to re-add it cleanly — or open the <a class="tpl-link" href="/templates.html" target="_blank" rel="noopener">full library</a> for messages &amp; listings.</p></div>`;
+    } else {
     packBar += groups.map(g => `
       <div class="tpl-group">
         <div class="tpl-group-label">${esc(g.label)}</div>
@@ -2462,11 +2476,11 @@ function renderAutomationsList() {
 
   // Saved list: one clean row each — title, short chain, schedule, run/delete.
   if (!automations.length) {
-    return packBar + `<div class="tpl-saved">
-      <div class="tpl-saved-head"><div class="tpl-kicker">Saved</div><div class="tpl-title">Automations</div></div>
-      <p class="tpl-empty">Nothing saved yet. Add a pack above, or build steps on the left canvas and Save.</p>
-    </div>`;
-  }
+      return packBar + `<div class="tpl-saved">
+        <div class="tpl-saved-head"><div class="tpl-kicker">Saved</div><div class="tpl-title">Automations</div></div>
+        <p class="tpl-empty">Nothing saved yet. Use <b style="color:#e5e5e5">Add</b> on a pack above, or build steps on the left canvas and Save. Extension offline? You can still organize packs — live runs need the extension.</p>
+      </div>`;
+    }
 
   const sorted = automations.slice().sort((a, b) => (a.label || '').localeCompare(b.label || ''));
   const rows = sorted.map(a => {

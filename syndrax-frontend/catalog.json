@@ -1,9 +1,82 @@
 {
-  "version": "1.3.1",
-  "updatedAt": "2026-07-14T12:27:35Z",
+  "version": "1.4.0",
+  "updatedAt": "2026-07-14T12:46:49Z",
   "owner": "danish",
-  "count": 34,
+  "count": 44,
   "templates": [
+    {
+      "id": "listing.auto-parts-vin",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Auto parts (VIN check)",
+      "summary": "Fitment-first parts listing; ask VIN in description.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "auto",
+        "parts",
+        "vin"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "Front Ceramic Brake Pads \u2014 Set",
+          "required": true
+        },
+        {
+          "key": "fits",
+          "label": "Fits",
+          "example": "2016\u20132021 Honda Civic 1.5T (non-Si)",
+          "required": true
+        },
+        {
+          "key": "mpn",
+          "label": "MPN / SKU",
+          "example": "BP-4412-C",
+          "required": true
+        },
+        {
+          "key": "condition",
+          "label": "Condition",
+          "example": "New",
+          "required": true
+        },
+        {
+          "key": "position",
+          "label": "Position",
+          "example": "Front",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "auto-parts-vin",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/auto-parts-vin",
+      "bodyFile": "body.html",
+      "body": "<!-- auto-parts-vin -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <h1 style=\"margin:0 0 10px;font-size:22px;font-weight:700\">{{title}}</h1>\n  <div style=\"background:#000;color:#fff;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px\">\n    <strong>Fitment first.</strong> Message your year / make / model / engine (or VIN last 8) before purchase if you're unsure.\n  </div>\n  <table style=\"width:100%;border-collapse:collapse;font-size:14px\">\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373;width:36%\">Fits</td><td style=\"padding:10px 0;font-weight:600\">{{fits}}</td></tr>\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">Position</td><td style=\"padding:10px 0\">{{position}}</td></tr>\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">MPN / SKU</td><td style=\"padding:10px 0\">{{mpn}}</td></tr>\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">Condition</td><td style=\"padding:10px 0\">{{condition}}</td></tr>\n  </table>\n</div>\n"
+    },
     {
       "id": "listing.bundle-kit",
       "version": "1.0.0",
@@ -160,6 +233,78 @@
       "path": "listing-descriptions/clean-product-card",
       "bodyFile": "body.html",
       "body": "<!-- Syndrax listing \u00b7 clean-product-card \u00b7 tokens: {{title}} {{brand}} {{condition}} {{highlight_1..3}} {{spec_rows_html}} -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:780px;margin:0 auto;line-height:1.5\">\n  <div style=\"border:1px solid #e5e5e5;border-radius:12px;overflow:hidden\">\n    <div style=\"background:#000;color:#fff;padding:20px 22px\">\n      <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3a3a3;margin-bottom:8px\">{{brand}}</div>\n      <h1 style=\"margin:0;font-size:22px;font-weight:650;letter-spacing:-.02em\">{{title}}</h1>\n      <div style=\"margin-top:10px;display:inline-block;font-size:12px;color:#d4d4d4;border:1px solid #404040;border-radius:999px;padding:4px 10px\">{{condition}}</div>\n    </div>\n\n    <div style=\"padding:20px 22px\">\n      <h2 style=\"margin:0 0 12px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#737373\">Highlights</h2>\n      <ul style=\"margin:0;padding:0;list-style:none\">\n        <li style=\"padding:10px 0;border-top:1px solid #f0f0f0;font-size:14px\">{{highlight_1}}</li>\n        <li style=\"padding:10px 0;border-top:1px solid #f0f0f0;font-size:14px\">{{highlight_2}}</li>\n        <li style=\"padding:10px 0;border-top:1px solid #f0f0f0;font-size:14px\">{{highlight_3}}</li>\n      </ul>\n\n      <h2 style=\"margin:22px 0 12px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#737373\">Specs</h2>\n      <table style=\"width:100%;border-collapse:collapse;font-size:14px\">\n        <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373;width:40%\">Condition</td><td style=\"padding:10px 0\">{{condition}}</td></tr>\n        <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">Brand</td><td style=\"padding:10px 0\">{{brand}}</td></tr>\n        {{spec_rows_html}}\n      </table>\n\n      <p style=\"margin:22px 0 0;font-size:12px;color:#a3a3a3\">Ships carefully packed. Questions welcome before purchase.</p>\n    </div>\n  </div>\n</div>\n"
+    },
+    {
+      "id": "listing.collectible-condition",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Collectible (condition ladder)",
+      "summary": "Honest grade language for collectibles/used media.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "collectible",
+        "condition"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "SNES Console \u2014 OEM Controllers",
+          "required": true
+        },
+        {
+          "key": "grade",
+          "label": "Condition grade",
+          "example": "Good \u2014 tested, light yellowing",
+          "required": true
+        },
+        {
+          "key": "tested",
+          "label": "Tested",
+          "example": "Powers on, AV out, both controllers respond",
+          "required": true
+        },
+        {
+          "key": "includes",
+          "label": "Includes",
+          "example": "Console, 2 controllers, power supply",
+          "required": true
+        },
+        {
+          "key": "flaws",
+          "label": "Known flaws",
+          "example": "Shell yellowing on left side \u00b7 no games",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "collectible-condition",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/collectible-condition",
+      "bodyFile": "body.html",
+      "body": "<!-- collectible-condition -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:700px;margin:0 auto\">\n  <h1 style=\"margin:0 0 8px;font-size:20px;font-weight:700\">{{title}}</h1>\n  <p style=\"margin:0 0 14px;font-size:13px;color:#525252\">Sold as described. Photos show the actual item style/condition band.</p>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Grade:</strong> {{grade}}</p>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Tested:</strong> {{tested}}</p>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Includes:</strong> {{includes}}</p>\n  <p style=\"margin:0;font-size:14px\"><strong>Known flaws:</strong> {{flaws}}</p>\n</div>\n"
     },
     {
       "id": "listing.comparison-value",
@@ -320,6 +465,84 @@
       "body": "<!-- digital-deliverable -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:640px;margin:0 auto\">\n  <div style=\"border:1px solid #e5e5e5;border-radius:12px;padding:18px\">\n    <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#737373\">Digital item</div>\n    <h1 style=\"margin:8px 0 12px;font-size:20px;font-weight:700\">{{title}}</h1>\n    <p style=\"margin:0 0 8px;font-size:14px\"><strong>Format:</strong> {{format}}</p>\n    <p style=\"margin:0 0 8px;font-size:14px\"><strong>Delivery:</strong> {{delivery}}</p>\n    <p style=\"margin:0;font-size:14px\"><strong>Includes:</strong> {{includes}}</p>\n  </div>\n  <p style=\"margin:12px 0 0;font-size:12px;color:#737373\">No physical shipment. Contact us after purchase if the link doesn't arrive.</p>\n</div>\n"
     },
     {
+      "id": "listing.electronics-dropship",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Electronics (dropship-ready)",
+      "summary": "Clean electronics listing: condition, what's included, power notes.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "electronics",
+        "dropship"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "USB-C Hub 7-in-1 \u2014 4K HDMI",
+          "required": true
+        },
+        {
+          "key": "condition",
+          "label": "Condition",
+          "example": "New",
+          "required": true
+        },
+        {
+          "key": "include_1",
+          "label": "Included 1",
+          "example": "USB-C hub",
+          "required": true
+        },
+        {
+          "key": "include_2",
+          "label": "Included 2",
+          "example": "User guide",
+          "required": true
+        },
+        {
+          "key": "power",
+          "label": "Power / ports",
+          "example": "USB-C PD pass-through \u00b7 HDMI 4K \u00b7 2\u00d7 USB-A",
+          "required": true
+        },
+        {
+          "key": "compat",
+          "label": "Compatibility",
+          "example": "Windows, macOS, ChromeOS with USB-C",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "electronics-dropship",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/electronics-dropship",
+      "bodyFile": "body.html",
+      "body": "<!-- electronics-dropship -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <div style=\"background:#000;color:#fff;padding:18px 20px;border-radius:12px 12px 0 0\">\n    <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3a3a3\">Electronics</div>\n    <h1 style=\"margin:8px 0 0;font-size:20px;font-weight:650\">{{title}}</h1>\n  </div>\n  <div style=\"border:1px solid #e5e5e5;border-top:0;border-radius:0 0 12px 12px;padding:16px 20px\">\n    <p style=\"margin:0 0 12px;font-size:14px\"><strong>Condition:</strong> {{condition}}</p>\n    <p style=\"margin:0 0 12px;font-size:14px\"><strong>Ports / power:</strong> {{power}}</p>\n    <p style=\"margin:0 0 12px;font-size:14px\"><strong>Works with:</strong> {{compat}}</p>\n    <h2 style=\"margin:16px 0 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#737373\">In the box</h2>\n    <ul style=\"margin:0;padding-left:18px;font-size:14px;line-height:1.6\">\n      <li>{{include_1}}</li>\n      <li>{{include_2}}</li>\n    </ul>\n  </div>\n  <p style=\"margin:12px 0 0;font-size:12px;color:#737373\">Questions on fit before you buy? Message us with your device model.</p>\n</div>\n"
+    },
+    {
       "id": "listing.fashion-size-care",
       "version": "1.0.0",
       "kind": "listing-description",
@@ -390,6 +613,78 @@
       "path": "listing-descriptions/fashion-size-care",
       "bodyFile": "body.html",
       "body": "<!-- fashion-size-care -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:640px;margin:0 auto\">\n  <h1 style=\"margin:0 0 12px;font-size:22px;font-weight:700;letter-spacing:-.02em\">{{title}}</h1>\n  <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px\">\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Size</div><div style=\"font-weight:650;margin-top:4px\">{{size}}</div></div>\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Fit</div><div style=\"font-weight:650;margin-top:4px\">{{fit}}</div></div>\n  </div>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Material:</strong> {{material}}</p>\n  <p style=\"margin:0;font-size:14px\"><strong>Care:</strong> {{care}}</p>\n</div>\n"
+    },
+    {
+      "id": "listing.home-goods-dims",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Home goods (dims + care)",
+      "summary": "Dimensions + material + care for home/furniture accessories.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "home",
+        "dims"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "Walnut Monitor Stand \u2014 2 Tier",
+          "required": true
+        },
+        {
+          "key": "dims",
+          "label": "Dimensions",
+          "example": "20\" W \u00d7 8\" D \u00d7 5\" H",
+          "required": true
+        },
+        {
+          "key": "material",
+          "label": "Material",
+          "example": "Solid walnut + steel",
+          "required": true
+        },
+        {
+          "key": "weight_cap",
+          "label": "Weight capacity",
+          "example": "40 lb",
+          "required": true
+        },
+        {
+          "key": "care",
+          "label": "Care",
+          "example": "Wipe dry \u00b7 no harsh cleaners",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "home-goods-dims",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/home-goods-dims",
+      "bodyFile": "body.html",
+      "body": "<!-- home-goods-dims -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:700px;margin:0 auto\">\n  <h1 style=\"margin:0 0 14px;font-size:22px;font-weight:700\">{{title}}</h1>\n  <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px\">\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Dimensions</div><div style=\"font-weight:650;margin-top:4px\">{{dims}}</div></div>\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Weight capacity</div><div style=\"font-weight:650;margin-top:4px\">{{weight_cap}}</div></div>\n  </div>\n  <p style=\"margin:14px 0 6px;font-size:14px\"><strong>Material:</strong> {{material}}</p>\n  <p style=\"margin:0;font-size:14px\"><strong>Care:</strong> {{care}}</p>\n</div>\n"
     },
     {
       "id": "listing.mobile-first-stack",
@@ -837,6 +1132,61 @@
       "body": "Hi {{buyer_name}},\n\nQuick check before we ship order **{{order_id}}**.\n\nAddress on file:\n{{address_line}}\n\nReply **YES** if that's correct, or send the updated address today and we'll use that.\n\nThanks,\n{{seller_signoff}}\n"
     },
     {
+      "id": "message.bundle-missing-piece",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Bundle missing piece",
+      "summary": "Kit arrived incomplete.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "bundle",
+        "defect"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Casey"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "missing_item",
+          "label": "Missing piece",
+          "example": "the USB-C cable",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/bundle-missing-piece",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nSorry \u2014 order {{order_id}} shouldn't have been missing {{missing_item}}.\n\nReply with your shipping address confirmation and I'll send the missing piece out priority, or I can refund that part of the kit if you prefer.\n\nThanks for flagging it,\n{{seller_signoff}}\n"
+    },
+    {
       "id": "message.cancel-before-ship",
       "version": "1.0.0",
       "kind": "buyer-message",
@@ -891,6 +1241,61 @@
       "path": "buyer-messages/cancel-before-ship",
       "bodyFile": "body.md",
       "body": "Hi {{buyer_name}},\n\nGot it \u2014 I've cancelled order **{{order_id}}** for **{{item_title}}** before it shipped.\n\nA full refund is on the way. No need to return anything.\n\nThanks for letting me know early,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.customs-hold",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Customs / international hold",
+      "summary": "Buyer asks about international delay or customs.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "shipping",
+        "international"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Sam"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "tracking",
+          "label": "Tracking",
+          "example": "LX123\u2026",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/customs-hold",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nOn order {{order_id}}, tracking {{tracking}} can sit in customs for several days with no scan \u2014 that's normal on this route.\n\nOnce it clears, scans usually resume. If it's still stuck past the estimated window, reply and I'll open a carrier inquiry.\n\nThanks,\n{{seller_signoff}}\n"
     },
     {
       "id": "message.damaged-arrival",
@@ -950,7 +1355,7 @@
     },
     {
       "id": "message.delay-honest",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "kind": "buyer-message",
       "title": "Shipping delay \u2014 honest",
       "summary": "Proactive delay notice with new ETA and option to cancel.",
@@ -996,7 +1401,7 @@
         }
       ],
       "ai": {
-        "promptHint": "Own the delay. Offer cancel. No excuses essay.",
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
         "variantsWanted": 3
       },
       "design": null,
@@ -1008,7 +1413,7 @@
       "preview": null,
       "path": "buyer-messages/delay-honest",
       "bodyFile": "body.md",
-      "body": "Hi {{buyer_name}},\n\nQuick update on order **{{order_id}}**.\n\nThere\u2019s a short delay ({{reason_short}}). New expected ship/delivery window: **{{new_eta}}**.\n\nIf that doesn\u2019t work for you, reply and I\u2019ll cancel + refund right away \u2014 no hassle.\n\nThanks for your patience,\n{{seller_signoff}}\n"
+      "body": "Hi {{buyer_name}},\n\nQuick update on order {{order_id}}.\n\nThere's a short delay ({{reason_short}}). New expected window: {{new_eta}}.\n\nIf that doesn't work, reply and I'll cancel + refund same day \u2014 no runaround.\n\nThanks for your patience,\n{{seller_signoff}}\n"
     },
     {
       "id": "message.feedback-remove-request",
@@ -1065,6 +1470,62 @@
       "path": "buyer-messages/feedback-remove-request",
       "bodyFile": "body.md",
       "body": "Hi {{buyer_name}},\n\nI saw your note on order **{{order_id}}** and I want to make this right.\n\nI can offer {{offer}}.\n\nIf we resolve this, and you're open to updating your feedback afterward, I'd really appreciate it \u2014 only if you're satisfied with the fix.\n\nReply with what you prefer and I'll move today.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.holiday-delay",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Holiday / peak delay",
+      "summary": "Proactive ship delay during peak seasons.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "delay",
+        "holiday",
+        "peak"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Alex"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "new_eta",
+          "label": "New ETA",
+          "example": "by Fri, Dec 20",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/holiday-delay",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nHeads up on order {{order_id}} \u2014 carriers are running slower than usual this week.\n\nUpdated expectation: {{new_eta}}.\n\nIf you need it sooner, reply and we can cancel + refund before it ships.\n\nThanks for understanding,\n{{seller_signoff}}\n"
     },
     {
       "id": "message.invoice-request",
@@ -1135,8 +1596,63 @@
       "body": "Hi {{buyer_name}},\n\nReceipt for your records:\n\n- Order: {{order_id}}\n- Date: {{date}}\n- Item: {{item_title}}\n- Total paid: {{amount}}\n- Seller: Syndrax marketplace seller\n\nThanks for your purchase,\n{{seller_signoff}}\n"
     },
     {
-      "id": "message.oos-polite",
+      "id": "message.not-as-described",
       "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Not as described",
+      "summary": "Item differs from listing \u2014 fix path.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "defect",
+        "listing"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Riley"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "issue_short",
+          "label": "What differs",
+          "example": "color is different from the photos",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/not-as-described",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nSorry the item for order {{order_id}} doesn't match what you expected ({{issue_short}}).\n\nI can do a full refund with return, or a partial refund if you want to keep it \u2014 tell me which you prefer and I'll process today.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.oos-polite",
+      "version": "1.1.0",
       "kind": "buyer-message",
       "title": "Out of stock \u2014 polite",
       "summary": "Buyer OOS reply: apologize, cancel/refund path, optional similar item.",
@@ -1182,7 +1698,7 @@
         }
       ],
       "ai": {
-        "promptHint": "Keep short, human, no corporate fluff. Preserve tokens. Under 120 words.",
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
         "variantsWanted": 3
       },
       "design": null,
@@ -1194,7 +1710,7 @@
       "preview": null,
       "path": "buyer-messages/oos-polite",
       "bodyFile": "body.md",
-      "body": "Hi {{buyer_name}},\n\nThanks for your order ({{order_id}}) for **{{item_title}}**.\n\nI\u2019m sorry \u2014 this item is no longer available to ship. I\u2019ve started a full refund / cancellation so you aren\u2019t left waiting.\n\n{{similar_note}}\n\nSorry again for the inconvenience,\n{{seller_signoff}}\n"
+      "body": "Hi {{buyer_name}},\n\nThanks for order {{order_id}} ({{item_title}}).\n\nThis one is no longer available to ship. I've started the full refund/cancel so you're not stuck waiting.\n\n{{similar_note}}\n\nSorry for the hassle,\n{{seller_signoff}}\n"
     },
     {
       "id": "message.partial-refund",
@@ -1259,6 +1775,73 @@
       "body": "Hi {{buyer_name}},\n\nThanks for the note on order **{{order_id}}**.\n\nI can issue a **{{amount}}** partial refund for {{reason_short}} so you can keep the item without a return.\n\nReply if that works and I'll process it today.\n\nThanks,\n{{seller_signoff}}\n"
     },
     {
+      "id": "message.partial-ship",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Partial shipment",
+      "summary": "Only part of multi-item order shipped.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "shipping",
+        "partial"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Jordan"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "shipped_part",
+          "label": "What shipped",
+          "example": "the hub and cable",
+          "required": true
+        },
+        {
+          "key": "pending_part",
+          "label": "What's pending",
+          "example": "the stand (ships tomorrow)",
+          "required": true
+        },
+        {
+          "key": "tracking",
+          "label": "Tracking for shipped part",
+          "example": "9400\u2026",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/partial-ship",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nOrder {{order_id}} is going out in two shipments.\n\nShipped today: {{shipped_part}}\nTracking: {{tracking}}\n\nStill coming: {{pending_part}}\n\nI'll send the second tracking as soon as it drops. Sorry for the split \u2014 both pieces will get to you.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
       "id": "message.refund-full",
       "version": "1.0.0",
       "kind": "buyer-message",
@@ -1321,8 +1904,63 @@
       "body": "Hi {{buyer_name}},\n\nYour refund for order **{{order_id}}** has been issued for **{{amount}}**.\n\nIt usually shows on your original payment method within **{{timeline}}** (banks can take a little longer).\n\nIf you don't see it after that window, reply here and I'll help track it.\n\nThanks,\n{{seller_signoff}}\n"
     },
     {
-      "id": "message.returns-howto",
+      "id": "message.request-photos",
       "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Request buyer photos",
+      "summary": "Need photos before refund/replace.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "photos",
+        "defect"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Morgan"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "what_photos",
+          "label": "What to photograph",
+          "example": "the item, the label, and the packaging",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/request-photos",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nI can fix order {{order_id}} quickly \u2014 I just need photos of {{what_photos}} so I process the right solution (replace vs refund).\n\nAs soon as those land, I'll move same day.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.returns-howto",
+      "version": "1.1.0",
       "kind": "buyer-message",
       "title": "Returns how-to",
       "summary": "Calm returns instructions with next steps.",
@@ -1368,8 +2006,8 @@
         }
       ],
       "ai": {
-        "promptHint": "No blame language. Clear steps only.",
-        "variantsWanted": 2
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
+        "variantsWanted": 3
       },
       "design": null,
       "payload": {
@@ -1380,11 +2018,11 @@
       "preview": null,
       "path": "buyer-messages/returns-howto",
       "bodyFile": "body.md",
-      "body": "Hi {{buyer_name}},\n\nHappy to help with the return on order **{{order_id}}**.\n\nOur return window is **{{return_window}}** from delivery.\n\nNext step:\n{{next_step}}\n\nOnce we receive the item back in sellable condition, refund issues promptly.\n\nThanks,\n{{seller_signoff}}\n"
+      "body": "Hi {{buyer_name}},\n\nHappy to help with the return on order {{order_id}}.\n\nReturn window: {{return_window}} from delivery.\n\nNext step:\n{{next_step}}\n\nOnce it comes back in sellable condition, refund goes out promptly.\n\nThanks,\n{{seller_signoff}}\n"
     },
     {
       "id": "message.shipping-update",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "kind": "buyer-message",
       "title": "Shipping update with tracking",
       "summary": "Shipped notice with carrier, tracking, and ETA.",
@@ -1437,8 +2075,8 @@
         }
       ],
       "ai": {
-        "promptHint": "Keep tracking line exact. No emoji spam. Under 90 words.",
-        "variantsWanted": 2
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
+        "variantsWanted": 3
       },
       "design": null,
       "payload": {
@@ -1449,11 +2087,11 @@
       "preview": null,
       "path": "buyer-messages/shipping-update",
       "bodyFile": "body.md",
-      "body": "Hi {{buyer_name}},\n\nYour order **{{order_id}}** is on the way.\n\n- Carrier: {{carrier}}\n- Tracking: {{tracking}}\n- ETA: {{eta}}\n\nYou can follow the package with the tracking number above. Message me if anything looks off after delivery day.\n\nThanks,\n{{seller_signoff}}\n"
+      "body": "Hi {{buyer_name}},\n\nOrder {{order_id}} is on the way.\n\nCarrier: {{carrier}}\nTracking: {{tracking}}\nETA: {{eta}}\n\nTrack with the number above. If delivery day passes with no movement, reply here and I'll dig in.\n\nThanks,\n{{seller_signoff}}\n"
     },
     {
       "id": "message.thanks-feedback",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "kind": "buyer-message",
       "title": "Thanks + soft feedback ask",
       "summary": "Post-delivery thank you. Soft feedback invite, never pushy.",
@@ -1487,7 +2125,7 @@
         }
       ],
       "ai": {
-        "promptHint": "Never guilt for feedback. One soft line max.",
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
         "variantsWanted": 3
       },
       "design": null,
@@ -1499,7 +2137,7 @@
       "preview": null,
       "path": "buyer-messages/thanks-feedback",
       "bodyFile": "body.md",
-      "body": "Hi {{buyer_name}},\n\nHope **{{item_title}}** arrived in good shape.\n\nIf anything\u2019s off, message me first \u2014 I\u2019ll make it right.\n\nIf you\u2019re happy with it, a quick note on the order helps other buyers (only if you want).\n\nThanks for shopping with us,\n{{seller_signoff}}\n"
+      "body": "Hi {{buyer_name}},\n\nHope {{item_title}} arrived in good shape.\n\nIf anything's off, message me first \u2014 I'll fix it.\n\nIf you're happy and feel like leaving feedback, that helps other buyers. Totally optional.\n\nThanks for the order,\n{{seller_signoff}}\n"
     },
     {
       "id": "message.wrong-item",
