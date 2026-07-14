@@ -63,6 +63,47 @@ export function getSession() {
 
 export function signOut() {
   localStorage.removeItem(SESSION_KEY);
+  try { localStorage.removeItem('syndrax_local_dev'); } catch {}
+}
+
+/** True only on this PC's browser localhost/127.0.0.1 (never production). */
+export function isLocalHost() {
+  try {
+    const h = location.hostname;
+    return h === 'localhost' || h === '127.0.0.1' || h === '[::1]';
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Local-only fake session so Danish can open /app without Cognito while testing templates.
+ * Does NOT work on production domains. Cloud APIs may still fail — UI + localStorage packs work.
+ */
+export function enableLocalDevSession(email = 'danish@syndrax.io') {
+  if (!isLocalHost()) {
+    throw new Error('Local preview is only available on localhost.');
+  }
+  const payload = {
+    email,
+    'cognito:groups': ['owner'],
+    token_use: 'id',
+    aud: COGNITO.clientId,
+    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
+  };
+  // dashboard.js decodes with atob(mid) — use standard base64 (not url-safe)
+  const mid = btoa(JSON.stringify(payload));
+  const idToken = `eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.${mid}.localdev`;
+  const session = {
+    idToken,
+    accessToken: 'local-dev-access',
+    refreshToken: 'local-dev-refresh',
+    expiresAt: Date.now() + 60 * 60 * 24 * 30 * 1000,
+    localDev: true,
+  };
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  localStorage.setItem('syndrax_local_dev', '1');
+  return session;
 }
 
 // ── public API ───────────────────────────────────────────────────────────────
