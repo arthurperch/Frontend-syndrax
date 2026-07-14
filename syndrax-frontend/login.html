@@ -61,16 +61,36 @@
   </form>
 
   <p class="auth-switch">Don't have an account? <a href="/signup">Create one free</a></p>
-</div>
+    <div id="localDevWrap" style="display:none;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)">
+      <p class="auth-sub" style="margin-bottom:10px">On this PC only — test templates without Cognito login.</p>
+      <button type="button" class="auth-submit" id="localDevBtn" style="background:#111;border:1px solid #404040">
+        Enter app (local preview)
+      </button>
+    </div>
+  </div>
 
-<script type="module">
-  import { login, forgotPassword, confirmForgotPassword, googleRedirect, getSession, MIN_PASSWORD }
-    from '/auth-cognito.js';
+  <script type="module">
+    import { login, forgotPassword, confirmForgotPassword, googleRedirect, getSession, MIN_PASSWORD, isLocalHost, enableLocalDevSession }
+      from '/auth-cognito.js';
 
-  // Already signed in → straight to the app.
-  if (getSession()) window.location.replace('/app');
+    // Already signed in → straight to the app.
+    if (getSession()) window.location.replace('/app');
 
-  const alertEl = document.getElementById('authAlert');
+    if (isLocalHost()) {
+      const wrap = document.getElementById('localDevWrap');
+      if (wrap) wrap.style.display = 'block';
+      const localBtn = document.getElementById('localDevBtn');
+      if (localBtn) localBtn.addEventListener('click', () => {
+        try {
+          enableLocalDevSession('danish@syndrax.io');
+          window.location.href = '/app?tab=jobs';
+        } catch (err) {
+          showAlert(err.message || String(err));
+        }
+      });
+    }
+
+    const alertEl = document.getElementById('authAlert');
 
   // Show welcome message when redirected here after invite accept.
   if (new URLSearchParams(location.search).get('welcome') === '1') {

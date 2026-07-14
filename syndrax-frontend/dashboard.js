@@ -88,6 +88,7 @@ const session = getSession();
 if (!session) location.replace('/login');
 let email = '';
 try { email = JSON.parse(atob(session.idToken.split('.')[1])).email || ''; } catch {}
+const isLocalDevSession = !!(session && (session.localDev || localStorage.getItem('syndrax_local_dev') === '1'));
 
 // Owner/admin plan-preview sandbox — uses Cognito JWT 'owner' group.
 // B-site security-cleanup 2026-06-23: removed personal email from ADMIN_EMAILS list.
@@ -119,6 +120,7 @@ let profile = {};
 let accounts = [];
 let jobs = loadJobs();
 let automations = loadAutomations();
+let templateCatalog = null; // loaded from /templates/catalog.json (Danish template library)
 let addedDevices = loadDevices(); // devices you add manually (name + IP)
 let nodes = []; // real cluster nodes synced from the extension
 let cloudNodes = []; // workspace nodes persisted server-side (have integer .id for node_id)
@@ -206,19 +208,19 @@ const WORKFLOW = [
   ]},
   { stage: 'List', icon: 'upload', modules: [
     { key: 'seo', label: 'SEO Generator', desc: 'Keywords • competitor titles • optimized copy' },
-    { key: 'description', label: 'Description Builder', desc: 'HTML templates • 5 styles' },
-    { key: 'images', label: 'Image Pipeline', desc: 'Fetch • resize • optimize' },
-    { key: 'lister', label: 'Lister', desc: 'List in bulk • pricing • markup • margin', run: 'lister' },
-  ]},
-  { stage: 'Manage', icon: 'tag', modules: [
-    { key: 'optimizer', label: 'Listing Optimizer', desc: 'End & sell similar • price drops' },
-    { key: 'pricing', label: 'Pricing Strategy', desc: 'Rules engine • dynamic pricing • margin' },
-    { key: 'accounts', label: 'Account Manager', desc: 'Tiers • warmup • daily limits • risk' },
-    { key: 'warmup', label: 'Warmup Agent', desc: 'Daily limits • safe listing schedule' },
-    { key: 'trust', label: 'Trust Audit', desc: 'Trust score • defects • feedback • holds' },
-    { key: 'messages', label: 'Message Tool', desc: '5 buyer templates • OOS • shipping • returns' },
-  ]},
-];
+    { key: 'description', label: 'Description Builder', desc: 'HTML listing packs • niche styles' },
+        { key: 'images', label: 'Image Pipeline', desc: 'Fetch • resize • optimize' },
+        { key: 'lister', label: 'Lister', desc: 'List in bulk • pricing • markup • margin', run: 'lister' },
+      ]},
+      { stage: 'Manage', icon: 'tag', modules: [
+        { key: 'optimizer', label: 'Optimizer', desc: 'Reprice • rules • protect margin' },
+        { key: 'pricing', label: 'Pricing', desc: 'Markup floors • competitor watch' },
+        { key: 'accounts', label: 'Accounts', desc: 'Connect • health • limits' },
+        { key: 'warmup', label: 'Warmup Agent', desc: 'Daily limits • safe listing schedule' },
+        { key: 'trust', label: 'Trust Audit', desc: 'Trust score • defects • feedback • holds' },
+        { key: 'messages', label: 'Message Tool', desc: 'Buyer reply packs • fill • copy' },
+      ]},
+    ];
 // Scripts that dispatch to the extension today (auto-run via chrome.runtime.sendMessage).
 const RUNNABLE = { lister: 'bulklister', research: 'research', quicksync: 'quicksync', inventory: 'inventory' };
 
@@ -230,8 +232,9 @@ const RUNNABLE = { lister: 'bulklister', research: 'research', quicksync: 'quick
 const TOOL_STATUS = {
   research: 'live', lister: 'live', quicksync: 'live', lifecycle: 'live',
   dashboard: 'hub', finance: 'hub', optimizer: 'hub', messages: 'hub', trust: 'hub',
+  description: 'hub', // template library — Description Builder (local fill/preview/copy)
   // not built yet (grayed): compliance, reverse, seller, dna, seo,
-  // description, images, pricing, accounts, warmup
+  // images, pricing, accounts, warmup
 };
 function toolTier(key) { return TOOL_STATUS[key] || 'todo'; }
 
@@ -274,7 +277,26 @@ const MODULE_EBAY_URL = {
   messages:    'https://www.ebay.com/sh/msg',
 };
 
-function loadAutomations() { try { return JSON.parse(localStorage.getItem('syndrax_automations_v1')) || []; } catch { return []; } }
+function loadAutomations() {
+  try {
+    const raw = JSON.parse(localStorage.getItem('syndrax_automations_v1')) || [];
+    // Dedupe: one saved automation per fromTemplate (or same label+steps fingerprint)
+    const seen = new Set();
+    const out = [];
+    for (const a of raw) {
+      const key = a.fromTemplate
+        ? 'tpl:' + a.fromTemplate
+        : 'fp:' + (a.label || '') + '|' + (a.marketplace || '') + '|' + (a.steps || []).join(',');
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(a);
+    }
+    if (out.length !== raw.length) {
+      try { localStorage.setItem('syndrax_automations_v1', JSON.stringify(out)); } catch {}
+    }
+    return out;
+  } catch { return []; }
+}
 function saveAutomations() { try { localStorage.setItem('syndrax_automations_v1', JSON.stringify(automations)); } catch {} }
 function loadDevices() { try { return JSON.parse(localStorage.getItem('syndrax_devices_v1')) || []; } catch { return []; } }
 function saveDevices() { try { localStorage.setItem('syndrax_devices_v1', JSON.stringify(addedDevices)); } catch {} }
@@ -2315,8 +2337,22 @@ function renderWorkspace() {
 
     ${!live ? `<div class="wf-note">${esc(mkName)} runners are being built — <b>eBay is live today</b>. The same workflow lights up here once ${esc(mkName)} ships. You can still schedule automations now.</div>` : ''}
 
-    <div class="tools-head"><h3>Launch tools</h3><span class="th-note">Four stages, scoped to ${esc(mkName)}. Each card runs its main action — open <b>Advanced settings</b> to tune its sub-tools, or the 🤖 sync-bot to automate it.</span></div>
-    ${stages}
+        <div class="tpl-ws-bar">
+          <div class="tpl-ws-copy">
+            <div class="tpl-kicker">Templates</div>
+            <div class="tpl-ws-title">Buyer messages &amp; listing packs</div>
+            <div class="tpl-ws-sub">Fill tokens → copy → paste into eBay. Full catalog + workflow packs also live under Workflows.</div>
+          </div>
+          <div class="tpl-ws-actions">
+            <button type="button" class="mc-btn mc-btn--secondary mc-btn--sm" data-run="messages">${icon('refresh')} Message Tool</button>
+            <button type="button" class="mc-btn mc-btn--secondary mc-btn--sm" data-run="description">${icon('upload')} Description Builder</button>
+            <button type="button" class="mc-btn mc-btn--ghost mc-btn--sm" data-go="jobs">Workflow packs</button>
+            <a class="tpl-link" href="/templates.html" target="_blank" rel="noopener">Open library ↗</a>
+          </div>
+        </div>
+
+        <div class="tools-head"><h3>Launch tools</h3><span class="th-note">Four stages, scoped to ${esc(mkName)}. Each card runs its main action — open <b>Advanced settings</b> to tune its sub-tools, or the sync-bot to automate it.</span></div>
+        ${stages}
 
     <div class="ws2-cols">
       <div class="panel"><div class="panel-h">Recent jobs (${jobs.length}) ${jobs.length ? '<span class="link" id="clearJobs">clear</span>' : ''}</div>
@@ -2348,8 +2384,10 @@ function renderWorkspace() {
   };
   $('#content').querySelectorAll('[data-job]').forEach(b => b.onclick = () => { selectedJobId = b.dataset.job; activeTab = 'jobs'; renderShell(); });
   $('#content').querySelectorAll('[data-autorun]').forEach(b => b.onclick = () => runAutomation(b.dataset.autorun));
-  $('#content').querySelectorAll('[data-autodel]').forEach(b => b.onclick = () => { automations = automations.filter(a => a.id !== b.dataset.autodel); saveAutomations(); renderWorkspace(); });
-  const cj = $('#clearJobs'); if (cj) cj.onclick = () => { jobs = []; saveJobs(); selectedJobId = null; renderWorkspace(); };
+    $('#content').querySelectorAll('[data-autodel]').forEach(b => b.onclick = () => { automations = automations.filter(a => a.id !== b.dataset.autodel); saveAutomations(); renderWorkspace(); });
+    wireTemplatePackButtons($('#content'));
+    if (!templateCatalog) ensureTemplateCatalog().then(() => { if (activeTab === 'workspace') renderWorkspace(); });
+    const cj = $('#clearJobs'); if (cj) cj.onclick = () => { jobs = []; saveJobs(); selectedJobId = null; renderWorkspace(); };
   // Automation Flow: kebab buttons open the product detail drawer.
   $('#content').querySelectorAll('.af-kebab[data-invid]').forEach(b => b.onclick = (e) => { e.stopPropagation(); openInventoryItem(b.dataset.invid); });
   // Automation Flow: open the Research / Inventory Manager windows.
@@ -2373,21 +2411,236 @@ function describeAutomation(a) {
   return `Runs ${chain} on ${market} ${cadence}${safety}.`;
 }
 
+/** Group template packs for a cleaner install UI. */
+function templatePackGroups(packs) {
+  const groups = [
+    { id: 'daily', label: 'Daily', match: (t) => /daily|morning|end-of-day|trust-protect/i.test(t.id + t.title) },
+    { id: 'list', label: 'List & grow', match: (t) => /list|research|bulk/i.test(t.id + t.title) && !/return/i.test(t.id) },
+    { id: 'price', label: 'Price', match: (t) => /reprice|repricer|pricing|sync-reprice/i.test(t.id + t.title) },
+    { id: 'service', label: 'Service', match: (t) => /return|triage|message/i.test(t.id + t.title) },
+    { id: 'studio', label: 'Studio', match: (t) => t.kind === 'automation-module' || /sample|automation\./i.test(t.id) },
+  ];
+  const used = new Set();
+  const out = [];
+  for (const g of groups) {
+    const items = packs.filter(t => !used.has(t.id) && g.match(t));
+    items.forEach(t => used.add(t.id));
+    if (items.length) out.push({ ...g, items });
+  }
+  const rest = packs.filter(t => !used.has(t.id));
+  if (rest.length) out.push({ id: 'more', label: 'More', match: () => true, items: rest });
+  return out;
+}
+
 function renderAutomationsList() {
-  if (!automations.length) return `<p style="font-size:12px;color:rgba(255,255,255,0.35)">No automations yet. Click the <b style="color:#e5e5e5">sync-bot</b> on any tool to chain a custom workflow — multiple steps, connectors, audit agent.</p>`;
   const allMods = WORKFLOW.flatMap(s => s.modules);
-  return automations.map(a => {
-    const mini = (a.steps && a.steps.length)
-      ? `<div class="wf-mini">${a.steps.map((k, i) => `${i ? '<span class="wm-arrow">→</span>' : ''}<span class="wm-box">${esc(allMods.find(m => m.key === k)?.label || k)}</span>`).join('')}</div>`
-      : '';
-    return `<div class="auto-row">
-      <div style="flex:1"><div class="ac-name">${esc(a.label)} <span style="color:rgba(255,255,255,0.35);font-weight:500">→ ${esc(marketplace(a.marketplace)?.name || a.marketplace)}</span></div>
-        <div class="ac-plain">${esc(describeAutomation(a))}</div>
-        <div class="ac-sub">${esc(a.interval)}${a.auditAgent ? ' · 🛡️ audit' : ''}${a.steps ? ' · ' + a.steps.length + ' steps' : ''}${a.rule ? ' · ' + esc(a.rule) : ''}</div>${mini}</div>
-      <button class="app-btn ghost sm" data-autorun="${a.id}">${icon('play')} Run</button>
-      <button class="auto-del" data-autodel="${a.id}" title="Delete">✕</button>
+  const packs = (templateCatalog?.templates || []).filter(t => t.kind === 'workflow' || t.kind === 'automation-module');
+  const installedIds = new Set(automations.map(a => a.fromTemplate).filter(Boolean));
+  const available = packs.filter(t => !installedIds.has(t.id));
+  const groups = templatePackGroups(available);
+
+  // Compact library: only packs not yet saved; grouped; no button soup of everything.
+  let packBar = `<div class="tpl-panel">
+    <div class="tpl-panel-head">
+      <div>
+        <div class="tpl-kicker">Library</div>
+        <div class="tpl-title">Add a pack</div>
+      </div>
+      <div class="tpl-head-actions">
+        <a class="tpl-link" href="/templates.html" target="_blank" rel="noopener">Full library</a>
+        <button type="button" class="tpl-link" id="tplImportMod">Import</button>
+        ${!packs.length ? `<button type="button" class="tpl-link" id="tplLoadCat">Load catalog</button>` : ''}
+        ${available.length ? `<button type="button" class="tpl-link" id="tplInstallAllMissing">Add all (${available.length})</button>` : ''}
+      </div>
+    </div>`;
+
+  if (!packs.length) {
+      packBar += `<p class="tpl-empty">Catalog not loaded. <button type="button" class="tpl-link" id="tplLoadCat">Load catalog</button> or check that the local server is serving <code>/templates/catalog.json</code>.</p></div>`;
+    } else if (!available.length) {
+      packBar += `<p class="tpl-empty">All library packs are already in Saved. Remove one below if you want to re-add it cleanly — or open the <a class="tpl-link" href="/templates.html" target="_blank" rel="noopener">full library</a> for messages &amp; listings.</p></div>`;
+    } else {
+    packBar += groups.map(g => `
+      <div class="tpl-group">
+        <div class="tpl-group-label">${esc(g.label)}</div>
+        <div class="tpl-pack-list">
+          ${g.items.map(p => `
+            <button type="button" class="tpl-pack" data-install-pack="${esc(p.id)}" title="${esc(p.summary || '')}">
+              <span class="tpl-pack-name">${esc(p.title)}</span>
+              <span class="tpl-pack-meta">${esc((p.payload?.interval) || 'Manual')} · ${(p.payload?.steps || p.payload?.actions || []).length || '—'} steps</span>
+              <span class="tpl-pack-add">Add</span>
+            </button>`).join('')}
+        </div>
+      </div>`).join('');
+    packBar += `</div>`;
+  }
+
+  // Saved list: one clean row each — title, short chain, schedule, run/delete.
+  if (!automations.length) {
+      return packBar + `<div class="tpl-saved">
+        <div class="tpl-saved-head"><div class="tpl-kicker">Saved</div><div class="tpl-title">Automations</div></div>
+        <p class="tpl-empty">Nothing saved yet. Use <b style="color:#e5e5e5">Add</b> on a pack above, or build steps on the left canvas and Save. Extension offline? You can still organize packs — live runs need the extension.</p>
+      </div>`;
+    }
+
+  const sorted = automations.slice().sort((a, b) => (a.label || '').localeCompare(b.label || ''));
+  const rows = sorted.map(a => {
+    const steps = (a.steps || []).map(k => allMods.find(m => m.key === k)?.label || k);
+    const chain = steps.length
+      ? steps.map(s => `<span class="tpl-chip">${esc(s)}</span>`).join('<span class="tpl-chip-sep">/</span>')
+      : '<span class="tpl-muted">No steps</span>';
+    const schedule = a.interval && String(a.interval).toLowerCase() !== 'manual' ? a.interval : 'Manual';
+    const mk = marketplace(a.marketplace)?.name || a.marketplace || 'eBay';
+    return `<div class="tpl-row">
+      <div class="tpl-row-main">
+        <div class="tpl-row-title">${esc(a.label)}</div>
+        <div class="tpl-row-chain">${chain}</div>
+        <div class="tpl-row-meta">
+          <span>${esc(mk)}</span>
+          <span class="tpl-dot">·</span>
+          <span>${esc(schedule)}</span>
+          ${a.auditAgent ? '<span class="tpl-dot">·</span><span>Audit on</span>' : ''}
+          <span class="tpl-dot">·</span>
+          <span>${steps.length} step${steps.length === 1 ? '' : 's'}</span>
+        </div>
+      </div>
+      <div class="tpl-row-actions">
+        <button type="button" class="mc-btn mc-btn--secondary mc-btn--sm" data-autorun="${esc(a.id)}">${icon('play')} Run</button>
+        <button type="button" class="tpl-del" data-autodel="${esc(a.id)}" title="Remove">Remove</button>
+      </div>
     </div>`;
   }).join('');
+
+  return packBar + `<div class="tpl-saved">
+    <div class="tpl-saved-head">
+      <div>
+        <div class="tpl-kicker">Saved</div>
+        <div class="tpl-title">Automations <span class="tpl-count">${automations.length}</span></div>
+      </div>
+    </div>
+    <div class="tpl-rows">${rows}</div>
+  </div>`;
+}
+
+async function ensureTemplateCatalog() {
+  if (templateCatalog) return templateCatalog;
+  return loadTemplateCatalog();
+}
+
+function installTemplatePackById(id) {
+  const t = (templateCatalog?.templates || []).find(x => x.id === id);
+  if (!t) { showToast('Pack not found in catalog.', 'error'); return; }
+  // Already installed? Don't add a third/fourth copy — refresh existing.
+  const existing = automations.find(a => a.fromTemplate === t.id);
+  if (existing) {
+    showToast(`“${t.title}” is already in Saved automations.`, 'info');
+    playSfx('nav');
+    return existing;
+  }
+  const mk = wsTarget ? wsTarget.marketplace : ((t.marketplace || [])[0] || 'ebay');
+  const steps = ((t.payload && t.payload.steps) || []).map(s => typeof s === 'string' ? s : s.key).filter(Boolean);
+  const actionKeys = ((t.payload && t.payload.actions) || []).map((a, i) => a.key || a.type || ('step-' + (i + 1)));
+  const finalSteps = steps.length ? steps : actionKeys;
+  if (!finalSteps.length) { showToast('That pack has no steps to install.', 'error'); return; }
+  const row = {
+    id: (t.kind === 'automation-module' ? 'mod-' : 'pack-') + Date.now().toString(36),
+    label: t.title,
+    marketplace: mk,
+    steps: finalSteps,
+    interval: (t.payload && t.payload.interval) || 'Manual',
+    auditAgent: !(t.payload && t.payload.auditAgent === false),
+    fromTemplate: t.id,
+    status: t.status || 'ready',
+    sharedWith: t.sharedWith || [],
+    kind: t.kind,
+  };
+  automations.unshift(row);
+  saveAutomations();
+  showToast(`Installed “${t.title}” to automations.`, 'success');
+  playSfx('confirm');
+  return row;
+}
+
+function openTemplateImportModal() {
+  const host = document.createElement('div');
+  host.className = 'modal-bg';
+  host.onclick = () => host.remove();
+  host.innerHTML = `<div class="modal builder" onclick="event.stopPropagation()" style="max-width:640px">
+    <h3>${icon('refresh')} Import automation / template JSON</h3>
+    <p class="modal-sub">Paste Oleg’s Studio export (<code>automation-module</code>) or a workflow pack. Full library: <a href="/templates.html" target="_blank" style="color:#e5e5e5">/templates.html</a></p>
+    <textarea id="tplImp" rows="12" placeholder='{ "kind": "automation-module", "title": "...", "payload": { "steps": [] } }' style="font-family:ui-monospace,monospace;font-size:12px"></textarea>
+    <div class="app-btn-row" style="margin-top:14px">
+      <button class="app-btn" id="tplImpGo">${icon('plus')} Import to Jobs</button>
+      <button class="app-btn ghost" id="tplImpSample">Load sample</button>
+      <button class="app-btn ghost" id="tplImpClose">Close</button>
+    </div>
+  </div>`;
+  document.body.appendChild(host);
+  host.querySelector('#tplImpClose').onclick = () => host.remove();
+  host.querySelector('#tplImpSample').onclick = async () => {
+    await ensureTemplateCatalog();
+    const sample = (templateCatalog?.templates || []).find(t => t.kind === 'automation-module');
+    if (sample) host.querySelector('#tplImp').value = JSON.stringify(sample, null, 2);
+    else showToast('No sample automation-module in catalog.', 'info');
+  };
+  host.querySelector('#tplImpGo').onclick = () => {
+    try {
+      const raw = JSON.parse(host.querySelector('#tplImp').value);
+      const list = Array.isArray(raw.templates) ? raw.templates : [raw];
+      let n = 0;
+      for (const t of list) {
+        if (!templateCatalog) templateCatalog = { templates: [] };
+        // merge into in-memory catalog for install
+        const existing = templateCatalog.templates.findIndex(x => x.id === t.id);
+        if (existing >= 0) templateCatalog.templates[existing] = t;
+        else templateCatalog.templates.push(t);
+        if (t.kind === 'workflow' || t.kind === 'automation-module' || t.payload?.steps || t.payload?.actions || t.steps) {
+          if (!t.kind) t.kind = 'automation-module';
+          installTemplatePackById(t.id);
+          n++;
+        }
+      }
+      host.remove();
+      if (activeTab === 'jobs') renderJobsTab();
+      else if (activeTab === 'workspace') renderWorkspace();
+      showToast(n ? `Imported ${n} pack(s).` : 'JSON saved — no workflow steps found.', n ? 'success' : 'info');
+    } catch (e) {
+      showToast('Invalid JSON: ' + (e.message || e), 'error');
+    }
+  };
+}
+
+function wireTemplatePackButtons(root) {
+  const scope = root || document;
+  scope.querySelectorAll('[data-install-pack]').forEach(b => b.onclick = async () => {
+    await ensureTemplateCatalog();
+    installTemplatePackById(b.dataset.installPack);
+    if (activeTab === 'jobs') renderJobsTab();
+    else if (activeTab === 'workspace') renderWorkspace();
+  });
+  const load = scope.querySelector('#tplLoadCat');
+  if (load) load.onclick = async () => {
+    await ensureTemplateCatalog();
+    if (activeTab === 'jobs') renderJobsTab();
+    else if (activeTab === 'workspace') renderWorkspace();
+    showToast(templateCatalog ? `Catalog loaded (${templateCatalog.count || templateCatalog.templates?.length || 0}).` : 'Catalog failed to load.', templateCatalog ? 'success' : 'error');
+  };
+  const imp = scope.querySelector('#tplImportMod');
+  if (imp) imp.onclick = () => openTemplateImportModal();
+  const allMissing = scope.querySelector('#tplInstallAllMissing');
+  if (allMissing) allMissing.onclick = async () => {
+    await ensureTemplateCatalog();
+    const packs = (templateCatalog?.templates || []).filter(t => t.kind === 'workflow' || t.kind === 'automation-module');
+    const have = new Set(automations.map(a => a.fromTemplate).filter(Boolean));
+    let n = 0;
+    for (const t of packs) {
+      if (have.has(t.id)) continue;
+      installTemplatePackById(t.id);
+      n++;
+    }
+    showToast(n ? `Added ${n} pack${n === 1 ? '' : 's'}.` : 'Nothing new to add.', n ? 'success' : 'info');
+    if (activeTab === 'jobs') renderJobsTab();
+    else if (activeTab === 'workspace') renderWorkspace();
+  };
 }
 
 function openModuleModal(key) {
@@ -2456,10 +2709,246 @@ function runAutomation(id) {
   else if (mod) dispatch(mod.run || mod.key, mod.label, {});
 }
 
+// ── Template library (basic Message Tool first) ───────────────────────────────
+// Catalog lives at /templates/catalog.json (mirrored from Apps/Syndrax/template-library).
+async function loadTemplateCatalog() {
+  if (templateCatalog) return templateCatalog;
+  const urls = ['/templates/catalog.json', './templates/catalog.json', '/catalog.json'];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) continue;
+      templateCatalog = await res.json();
+      return templateCatalog;
+    } catch {}
+  }
+  return null;
+}
+
+function fillTemplateBody(body, values) {
+  if (!body) return '';
+  return String(body).replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (_, key) => {
+    const v = values[key];
+    return (v === undefined || v === '') ? `{{${key}}}` : v;
+  });
+}
+
+// Step 3 product surface: buyer-message templates only (fill + copy).
+async function openMessageTool() {
+  const host = document.createElement('div');
+  host.className = 'modal-bg';
+  host.onclick = () => host.remove();
+  host.innerHTML = `<div class="modal builder" onclick="event.stopPropagation()" style="max-width:720px">
+    <h3>${icon('refresh')} Message Tool</h3>
+    <p class="modal-sub">Buyer reply templates — fill the blanks, copy, paste into eBay Messages. Full catalog also at <b style="color:rgba(255,255,255,.55)">/templates.html</b>.</p>
+    <div style="color:rgba(255,255,255,.4);font-size:12.5px;padding:18px 0">Loading templates…</div>
+  </div>`;
+  document.body.appendChild(host);
+  playSfx('nav');
+
+  const cat = await loadTemplateCatalog();
+  const msgs = (cat?.templates || []).filter(t => t.kind === 'buyer-message');
+  if (!msgs.length) {
+    host.querySelector('.modal').innerHTML = `<h3>${icon('refresh')} Message Tool</h3>
+      <p class="modal-sub">No buyer-message templates found. Serve <code>/templates/catalog.json</code> from the lab site.</p>
+      <div class="app-btn-row" style="margin-top:14px">
+        <a class="app-btn ghost" href="/templates.html" target="_blank">Open catalog page</a>
+        <button class="app-btn ghost" id="mtClose">Close</button>
+      </div>`;
+    host.querySelector('#mtClose').onclick = () => host.remove();
+    return;
+  }
+
+  let selectedId = msgs[0].id;
+  const values = {};
+
+  function selected() { return msgs.find(m => m.id === selectedId) || msgs[0]; }
+
+  function seedValues(t) {
+    Object.keys(values).forEach(k => delete values[k]);
+    (t.variables || []).forEach(v => { values[v.key] = v.example || ''; });
+    if (values.seller_signoff === undefined) values.seller_signoff = 'Syndrax seller';
+  }
+  seedValues(selected());
+
+  function paint() {
+    const t = selected();
+    const filled = fillTemplateBody(t.body || '', values);
+    host.querySelector('.modal').innerHTML = `
+      <h3>${icon('refresh')} Message Tool</h3>
+      <p class="modal-sub">${esc(t.summary || 'Buyer reply template')}. ${msgs.length} templates ready.</p>
+      <label>Template</label>
+      <select id="mtPick">${msgs.map(m => `<option value="${esc(m.id)}" ${m.id === t.id ? 'selected' : ''}>${esc(m.title)}</option>`).join('')}</select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+        <div>
+          <label>Variables</label>
+          <div id="mtVars" style="display:grid;gap:8px;margin-top:6px">
+            ${(t.variables || []).map(v => `
+              <label style="text-transform:none;letter-spacing:0;font-size:12px;color:rgba(255,255,255,.45)">${esc(v.label || v.key)}
+                <input data-mtvar="${esc(v.key)}" value="${esc(values[v.key] || '')}" placeholder="${esc(v.example || '')}" style="margin-top:4px">
+              </label>`).join('')}
+            <label style="text-transform:none;letter-spacing:0;font-size:12px;color:rgba(255,255,255,.45)">Seller sign-off
+              <input data-mtvar="seller_signoff" value="${esc(values.seller_signoff || '')}" style="margin-top:4px">
+            </label>
+          </div>
+        </div>
+        <div>
+          <label>Preview</label>
+          <textarea id="mtPreview" rows="12" readonly style="margin-top:6px;font-family:ui-monospace,monospace;font-size:12px;line-height:1.5">${esc(filled)}</textarea>
+        </div>
+      </div>
+      <div class="app-btn-row" style="margin-top:16px">
+              <button class="app-btn" id="mtCopy">${icon('refresh')} Copy message</button>
+              <button class="app-btn ghost" id="mtRemix">Remix ×3</button>
+              <a class="app-btn ghost" href="/templates.html" target="_blank">Full catalog</a>
+              <button class="app-btn ghost" id="mtEbay">Open eBay Messages</button>
+              <button class="app-btn ghost" id="mtClose">Close</button>
+            </div>`;
+
+          const pick = host.querySelector('#mtPick');
+          pick.onchange = () => { selectedId = pick.value; seedValues(selected()); paint(); };
+          host.querySelectorAll('[data-mtvar]').forEach(inp => {
+            inp.oninput = () => {
+              values[inp.dataset.mtvar] = inp.value;
+              const next = fillTemplateBody(selected().body || '', values);
+              const ta = host.querySelector('#mtPreview');
+              if (ta) ta.value = next;
+            };
+          });
+          host.querySelector('#mtCopy').onclick = async () => {
+            const text = fillTemplateBody(selected().body || '', values);
+            try {
+              await navigator.clipboard.writeText(text);
+              showToast('Message copied — paste into eBay Messages.', 'success');
+              playSfx('confirm');
+            } catch {
+              host.querySelector('#mtPreview')?.select();
+              showToast('Select the preview and copy manually (clipboard blocked).', 'info');
+            }
+          };
+          host.querySelector('#mtRemix').onclick = () => {
+            const t = selected();
+            const filled = fillTemplateBody(t.body || '', values);
+            const v2 = filled.replace(/^Hi\s+[^,\n]+,\s*/i, 'Hello,\n\n').replace(/\s*\([^)]*\)/g, '').trim();
+            const v3 = filled.replace(/^Hi\s+/i, 'Dear ').replace(/Quick update/gi, 'Order update');
+            const block = `--- A Original ---\n${filled}\n\n--- B Tighter ---\n${v2}\n\n--- C Formal ---\n${v3}`;
+            const ta = host.querySelector('#mtPreview');
+            if (ta) ta.value = block;
+            showToast('3 local remix variants in preview — copy what you like.', 'success');
+          };
+          host.querySelector('#mtEbay').onclick = () => {
+            window.open(MODULE_EBAY_URL.messages || 'https://www.ebay.com/sh/msg', '_blank');
+            showToast('Opened eBay Messages in a new tab.', 'info');
+          };
+          host.querySelector('#mtClose').onclick = () => host.remove();
+        }
+
+        paint();
+      }
+
+// Step 4 product surface: listing-description HTML templates (fill + preview + copy).
+async function openDescriptionBuilder() {
+  const host = document.createElement('div');
+  host.className = 'modal-bg';
+  host.onclick = () => host.remove();
+  host.innerHTML = `<div class="modal builder" onclick="event.stopPropagation()" style="max-width:860px">
+    <h3>${icon('upload')} Description Builder</h3>
+    <p class="modal-sub">Listing HTML styles — fill variables, preview, copy into your listing. Full catalog at <b style="color:rgba(255,255,255,.55)">/templates.html</b>.</p>
+    <div style="color:rgba(255,255,255,.4);font-size:12.5px;padding:18px 0">Loading templates…</div>
+  </div>`;
+  document.body.appendChild(host);
+  playSfx('nav');
+
+  const cat = await loadTemplateCatalog();
+  const packs = (cat?.templates || []).filter(t => t.kind === 'listing-description');
+  if (!packs.length) {
+    host.querySelector('.modal').innerHTML = `<h3>${icon('upload')} Description Builder</h3>
+      <p class="modal-sub">No listing-description templates found. Serve <code>/templates/catalog.json</code>.</p>
+      <div class="app-btn-row" style="margin-top:14px">
+        <a class="app-btn ghost" href="/templates.html" target="_blank">Open catalog page</a>
+        <button class="app-btn ghost" id="dbClose">Close</button>
+      </div>`;
+    host.querySelector('#dbClose').onclick = () => host.remove();
+    return;
+  }
+
+  let selectedId = packs[0].id;
+  const values = {};
+  function selected() { return packs.find(m => m.id === selectedId) || packs[0]; }
+  function seedValues(t) {
+    Object.keys(values).forEach(k => delete values[k]);
+    (t.variables || []).forEach(v => { values[v.key] = v.example || ''; });
+  }
+  seedValues(selected());
+
+  function paint() {
+    const t = selected();
+    const filled = fillTemplateBody(t.body || '', values);
+    host.querySelector('.modal').innerHTML = `
+      <h3>${icon('upload')} Description Builder</h3>
+      <p class="modal-sub">${esc(t.summary || 'Listing HTML template')}. ${packs.length} styles ready.</p>
+      <label>Style</label>
+      <select id="dbPick">${packs.map(m => `<option value="${esc(m.id)}" ${m.id === t.id ? 'selected' : ''}>${esc(m.title)}</option>`).join('')}</select>
+      <div style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:12px;margin-top:12px">
+        <div>
+          <label>Variables</label>
+          <div style="display:grid;gap:8px;margin-top:6px;max-height:46vh;overflow:auto;padding-right:4px">
+            ${(t.variables || []).map(v => `
+              <label style="text-transform:none;letter-spacing:0;font-size:12px;color:rgba(255,255,255,.45)">${esc(v.label || v.key)}
+                <input data-dbvar="${esc(v.key)}" value="${esc(values[v.key] || '')}" placeholder="${esc(v.example || '')}" style="margin-top:4px">
+              </label>`).join('') || '<div style="color:rgba(255,255,255,.35);font-size:12px">No variables</div>'}
+          </div>
+        </div>
+        <div>
+          <label>Live preview</label>
+          <div id="dbPreview" style="margin-top:6px;max-height:46vh;overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:#fff;color:#111;padding:10px"></div>
+        </div>
+      </div>
+      <div class="app-btn-row" style="margin-top:16px">
+              <button class="app-btn" id="dbCopy">${icon('refresh')} Copy HTML</button>
+              <button class="app-btn ghost" id="dbRemix">Remix note</button>
+              <a class="app-btn ghost" href="/templates.html" target="_blank">Full catalog</a>
+              <button class="app-btn ghost" id="dbClose">Close</button>
+            </div>`;
+
+          const preview = host.querySelector('#dbPreview');
+          if (preview) preview.innerHTML = filled;
+
+          host.querySelector('#dbPick').onchange = (e) => { selectedId = e.target.value; seedValues(selected()); paint(); };
+          host.querySelectorAll('[data-dbvar]').forEach(inp => {
+            inp.oninput = () => {
+              values[inp.dataset.dbvar] = inp.value;
+              if (preview) preview.innerHTML = fillTemplateBody(selected().body || '', values);
+            };
+          });
+          host.querySelector('#dbCopy').onclick = async () => {
+            const text = fillTemplateBody(selected().body || '', values);
+            try {
+              await navigator.clipboard.writeText(text);
+              showToast('HTML copied — paste into your listing description.', 'success');
+              playSfx('confirm');
+            } catch {
+              showToast('Clipboard blocked — open Full catalog and copy from there.', 'info');
+            }
+          };
+          host.querySelector('#dbRemix').onclick = () => {
+            showToast('Open Full catalog → Remix tab for 3 HTML variants.', 'info');
+            window.open('/templates.html', '_blank');
+          };
+          host.querySelector('#dbClose').onclick = () => host.remove();
+        }
+
+        paint();
+      }
+
 // Run a single tool by its tier (tool cards + recommendation buttons).
 //   live → dispatch to the extension · hub → open Seller Hub · todo → flag as unbuilt
+//   messages → open local Message Tool (template library)
+//   description → open local Description Builder (template library)
 function runTool(key, tier) {
   if (key === 'lister') { openListerOverlay(); return; } // Lister always opens the BulkLister overlay
+  if (key === 'messages') { openMessageTool(); return; }
+  if (key === 'description') { openDescriptionBuilder(); return; }
   const mod = WORKFLOW.flatMap(s => s.modules).find(m => m.key === key);
   tier = tier || toolTier(key);
   if (tier === 'todo') { showToast(`${mod?.label || 'This tool'} isn't wired yet — it's on the build list.`, 'info'); return; }
@@ -2595,6 +3084,8 @@ function openListerOverlay() {
 // Stores per-tool config in localStorage and can run the tool if it's wired.
 function loadToolCfg() { try { return JSON.parse(localStorage.getItem('syndrax_tool_cfg')) || {}; } catch { return {}; } }
 function openToolSettings(key) {
+  if (key === 'messages') { openMessageTool(); return; }
+  if (key === 'description') { openDescriptionBuilder(); return; }
   const mod = WORKFLOW.flatMap(s => s.modules).find(m => m.key === key); if (!mod) return;
   const parent = ADV_PARENT[key] || 'workflow';
   const cfg = loadToolCfg(); const c = cfg[key] || { enabled: true, rules: '' };
@@ -3507,8 +3998,8 @@ function renderJobsTab() {
         </section>
         <section class="jobs2-card" data-accent="violet">
           <div class="jobs2-head">
-            <div class="mc-panel-id"><span class="mc-panel-ic violet">${icon('refresh')}</span><div><span class="mc-kicker">Templates</span><h3 class="mc-panel-title">Saved automations</h3></div></div>
-            <span class="hb-pill neutral">${automations.length}</span>
+            <div class="mc-panel-id"><span class="mc-panel-ic violet">${icon('refresh')}</span><div><span class="mc-kicker">Templates</span><h3 class="mc-panel-title">Library & saved</h3></div></div>
+                        <span class="hb-pill neutral">${automations.length}</span>
           </div>
           ${renderAutomationsList()}
         </section>
@@ -3560,10 +4051,12 @@ function wireJobsTab(content) {
     };
   });
   content.querySelectorAll('[data-autorun]').forEach(b => b.onclick = () => runAutomation(b.dataset.autorun));
-  content.querySelectorAll('[data-autodel]').forEach(b => b.onclick = () => { automations = automations.filter(a => a.id !== b.dataset.autodel); saveAutomations(); renderJobsTab(); });
-  content.querySelectorAll('[data-job]').forEach(b => b.onclick = () => { selectedJobId = b.dataset.job; openJobDrawer(b.dataset.job); });
-  const jc = $('#jClear', content); if (jc) jc.onclick = () => { jobs = []; saveJobs(); renderJobsTab(); };
-}
+    content.querySelectorAll('[data-autodel]').forEach(b => b.onclick = () => { automations = automations.filter(a => a.id !== b.dataset.autodel); saveAutomations(); renderJobsTab(); });
+    content.querySelectorAll('[data-job]').forEach(b => b.onclick = () => { selectedJobId = b.dataset.job; openJobDrawer(b.dataset.job); });
+    const jc = $('#jClear', content); if (jc) jc.onclick = () => { jobs = []; saveJobs(); renderJobsTab(); };
+    wireTemplatePackButtons(content);
+    if (!templateCatalog) ensureTemplateCatalog().then(() => { if (activeTab === 'jobs') renderJobsTab(); });
+  }
 
 // ── TRACKING (Feature M — TrackCaptain via cloud credits) ─────────────────────
 // Orders flow pending → (claim spends 1 credit) → claimed → (push to marketplace) →

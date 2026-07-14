@@ -1,0 +1,557 @@
+{
+  "version": "1.4.0",
+  "updatedAt": "2026-07-14T12:46:49Z",
+  "owner": "danish",
+  "count": 44,
+  "kinds": [
+    "automation-module",
+    "buyer-message",
+    "inspo",
+    "listing-description",
+    "workflow"
+  ],
+  "templates": [
+    {
+      "id": "listing.auto-parts-vin",
+      "kind": "listing-description",
+      "title": "Auto parts (VIN check)",
+      "status": "ready",
+      "path": "listing-descriptions/auto-parts-vin",
+      "tags": [
+        "listing",
+        "auto",
+        "parts",
+        "vin"
+      ]
+    },
+    {
+      "id": "listing.bundle-kit",
+      "kind": "listing-description",
+      "title": "Bundle / kit card",
+      "status": "ready",
+      "path": "listing-descriptions/bundle-kit",
+      "tags": [
+        "listing",
+        "bundle",
+        "kit"
+      ]
+    },
+    {
+      "id": "listing.clean-product-card",
+      "kind": "listing-description",
+      "title": "Clean product card",
+      "status": "ready",
+      "path": "listing-descriptions/clean-product-card",
+      "tags": [
+        "listing",
+        "minimal",
+        "specs",
+        "high-trust"
+      ]
+    },
+    {
+      "id": "listing.collectible-condition",
+      "kind": "listing-description",
+      "title": "Collectible (condition ladder)",
+      "status": "ready",
+      "path": "listing-descriptions/collectible-condition",
+      "tags": [
+        "listing",
+        "collectible",
+        "condition"
+      ]
+    },
+    {
+      "id": "listing.comparison-value",
+      "kind": "listing-description",
+      "title": "Comparison value",
+      "status": "ready",
+      "path": "listing-descriptions/comparison-value",
+      "tags": [
+        "listing",
+        "comparison",
+        "value",
+        "conversion"
+      ]
+    },
+    {
+      "id": "listing.digital-deliverable",
+      "kind": "listing-description",
+      "title": "Digital deliverable",
+      "status": "ready",
+      "path": "listing-descriptions/digital-deliverable",
+      "tags": [
+        "listing",
+        "digital",
+        "download"
+      ]
+    },
+    {
+      "id": "listing.electronics-dropship",
+      "kind": "listing-description",
+      "title": "Electronics (dropship-ready)",
+      "status": "ready",
+      "path": "listing-descriptions/electronics-dropship",
+      "tags": [
+        "listing",
+        "electronics",
+        "dropship"
+      ]
+    },
+    {
+      "id": "listing.fashion-size-care",
+      "kind": "listing-description",
+      "title": "Fashion size + care",
+      "status": "ready",
+      "path": "listing-descriptions/fashion-size-care",
+      "tags": [
+        "listing",
+        "fashion",
+        "apparel"
+      ]
+    },
+    {
+      "id": "listing.home-goods-dims",
+      "kind": "listing-description",
+      "title": "Home goods (dims + care)",
+      "status": "ready",
+      "path": "listing-descriptions/home-goods-dims",
+      "tags": [
+        "listing",
+        "home",
+        "dims"
+      ]
+    },
+    {
+      "id": "listing.mobile-first-stack",
+      "kind": "listing-description",
+      "title": "Mobile-first stack",
+      "status": "ready",
+      "path": "listing-descriptions/mobile-first-stack",
+      "tags": [
+        "listing",
+        "mobile",
+        "short",
+        "app"
+      ]
+    },
+    {
+      "id": "listing.parts-fitment",
+      "kind": "listing-description",
+      "title": "Parts fitment first",
+      "status": "ready",
+      "path": "listing-descriptions/parts-fitment",
+      "tags": [
+        "listing",
+        "parts",
+        "fitment"
+      ]
+    },
+    {
+      "id": "listing.refurbished-honest",
+      "kind": "listing-description",
+      "title": "Refurbished honest",
+      "status": "ready",
+      "path": "listing-descriptions/refurbished-honest",
+      "tags": [
+        "listing",
+        "refurb",
+        "trust"
+      ]
+    },
+    {
+      "id": "listing.spec-sheet-pro",
+      "kind": "listing-description",
+      "title": "Spec sheet pro",
+      "status": "ready",
+      "path": "listing-descriptions/spec-sheet-pro",
+      "tags": [
+        "listing",
+        "technical",
+        "parts",
+        "b2b"
+      ]
+    },
+    {
+      "id": "listing.story-brand",
+      "kind": "listing-description",
+      "title": "Story brand",
+      "status": "ready",
+      "path": "listing-descriptions/story-brand",
+      "tags": [
+        "listing",
+        "lifestyle",
+        "brand",
+        "benefits"
+      ]
+    },
+    {
+      "id": "message.address-confirm",
+      "kind": "buyer-message",
+      "title": "Confirm shipping address",
+      "status": "ready",
+      "path": "buyer-messages/address-confirm",
+      "tags": [
+        "messages",
+        "shipping",
+        "address"
+      ]
+    },
+    {
+      "id": "message.bundle-missing-piece",
+      "kind": "buyer-message",
+      "title": "Bundle missing piece",
+      "status": "ready",
+      "path": "buyer-messages/bundle-missing-piece",
+      "tags": [
+        "messages",
+        "bundle",
+        "defect"
+      ]
+    },
+    {
+      "id": "message.cancel-before-ship",
+      "kind": "buyer-message",
+      "title": "Cancel before ship",
+      "status": "ready",
+      "path": "buyer-messages/cancel-before-ship",
+      "tags": [
+        "messages",
+        "cancel",
+        "service"
+      ]
+    },
+    {
+      "id": "message.customs-hold",
+      "kind": "buyer-message",
+      "title": "Customs / international hold",
+      "status": "ready",
+      "path": "buyer-messages/customs-hold",
+      "tags": [
+        "messages",
+        "shipping",
+        "international"
+      ]
+    },
+    {
+      "id": "message.damaged-arrival",
+      "kind": "buyer-message",
+      "title": "Damaged on arrival",
+      "status": "ready",
+      "path": "buyer-messages/damaged-arrival",
+      "tags": [
+        "messages",
+        "damage",
+        "service"
+      ]
+    },
+    {
+      "id": "message.delay-honest",
+      "kind": "buyer-message",
+      "title": "Shipping delay \u2014 honest",
+      "status": "ready",
+      "path": "buyer-messages/delay-honest",
+      "tags": [
+        "messages",
+        "delay",
+        "proactive"
+      ]
+    },
+    {
+      "id": "message.feedback-remove-request",
+      "kind": "buyer-message",
+      "title": "Feedback concern (calm)",
+      "status": "ready",
+      "path": "buyer-messages/feedback-remove-request",
+      "tags": [
+        "messages",
+        "feedback",
+        "service"
+      ]
+    },
+    {
+      "id": "message.holiday-delay",
+      "kind": "buyer-message",
+      "title": "Holiday / peak delay",
+      "status": "ready",
+      "path": "buyer-messages/holiday-delay",
+      "tags": [
+        "messages",
+        "delay",
+        "holiday",
+        "peak"
+      ]
+    },
+    {
+      "id": "message.invoice-request",
+      "kind": "buyer-message",
+      "title": "Invoice / receipt",
+      "status": "ready",
+      "path": "buyer-messages/invoice-request",
+      "tags": [
+        "messages",
+        "invoice",
+        "b2b"
+      ]
+    },
+    {
+      "id": "message.not-as-described",
+      "kind": "buyer-message",
+      "title": "Not as described",
+      "status": "ready",
+      "path": "buyer-messages/not-as-described",
+      "tags": [
+        "messages",
+        "defect",
+        "listing"
+      ]
+    },
+    {
+      "id": "message.oos-polite",
+      "kind": "buyer-message",
+      "title": "Out of stock \u2014 polite",
+      "status": "ready",
+      "path": "buyer-messages/oos-polite",
+      "tags": [
+        "messages",
+        "oos",
+        "service"
+      ]
+    },
+    {
+      "id": "message.partial-refund",
+      "kind": "buyer-message",
+      "title": "Partial refund offer",
+      "status": "ready",
+      "path": "buyer-messages/partial-refund",
+      "tags": [
+        "messages",
+        "refund",
+        "negotiate"
+      ]
+    },
+    {
+      "id": "message.partial-ship",
+      "kind": "buyer-message",
+      "title": "Partial shipment",
+      "status": "ready",
+      "path": "buyer-messages/partial-ship",
+      "tags": [
+        "messages",
+        "shipping",
+        "partial"
+      ]
+    },
+    {
+      "id": "message.refund-full",
+      "kind": "buyer-message",
+      "title": "Full refund issued",
+      "status": "ready",
+      "path": "buyer-messages/refund-full",
+      "tags": [
+        "messages",
+        "refund",
+        "service"
+      ]
+    },
+    {
+      "id": "message.request-photos",
+      "kind": "buyer-message",
+      "title": "Request buyer photos",
+      "status": "ready",
+      "path": "buyer-messages/request-photos",
+      "tags": [
+        "messages",
+        "photos",
+        "defect"
+      ]
+    },
+    {
+      "id": "message.returns-howto",
+      "kind": "buyer-message",
+      "title": "Returns how-to",
+      "status": "ready",
+      "path": "buyer-messages/returns-howto",
+      "tags": [
+        "messages",
+        "returns",
+        "service"
+      ]
+    },
+    {
+      "id": "message.shipping-update",
+      "kind": "buyer-message",
+      "title": "Shipping update with tracking",
+      "status": "ready",
+      "path": "buyer-messages/shipping-update",
+      "tags": [
+        "messages",
+        "shipping",
+        "tracking"
+      ]
+    },
+    {
+      "id": "message.thanks-feedback",
+      "kind": "buyer-message",
+      "title": "Thanks + soft feedback ask",
+      "status": "ready",
+      "path": "buyer-messages/thanks-feedback",
+      "tags": [
+        "messages",
+        "feedback",
+        "thanks"
+      ]
+    },
+    {
+      "id": "message.wrong-item",
+      "kind": "buyer-message",
+      "title": "Wrong item received",
+      "status": "ready",
+      "path": "buyer-messages/wrong-item",
+      "tags": [
+        "messages",
+        "defect",
+        "service"
+      ]
+    },
+    {
+      "id": "workflow.end-of-day-sync",
+      "kind": "workflow",
+      "title": "End of day sync + P&L",
+      "status": "ready",
+      "path": "workflows/end-of-day-sync",
+      "tags": [
+        "workflow",
+        "daily",
+        "finance"
+      ]
+    },
+    {
+      "id": "workflow.list-only-bulk",
+      "kind": "workflow",
+      "title": "Bulk list only",
+      "status": "ready",
+      "path": "workflows/list-only-bulk",
+      "tags": [
+        "workflow",
+        "list",
+        "bulk"
+      ]
+    },
+    {
+      "id": "workflow.morning-health",
+      "kind": "workflow",
+      "title": "Morning account health",
+      "status": "ready",
+      "path": "workflows/morning-health",
+      "tags": [
+        "workflow",
+        "daily",
+        "health"
+      ]
+    },
+    {
+      "id": "workflow.repricer-watch",
+      "kind": "workflow",
+      "title": "Repricer watch",
+      "status": "ready",
+      "path": "workflows/repricer-watch",
+      "tags": [
+        "workflow",
+        "pricing",
+        "manage",
+        "trust"
+      ]
+    },
+    {
+      "id": "workflow.research-to-list",
+      "kind": "workflow",
+      "title": "Research \u2192 List (eBay)",
+      "status": "ready",
+      "path": "workflows/research-to-list",
+      "tags": [
+        "workflow",
+        "research",
+        "list",
+        "starter"
+      ]
+    },
+    {
+      "id": "workflow.returns-triage",
+      "kind": "workflow",
+      "title": "Returns triage",
+      "status": "ready",
+      "path": "workflows/returns-triage",
+      "tags": [
+        "workflow",
+        "returns",
+        "service"
+      ]
+    },
+    {
+      "id": "workflow.sync-reprice",
+      "kind": "workflow",
+      "title": "Sync \u2192 Reprice",
+      "status": "ready",
+      "path": "workflows/sync-reprice",
+      "tags": [
+        "workflow",
+        "sync",
+        "pricing",
+        "manage"
+      ]
+    },
+    {
+      "id": "workflow.trust-protect",
+      "kind": "workflow",
+      "title": "Trust protect daily",
+      "status": "ready",
+      "path": "workflows/trust-protect",
+      "tags": [
+        "workflow",
+        "trust",
+        "messages",
+        "daily"
+      ]
+    },
+    {
+      "id": "inspo.automation-studio-archive",
+      "kind": "inspo",
+      "title": "Automation Studio \u2192 Archive as template",
+      "status": "ready",
+      "path": "inspo/automation-studio-archive",
+      "tags": [
+        "inspo",
+        "studio",
+        "archive",
+        "automation"
+      ]
+    },
+    {
+      "id": "inspo.template-library-shell",
+      "kind": "inspo",
+      "title": "Template Library shell (product UI)",
+      "status": "ready",
+      "path": "inspo/template-library-shell",
+      "tags": [
+        "inspo",
+        "library",
+        "app-shell",
+        "share"
+      ]
+    },
+    {
+      "id": "automation.ebay-open-search-type",
+      "kind": "automation-module",
+      "title": "eBay open \u2192 search box \u2192 type (sample)",
+      "status": "ready",
+      "path": "automation-modules/ebay-open-search-type",
+      "tags": [
+        "automation",
+        "sample",
+        "studio-export",
+        "handshake"
+      ]
+    }
+  ]
+}

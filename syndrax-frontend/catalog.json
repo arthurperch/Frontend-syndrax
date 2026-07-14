@@ -1,0 +1,2835 @@
+{
+  "version": "1.4.0",
+  "updatedAt": "2026-07-14T12:46:49Z",
+  "owner": "danish",
+  "count": 44,
+  "templates": [
+    {
+      "id": "listing.auto-parts-vin",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Auto parts (VIN check)",
+      "summary": "Fitment-first parts listing; ask VIN in description.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "auto",
+        "parts",
+        "vin"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "Front Ceramic Brake Pads \u2014 Set",
+          "required": true
+        },
+        {
+          "key": "fits",
+          "label": "Fits",
+          "example": "2016\u20132021 Honda Civic 1.5T (non-Si)",
+          "required": true
+        },
+        {
+          "key": "mpn",
+          "label": "MPN / SKU",
+          "example": "BP-4412-C",
+          "required": true
+        },
+        {
+          "key": "condition",
+          "label": "Condition",
+          "example": "New",
+          "required": true
+        },
+        {
+          "key": "position",
+          "label": "Position",
+          "example": "Front",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "auto-parts-vin",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/auto-parts-vin",
+      "bodyFile": "body.html",
+      "body": "<!-- auto-parts-vin -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <h1 style=\"margin:0 0 10px;font-size:22px;font-weight:700\">{{title}}</h1>\n  <div style=\"background:#000;color:#fff;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px\">\n    <strong>Fitment first.</strong> Message your year / make / model / engine (or VIN last 8) before purchase if you're unsure.\n  </div>\n  <table style=\"width:100%;border-collapse:collapse;font-size:14px\">\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373;width:36%\">Fits</td><td style=\"padding:10px 0;font-weight:600\">{{fits}}</td></tr>\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">Position</td><td style=\"padding:10px 0\">{{position}}</td></tr>\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">MPN / SKU</td><td style=\"padding:10px 0\">{{mpn}}</td></tr>\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">Condition</td><td style=\"padding:10px 0\">{{condition}}</td></tr>\n  </table>\n</div>\n"
+    },
+    {
+      "id": "listing.bundle-kit",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Bundle / kit card",
+      "summary": "Multi-item kit with included list + single price story.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "bundle",
+        "kit"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Kit title",
+          "example": "Desk Setup Kit \u2014 Mat + Stand + Hub",
+          "required": true
+        },
+        {
+          "key": "include_1",
+          "label": "Included 1",
+          "example": "Felt desk mat 32\"",
+          "required": true
+        },
+        {
+          "key": "include_2",
+          "label": "Included 2",
+          "example": "Aluminum laptop stand",
+          "required": true
+        },
+        {
+          "key": "include_3",
+          "label": "Included 3",
+          "example": "7-in-1 USB-C hub",
+          "required": true
+        },
+        {
+          "key": "value_note",
+          "label": "Value note",
+          "example": "Bought separately these usually cost more.",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep black/white product-UI HTML. Preserve tokens. No hype stack. No emoji.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "bundle-kit",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/bundle-kit",
+      "bodyFile": "body.html",
+      "body": "<!-- bundle-kit -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <div style=\"background:#000;color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px\">\n    <div style=\"font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a3a3a3\">Bundle</div>\n    <h1 style=\"margin:8px 0 0;font-size:22px;font-weight:700;letter-spacing:-.02em\">{{title}}</h1>\n  </div>\n  <h2 style=\"margin:0 0 10px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#737373\">In this kit</h2>\n  <ul style=\"margin:0;padding:0;list-style:none;border:1px solid #e5e5e5;border-radius:12px;overflow:hidden\">\n    <li style=\"padding:12px 14px;border-bottom:1px solid #f0f0f0;font-size:14px\">{{include_1}}</li>\n    <li style=\"padding:12px 14px;border-bottom:1px solid #f0f0f0;font-size:14px\">{{include_2}}</li>\n    <li style=\"padding:12px 14px;font-size:14px\">{{include_3}}</li>\n  </ul>\n  <p style=\"margin:14px 0 0;font-size:13px;color:#525252\">{{value_note}}</p>\n</div>\n"
+    },
+    {
+      "id": "listing.clean-product-card",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Clean product card",
+      "summary": "Minimal black/white listing description. Specs table + short bullets. No clutter.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "minimal",
+        "specs",
+        "high-trust"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Product title",
+          "example": "Wireless Noise-Canceling Headphones",
+          "required": true
+        },
+        {
+          "key": "brand",
+          "label": "Brand",
+          "example": "Auralis",
+          "required": false
+        },
+        {
+          "key": "condition",
+          "label": "Condition",
+          "example": "New",
+          "required": true
+        },
+        {
+          "key": "highlight_1",
+          "label": "Highlight 1",
+          "example": "40-hour battery",
+          "required": true
+        },
+        {
+          "key": "highlight_2",
+          "label": "Highlight 2",
+          "example": "Active noise canceling",
+          "required": true
+        },
+        {
+          "key": "highlight_3",
+          "label": "Highlight 3",
+          "example": "USB-C fast charge",
+          "required": true
+        },
+        {
+          "key": "spec_rows_html",
+          "label": "Optional extra table rows (HTML)",
+          "example": "<tr><td>Color</td><td>Matte black</td></tr>",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "Rewrite for {{title}} keeping structure, tokens, and black/white product-UI tone. No hype, no emojis, no rainbow colors. Keep under 450 words.",
+        "variantsWanted": 3
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "clean-product-card",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/clean-product-card",
+      "bodyFile": "body.html",
+      "body": "<!-- Syndrax listing \u00b7 clean-product-card \u00b7 tokens: {{title}} {{brand}} {{condition}} {{highlight_1..3}} {{spec_rows_html}} -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:780px;margin:0 auto;line-height:1.5\">\n  <div style=\"border:1px solid #e5e5e5;border-radius:12px;overflow:hidden\">\n    <div style=\"background:#000;color:#fff;padding:20px 22px\">\n      <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3a3a3;margin-bottom:8px\">{{brand}}</div>\n      <h1 style=\"margin:0;font-size:22px;font-weight:650;letter-spacing:-.02em\">{{title}}</h1>\n      <div style=\"margin-top:10px;display:inline-block;font-size:12px;color:#d4d4d4;border:1px solid #404040;border-radius:999px;padding:4px 10px\">{{condition}}</div>\n    </div>\n\n    <div style=\"padding:20px 22px\">\n      <h2 style=\"margin:0 0 12px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#737373\">Highlights</h2>\n      <ul style=\"margin:0;padding:0;list-style:none\">\n        <li style=\"padding:10px 0;border-top:1px solid #f0f0f0;font-size:14px\">{{highlight_1}}</li>\n        <li style=\"padding:10px 0;border-top:1px solid #f0f0f0;font-size:14px\">{{highlight_2}}</li>\n        <li style=\"padding:10px 0;border-top:1px solid #f0f0f0;font-size:14px\">{{highlight_3}}</li>\n      </ul>\n\n      <h2 style=\"margin:22px 0 12px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#737373\">Specs</h2>\n      <table style=\"width:100%;border-collapse:collapse;font-size:14px\">\n        <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373;width:40%\">Condition</td><td style=\"padding:10px 0\">{{condition}}</td></tr>\n        <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">Brand</td><td style=\"padding:10px 0\">{{brand}}</td></tr>\n        {{spec_rows_html}}\n      </table>\n\n      <p style=\"margin:22px 0 0;font-size:12px;color:#a3a3a3\">Ships carefully packed. Questions welcome before purchase.</p>\n    </div>\n  </div>\n</div>\n"
+    },
+    {
+      "id": "listing.collectible-condition",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Collectible (condition ladder)",
+      "summary": "Honest grade language for collectibles/used media.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "collectible",
+        "condition"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "SNES Console \u2014 OEM Controllers",
+          "required": true
+        },
+        {
+          "key": "grade",
+          "label": "Condition grade",
+          "example": "Good \u2014 tested, light yellowing",
+          "required": true
+        },
+        {
+          "key": "tested",
+          "label": "Tested",
+          "example": "Powers on, AV out, both controllers respond",
+          "required": true
+        },
+        {
+          "key": "includes",
+          "label": "Includes",
+          "example": "Console, 2 controllers, power supply",
+          "required": true
+        },
+        {
+          "key": "flaws",
+          "label": "Known flaws",
+          "example": "Shell yellowing on left side \u00b7 no games",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "collectible-condition",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/collectible-condition",
+      "bodyFile": "body.html",
+      "body": "<!-- collectible-condition -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:700px;margin:0 auto\">\n  <h1 style=\"margin:0 0 8px;font-size:20px;font-weight:700\">{{title}}</h1>\n  <p style=\"margin:0 0 14px;font-size:13px;color:#525252\">Sold as described. Photos show the actual item style/condition band.</p>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Grade:</strong> {{grade}}</p>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Tested:</strong> {{tested}}</p>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Includes:</strong> {{includes}}</p>\n  <p style=\"margin:0;font-size:14px\"><strong>Known flaws:</strong> {{flaws}}</p>\n</div>\n"
+    },
+    {
+      "id": "listing.comparison-value",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Comparison value",
+      "summary": "Why this listing vs generic alternatives \u2014 three contrast rows + guarantee line.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "amazon",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "comparison",
+        "value",
+        "conversion"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Product title",
+          "example": "Pro Series HDMI Cable 2.1",
+          "required": true
+        },
+        {
+          "key": "row1_us",
+          "label": "Us \u2014 row 1",
+          "example": "Certified 48Gbps",
+          "required": true
+        },
+        {
+          "key": "row1_them",
+          "label": "Typical \u2014 row 1",
+          "example": "Unmarked bandwidth",
+          "required": true
+        },
+        {
+          "key": "row2_us",
+          "label": "Us \u2014 row 2",
+          "example": "Gold-plated connectors",
+          "required": true
+        },
+        {
+          "key": "row2_them",
+          "label": "Typical \u2014 row 2",
+          "example": "Basic plating",
+          "required": true
+        },
+        {
+          "key": "row3_us",
+          "label": "Us \u2014 row 3",
+          "example": "2-year replacement",
+          "required": true
+        },
+        {
+          "key": "row3_them",
+          "label": "Typical \u2014 row 3",
+          "example": "30-day only",
+          "required": true
+        },
+        {
+          "key": "promise",
+          "label": "Closing promise",
+          "example": "Tested before ship. Message if anything is off.",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep fair comparisons. No fake competitor names. No medical/legal claims.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "comparison-value",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/comparison-value",
+      "bodyFile": "body.html",
+      "body": "<!-- Syndrax listing \u00b7 comparison-value -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:780px;margin:0 auto\">\n  <h1 style=\"margin:0 0 6px;font-size:22px;font-weight:700;letter-spacing:-.02em\">{{title}}</h1>\n  <p style=\"margin:0 0 16px;font-size:13px;color:#737373\">Clear differences. No fluff.</p>\n\n  <table style=\"width:100%;border-collapse:collapse;font-size:14px;border:1px solid #e5e5e5;border-radius:12px;overflow:hidden\">\n    <thead>\n      <tr style=\"background:#000;color:#fff\">\n        <th style=\"text-align:left;padding:12px 14px;font-weight:600;width:34%\">Feature</th>\n        <th style=\"text-align:left;padding:12px 14px;font-weight:600\">This listing</th>\n        <th style=\"text-align:left;padding:12px 14px;font-weight:600;color:#a3a3a3\">Typical alternative</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr style=\"border-top:1px solid #e5e5e5\">\n        <td style=\"padding:12px 14px;color:#737373\">Quality</td>\n        <td style=\"padding:12px 14px;font-weight:600\">{{row1_us}}</td>\n        <td style=\"padding:12px 14px;color:#737373\">{{row1_them}}</td>\n      </tr>\n      <tr style=\"border-top:1px solid #e5e5e5;background:#fafafa\">\n        <td style=\"padding:12px 14px;color:#737373\">Build</td>\n        <td style=\"padding:12px 14px;font-weight:600\">{{row2_us}}</td>\n        <td style=\"padding:12px 14px;color:#737373\">{{row2_them}}</td>\n      </tr>\n      <tr style=\"border-top:1px solid #e5e5e5\">\n        <td style=\"padding:12px 14px;color:#737373\">Support</td>\n        <td style=\"padding:12px 14px;font-weight:600\">{{row3_us}}</td>\n        <td style=\"padding:12px 14px;color:#737373\">{{row3_them}}</td>\n      </tr>\n    </tbody>\n  </table>\n\n  <p style=\"margin:16px 0 0;font-size:14px;line-height:1.55\">{{promise}}</p>\n</div>\n"
+    },
+    {
+      "id": "listing.digital-deliverable",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Digital deliverable",
+      "summary": "For downloads/guides \u2014 delivery method clear.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "digital",
+        "download"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "eBay Listing Checklist PDF",
+          "required": true
+        },
+        {
+          "key": "format",
+          "label": "Format",
+          "example": "PDF \u00b7 12 pages",
+          "required": true
+        },
+        {
+          "key": "delivery",
+          "label": "How delivered",
+          "example": "Message with download link within 24 hours",
+          "required": true
+        },
+        {
+          "key": "includes",
+          "label": "Includes",
+          "example": "Checklist + title formulas + photo tips",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep black/white product-UI HTML. Preserve tokens. No hype stack. No emoji.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "digital-deliverable",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/digital-deliverable",
+      "bodyFile": "body.html",
+      "body": "<!-- digital-deliverable -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:640px;margin:0 auto\">\n  <div style=\"border:1px solid #e5e5e5;border-radius:12px;padding:18px\">\n    <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#737373\">Digital item</div>\n    <h1 style=\"margin:8px 0 12px;font-size:20px;font-weight:700\">{{title}}</h1>\n    <p style=\"margin:0 0 8px;font-size:14px\"><strong>Format:</strong> {{format}}</p>\n    <p style=\"margin:0 0 8px;font-size:14px\"><strong>Delivery:</strong> {{delivery}}</p>\n    <p style=\"margin:0;font-size:14px\"><strong>Includes:</strong> {{includes}}</p>\n  </div>\n  <p style=\"margin:12px 0 0;font-size:12px;color:#737373\">No physical shipment. Contact us after purchase if the link doesn't arrive.</p>\n</div>\n"
+    },
+    {
+      "id": "listing.electronics-dropship",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Electronics (dropship-ready)",
+      "summary": "Clean electronics listing: condition, what's included, power notes.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "electronics",
+        "dropship"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "USB-C Hub 7-in-1 \u2014 4K HDMI",
+          "required": true
+        },
+        {
+          "key": "condition",
+          "label": "Condition",
+          "example": "New",
+          "required": true
+        },
+        {
+          "key": "include_1",
+          "label": "Included 1",
+          "example": "USB-C hub",
+          "required": true
+        },
+        {
+          "key": "include_2",
+          "label": "Included 2",
+          "example": "User guide",
+          "required": true
+        },
+        {
+          "key": "power",
+          "label": "Power / ports",
+          "example": "USB-C PD pass-through \u00b7 HDMI 4K \u00b7 2\u00d7 USB-A",
+          "required": true
+        },
+        {
+          "key": "compat",
+          "label": "Compatibility",
+          "example": "Windows, macOS, ChromeOS with USB-C",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "electronics-dropship",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/electronics-dropship",
+      "bodyFile": "body.html",
+      "body": "<!-- electronics-dropship -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <div style=\"background:#000;color:#fff;padding:18px 20px;border-radius:12px 12px 0 0\">\n    <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3a3a3\">Electronics</div>\n    <h1 style=\"margin:8px 0 0;font-size:20px;font-weight:650\">{{title}}</h1>\n  </div>\n  <div style=\"border:1px solid #e5e5e5;border-top:0;border-radius:0 0 12px 12px;padding:16px 20px\">\n    <p style=\"margin:0 0 12px;font-size:14px\"><strong>Condition:</strong> {{condition}}</p>\n    <p style=\"margin:0 0 12px;font-size:14px\"><strong>Ports / power:</strong> {{power}}</p>\n    <p style=\"margin:0 0 12px;font-size:14px\"><strong>Works with:</strong> {{compat}}</p>\n    <h2 style=\"margin:16px 0 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#737373\">In the box</h2>\n    <ul style=\"margin:0;padding-left:18px;font-size:14px;line-height:1.6\">\n      <li>{{include_1}}</li>\n      <li>{{include_2}}</li>\n    </ul>\n  </div>\n  <p style=\"margin:12px 0 0;font-size:12px;color:#737373\">Questions on fit before you buy? Message us with your device model.</p>\n</div>\n"
+    },
+    {
+      "id": "listing.fashion-size-care",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Fashion size + care",
+      "summary": "Size chart blurb + care line for apparel.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "fashion",
+        "apparel"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "Merino Crew Sweater \u2014 Charcoal",
+          "required": true
+        },
+        {
+          "key": "size",
+          "label": "Size",
+          "example": "M",
+          "required": true
+        },
+        {
+          "key": "fit",
+          "label": "Fit notes",
+          "example": "Regular fit \u00b7 true to size",
+          "required": true
+        },
+        {
+          "key": "material",
+          "label": "Material",
+          "example": "100% merino wool",
+          "required": true
+        },
+        {
+          "key": "care",
+          "label": "Care",
+          "example": "Hand wash cold \u00b7 lay flat",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep black/white product-UI HTML. Preserve tokens. No hype stack. No emoji.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "fashion-size-care",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/fashion-size-care",
+      "bodyFile": "body.html",
+      "body": "<!-- fashion-size-care -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:640px;margin:0 auto\">\n  <h1 style=\"margin:0 0 12px;font-size:22px;font-weight:700;letter-spacing:-.02em\">{{title}}</h1>\n  <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px\">\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Size</div><div style=\"font-weight:650;margin-top:4px\">{{size}}</div></div>\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Fit</div><div style=\"font-weight:650;margin-top:4px\">{{fit}}</div></div>\n  </div>\n  <p style=\"margin:0 0 8px;font-size:14px\"><strong>Material:</strong> {{material}}</p>\n  <p style=\"margin:0;font-size:14px\"><strong>Care:</strong> {{care}}</p>\n</div>\n"
+    },
+    {
+      "id": "listing.home-goods-dims",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Home goods (dims + care)",
+      "summary": "Dimensions + material + care for home/furniture accessories.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "home",
+        "dims"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "Walnut Monitor Stand \u2014 2 Tier",
+          "required": true
+        },
+        {
+          "key": "dims",
+          "label": "Dimensions",
+          "example": "20\" W \u00d7 8\" D \u00d7 5\" H",
+          "required": true
+        },
+        {
+          "key": "material",
+          "label": "Material",
+          "example": "Solid walnut + steel",
+          "required": true
+        },
+        {
+          "key": "weight_cap",
+          "label": "Weight capacity",
+          "example": "40 lb",
+          "required": true
+        },
+        {
+          "key": "care",
+          "label": "Care",
+          "example": "Wipe dry \u00b7 no harsh cleaners",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Black/white product-UI HTML only. Clear specs. No hype. Preserve tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "home-goods-dims",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/home-goods-dims",
+      "bodyFile": "body.html",
+      "body": "<!-- home-goods-dims -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:700px;margin:0 auto\">\n  <h1 style=\"margin:0 0 14px;font-size:22px;font-weight:700\">{{title}}</h1>\n  <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px\">\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Dimensions</div><div style=\"font-weight:650;margin-top:4px\">{{dims}}</div></div>\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\"><div style=\"font-size:11px;color:#737373;text-transform:uppercase\">Weight capacity</div><div style=\"font-weight:650;margin-top:4px\">{{weight_cap}}</div></div>\n  </div>\n  <p style=\"margin:14px 0 6px;font-size:14px\"><strong>Material:</strong> {{material}}</p>\n  <p style=\"margin:0;font-size:14px\"><strong>Care:</strong> {{care}}</p>\n</div>\n"
+    },
+    {
+      "id": "listing.mobile-first-stack",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Mobile-first stack",
+      "summary": "Vertical stack optimized for phone reading on eBay app \u2014 short blocks, big hierarchy.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "mobile",
+        "short",
+        "app"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Product title",
+          "example": "Portable Blender 20oz",
+          "required": true
+        },
+        {
+          "key": "line_1",
+          "label": "Line 1",
+          "example": "USB-C rechargeable",
+          "required": true
+        },
+        {
+          "key": "line_2",
+          "label": "Line 2",
+          "example": "6-blade steel cup",
+          "required": true
+        },
+        {
+          "key": "line_3",
+          "label": "Line 3",
+          "example": "Easy rinse clean",
+          "required": true
+        },
+        {
+          "key": "line_4",
+          "label": "Line 4",
+          "example": "Ships same or next business day",
+          "required": true
+        },
+        {
+          "key": "note",
+          "label": "Footer note",
+          "example": "Photos show actual item style.",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep every block under 8 words. Mobile scan only. No paragraphs longer than 2 lines.",
+        "variantsWanted": 3
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "mobile-first-stack",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/mobile-first-stack",
+      "bodyFile": "body.html",
+      "body": "<!-- Syndrax listing \u00b7 mobile-first-stack -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:420px;margin:0 auto\">\n  <div style=\"background:#000;color:#fff;border-radius:12px;padding:18px 16px;margin-bottom:10px\">\n    <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3a3a3\">Overview</div>\n    <h1 style=\"margin:8px 0 0;font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.25\">{{title}}</h1>\n  </div>\n\n  <div style=\"border:1px solid #e5e5e5;border-radius:12px;overflow:hidden\">\n    <div style=\"padding:14px 16px;border-bottom:1px solid #f0f0f0;font-size:15px;font-weight:600\">{{line_1}}</div>\n    <div style=\"padding:14px 16px;border-bottom:1px solid #f0f0f0;font-size:15px;font-weight:600\">{{line_2}}</div>\n    <div style=\"padding:14px 16px;border-bottom:1px solid #f0f0f0;font-size:15px;font-weight:600\">{{line_3}}</div>\n    <div style=\"padding:14px 16px;font-size:15px;font-weight:600\">{{line_4}}</div>\n  </div>\n\n  <p style=\"margin:12px 0 0;font-size:12px;color:#737373\">{{note}}</p>\n</div>\n"
+    },
+    {
+      "id": "listing.parts-fitment",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Parts fitment first",
+      "summary": "Lead with compatibility for auto/parts/electronics.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "parts",
+        "fitment"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "Front Brake Pad Set \u2014 Ceramic",
+          "required": true
+        },
+        {
+          "key": "fits",
+          "label": "Fits",
+          "example": "2016\u20132021 Honda Civic 1.5T",
+          "required": true
+        },
+        {
+          "key": "does_not_fit",
+          "label": "Does not fit",
+          "example": "Si / Type R models",
+          "required": false
+        },
+        {
+          "key": "mpn",
+          "label": "MPN",
+          "example": "BP-4412-C",
+          "required": true
+        },
+        {
+          "key": "condition",
+          "label": "Condition",
+          "example": "New",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep black/white product-UI HTML. Preserve tokens. No hype stack. No emoji.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "parts-fitment",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/parts-fitment",
+      "bodyFile": "body.html",
+      "body": "<!-- parts-fitment -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <h1 style=\"margin:0 0 8px;font-size:22px;font-weight:700\">{{title}}</h1>\n  <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0\">\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\">\n      <div style=\"font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#737373\">Fits</div>\n      <div style=\"margin-top:4px;font-weight:650\">{{fits}}</div>\n    </div>\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px\">\n      <div style=\"font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#737373\">Does not fit</div>\n      <div style=\"margin-top:4px;font-weight:650\">{{does_not_fit}}</div>\n    </div>\n  </div>\n  <table style=\"width:100%;border-collapse:collapse;font-size:14px\">\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373;width:40%\">MPN</td><td>{{mpn}}</td></tr>\n    <tr style=\"border-top:1px solid #f0f0f0\"><td style=\"padding:10px 0;color:#737373\">Condition</td><td>{{condition}}</td></tr>\n  </table>\n  <p style=\"margin:14px 0 0;font-size:12px;color:#737373\">Confirm fitment with your VIN/model before purchase. Message us if unsure.</p>\n</div>\n"
+    },
+    {
+      "id": "listing.refurbished-honest",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Refurbished honest",
+      "summary": "Clear refurb grade + tested notes. Trust-first.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "refurb",
+        "trust"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Title",
+          "example": "iPad 9th Gen 64GB \u2014 Refurbished",
+          "required": true
+        },
+        {
+          "key": "grade",
+          "label": "Grade",
+          "example": "Grade B \u2014 light wear",
+          "required": true
+        },
+        {
+          "key": "tested",
+          "label": "Tested for",
+          "example": "Power, touch, Wi\u2011Fi, cameras, buttons",
+          "required": true
+        },
+        {
+          "key": "includes",
+          "label": "Includes",
+          "example": "Device + charging cable",
+          "required": true
+        },
+        {
+          "key": "not_includes",
+          "label": "Not included",
+          "example": "Original box, pencil, case",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep black/white product-UI HTML. Preserve tokens. No hype stack. No emoji.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "refurbished-honest",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/refurbished-honest",
+      "bodyFile": "body.html",
+      "body": "<!-- refurbished-honest -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <div style=\"border:1px solid #e5e5e5;border-radius:14px;overflow:hidden\">\n    <div style=\"background:#000;color:#fff;padding:18px 20px\">\n      <div style=\"font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3a3a3\">Refurbished</div>\n      <h1 style=\"margin:8px 0 0;font-size:20px;font-weight:650\">{{title}}</h1>\n    </div>\n    <div style=\"padding:16px 20px\">\n      <p style=\"margin:0 0 12px;font-size:14px\"><strong>Grade:</strong> {{grade}}</p>\n      <p style=\"margin:0 0 12px;font-size:14px\"><strong>Tested:</strong> {{tested}}</p>\n      <p style=\"margin:0 0 12px;font-size:14px\"><strong>Includes:</strong> {{includes}}</p>\n      <p style=\"margin:0;font-size:14px;color:#525252\"><strong>Not included:</strong> {{not_includes}}</p>\n    </div>\n  </div>\n  <p style=\"margin:12px 0 0;font-size:12px;color:#737373\">Photos show typical condition for this grade. Ask if you need more detail before buying.</p>\n</div>\n"
+    },
+    {
+      "id": "listing.spec-sheet-pro",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Spec sheet pro",
+      "summary": "Dense, scannable technical sheet for parts, electronics, and B2B-style listings.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "amazon",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "technical",
+        "parts",
+        "b2b"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Product title",
+          "example": "OEM Alternator 120A",
+          "required": true
+        },
+        {
+          "key": "sku",
+          "label": "SKU / MPN",
+          "example": "ALT-120A-OEM",
+          "required": true
+        },
+        {
+          "key": "condition",
+          "label": "Condition",
+          "example": "New",
+          "required": true
+        },
+        {
+          "key": "compatibility",
+          "label": "Compatibility blurb",
+          "example": "Fits 2015\u20132019 Model X 2.0L",
+          "required": true
+        },
+        {
+          "key": "spec_rows_html",
+          "label": "Spec table rows HTML",
+          "example": "<tr><td>Output</td><td>120A</td></tr>",
+          "required": true
+        },
+        {
+          "key": "included",
+          "label": "What's included",
+          "example": "Alternator, hardware kit",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep table-first layout. Fill realistic specs for {{title}}. Do not invent certifications. Keep tokens.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "spec-sheet-pro",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/spec-sheet-pro",
+      "bodyFile": "body.html",
+      "body": "<!-- Syndrax listing \u00b7 spec-sheet-pro -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:780px;margin:0 auto\">\n  <div style=\"display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid #000;padding-bottom:14px;margin-bottom:18px\">\n    <div>\n      <div style=\"font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#737373\">Technical listing</div>\n      <h1 style=\"margin:6px 0 0;font-size:22px;font-weight:700;letter-spacing:-.02em\">{{title}}</h1>\n    </div>\n    <div style=\"text-align:right;font-size:12px;color:#525252\">\n      <div>SKU / MPN</div>\n      <div style=\"font-weight:650;color:#111\">{{sku}}</div>\n    </div>\n  </div>\n\n  <div style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px\">\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px 14px\">\n      <div style=\"font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#737373\">Condition</div>\n      <div style=\"margin-top:4px;font-weight:650\">{{condition}}</div>\n    </div>\n    <div style=\"border:1px solid #e5e5e5;border-radius:10px;padding:12px 14px\">\n      <div style=\"font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#737373\">Compatibility</div>\n      <div style=\"margin-top:4px;font-weight:650\">{{compatibility}}</div>\n    </div>\n  </div>\n\n  <h2 style=\"margin:0 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#737373\">Specifications</h2>\n  <table style=\"width:100%;border-collapse:collapse;font-size:14px;border:1px solid #e5e5e5\">\n    <tbody>\n      {{spec_rows_html}}\n    </tbody>\n  </table>\n\n  <h2 style=\"margin:18px 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#737373\">Included</h2>\n  <p style=\"margin:0;font-size:14px;line-height:1.55\">{{included}}</p>\n\n  <p style=\"margin:18px 0 0;font-size:12px;color:#737373\">Verify fitment before purchase. Message us with your vehicle/model details if unsure.</p>\n</div>\n"
+    },
+    {
+      "id": "listing.story-brand",
+      "version": "1.0.0",
+      "kind": "listing-description",
+      "title": "Story brand",
+      "summary": "Short brand story + benefits for lifestyle and consumer products. Still product-UI, not hype.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "shopify",
+        "generic"
+      ],
+      "tags": [
+        "listing",
+        "lifestyle",
+        "brand",
+        "benefits"
+      ],
+      "variables": [
+        {
+          "key": "title",
+          "label": "Product title",
+          "example": "Merino Travel Tee",
+          "required": true
+        },
+        {
+          "key": "brand",
+          "label": "Brand",
+          "example": "Northline",
+          "required": true
+        },
+        {
+          "key": "story",
+          "label": "One-paragraph story",
+          "example": "Built for long flights and city days.",
+          "required": true
+        },
+        {
+          "key": "benefit_1",
+          "label": "Benefit 1",
+          "example": "Odor-resistant merino",
+          "required": true
+        },
+        {
+          "key": "benefit_2",
+          "label": "Benefit 2",
+          "example": "Packs flat",
+          "required": true
+        },
+        {
+          "key": "benefit_3",
+          "label": "Benefit 3",
+          "example": "Machine wash cold",
+          "required": true
+        },
+        {
+          "key": "care",
+          "label": "Care line",
+          "example": "Machine wash cold \u00b7 lay flat",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep calm premium tone. No superlatives stack. Preserve {{tokens}}. 180\u2013280 words.",
+        "variantsWanted": 3
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "style": "story-brand",
+        "bodyFile": "body.html"
+      },
+      "preview": null,
+      "path": "listing-descriptions/story-brand",
+      "bodyFile": "body.html",
+      "body": "<!-- Syndrax listing \u00b7 story-brand -->\n<div style=\"font-family:Inter,Segoe UI,system-ui,sans-serif;color:#111;background:#fff;max-width:720px;margin:0 auto\">\n  <div style=\"background:#000;color:#fff;border-radius:14px;padding:28px 26px;margin-bottom:18px\">\n    <div style=\"font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a3a3a3\">{{brand}}</div>\n    <h1 style=\"margin:10px 0 0;font-size:26px;font-weight:650;letter-spacing:-.03em;line-height:1.2\">{{title}}</h1>\n  </div>\n\n  <p style=\"margin:0 0 18px;font-size:15px;line-height:1.65;color:#262626\">{{story}}</p>\n\n  <div style=\"display:grid;gap:8px\">\n    <div style=\"display:grid;grid-template-columns:10px 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid #e5e5e5;border-radius:10px\">\n      <span style=\"width:8px;height:8px;margin-top:6px;border-radius:50%;background:#000\"></span>\n      <span style=\"font-size:14px\">{{benefit_1}}</span>\n    </div>\n    <div style=\"display:grid;grid-template-columns:10px 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid #e5e5e5;border-radius:10px\">\n      <span style=\"width:8px;height:8px;margin-top:6px;border-radius:50%;background:#000\"></span>\n      <span style=\"font-size:14px\">{{benefit_2}}</span>\n    </div>\n    <div style=\"display:grid;grid-template-columns:10px 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid #e5e5e5;border-radius:10px\">\n      <span style=\"width:8px;height:8px;margin-top:6px;border-radius:50%;background:#000\"></span>\n      <span style=\"font-size:14px\">{{benefit_3}}</span>\n    </div>\n  </div>\n\n  <p style=\"margin:18px 0 0;font-size:12px;color:#737373\">Care: {{care}}</p>\n</div>\n"
+    },
+    {
+      "id": "message.address-confirm",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Confirm shipping address",
+      "summary": "Verify address before ship to avoid loss.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "shipping",
+        "address"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Casey",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "address_line",
+          "label": "Address on file",
+          "example": "123 Main St, Austin TX 78701",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/address-confirm",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nQuick check before we ship order **{{order_id}}**.\n\nAddress on file:\n{{address_line}}\n\nReply **YES** if that's correct, or send the updated address today and we'll use that.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.bundle-missing-piece",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Bundle missing piece",
+      "summary": "Kit arrived incomplete.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "bundle",
+        "defect"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Casey"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "missing_item",
+          "label": "Missing piece",
+          "example": "the USB-C cable",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/bundle-missing-piece",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nSorry \u2014 order {{order_id}} shouldn't have been missing {{missing_item}}.\n\nReply with your shipping address confirmation and I'll send the missing piece out priority, or I can refund that part of the kit if you prefer.\n\nThanks for flagging it,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.cancel-before-ship",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Cancel before ship",
+      "summary": "Buyer wants cancel; item not shipped yet.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "cancel",
+        "service"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Jordan",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "item_title",
+          "label": "Item title",
+          "example": "Wireless earbuds",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/cancel-before-ship",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nGot it \u2014 I've cancelled order **{{order_id}}** for **{{item_title}}** before it shipped.\n\nA full refund is on the way. No need to return anything.\n\nThanks for letting me know early,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.customs-hold",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Customs / international hold",
+      "summary": "Buyer asks about international delay or customs.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "shipping",
+        "international"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Sam"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "tracking",
+          "label": "Tracking",
+          "example": "LX123\u2026",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/customs-hold",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nOn order {{order_id}}, tracking {{tracking}} can sit in customs for several days with no scan \u2014 that's normal on this route.\n\nOnce it clears, scans usually resume. If it's still stuck past the estimated window, reply and I'll open a carrier inquiry.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.damaged-arrival",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Damaged on arrival",
+      "summary": "Damage claim path \u2014 photos + replacement/refund.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "damage",
+        "service"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Riley",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "photo_ask",
+          "label": "Photo request",
+          "example": "a quick photo of the item and the packaging",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/damaged-arrival",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nSorry the item for order **{{order_id}}** arrived damaged.\n\nIf you can send {{photo_ask}}, I'll process a replacement or full refund right away.\n\nYou shouldn't have to keep a broken item \u2014 we'll make this right.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.delay-honest",
+      "version": "1.1.0",
+      "kind": "buyer-message",
+      "title": "Shipping delay \u2014 honest",
+      "summary": "Proactive delay notice with new ETA and option to cancel.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "delay",
+        "proactive"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Riley",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "reason_short",
+          "label": "Short reason",
+          "example": "carrier pickup slipped a day",
+          "required": true
+        },
+        {
+          "key": "new_eta",
+          "label": "New ETA",
+          "example": "Mon, Jul 20",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "honest"
+      },
+      "preview": null,
+      "path": "buyer-messages/delay-honest",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nQuick update on order {{order_id}}.\n\nThere's a short delay ({{reason_short}}). New expected window: {{new_eta}}.\n\nIf that doesn't work, reply and I'll cancel + refund same day \u2014 no runaround.\n\nThanks for your patience,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.feedback-remove-request",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Feedback concern (calm)",
+      "summary": "Calm reply when buyer left negative; offer fix first.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "feedback",
+        "service"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Jamie",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "offer",
+          "label": "Fix offer",
+          "example": "a full refund or a free replacement, your choice",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/feedback-remove-request",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nI saw your note on order **{{order_id}}** and I want to make this right.\n\nI can offer {{offer}}.\n\nIf we resolve this, and you're open to updating your feedback afterward, I'd really appreciate it \u2014 only if you're satisfied with the fix.\n\nReply with what you prefer and I'll move today.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.holiday-delay",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Holiday / peak delay",
+      "summary": "Proactive ship delay during peak seasons.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "delay",
+        "holiday",
+        "peak"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Alex"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "new_eta",
+          "label": "New ETA",
+          "example": "by Fri, Dec 20",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/holiday-delay",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nHeads up on order {{order_id}} \u2014 carriers are running slower than usual this week.\n\nUpdated expectation: {{new_eta}}.\n\nIf you need it sooner, reply and we can cancel + refund before it ships.\n\nThanks for understanding,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.invoice-request",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Invoice / receipt",
+      "summary": "Send simple order receipt text.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "invoice",
+        "b2b"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Taylor",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "item_title",
+          "label": "Item",
+          "example": "USB-C hub 7-in-1",
+          "required": true
+        },
+        {
+          "key": "amount",
+          "label": "Total paid",
+          "example": "$39.99",
+          "required": true
+        },
+        {
+          "key": "date",
+          "label": "Order date",
+          "example": "2026-07-10",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/invoice-request",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nReceipt for your records:\n\n- Order: {{order_id}}\n- Date: {{date}}\n- Item: {{item_title}}\n- Total paid: {{amount}}\n- Seller: Syndrax marketplace seller\n\nThanks for your purchase,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.not-as-described",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Not as described",
+      "summary": "Item differs from listing \u2014 fix path.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "defect",
+        "listing"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Riley"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "issue_short",
+          "label": "What differs",
+          "example": "color is different from the photos",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/not-as-described",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nSorry the item for order {{order_id}} doesn't match what you expected ({{issue_short}}).\n\nI can do a full refund with return, or a partial refund if you want to keep it \u2014 tell me which you prefer and I'll process today.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.oos-polite",
+      "version": "1.1.0",
+      "kind": "buyer-message",
+      "title": "Out of stock \u2014 polite",
+      "summary": "Buyer OOS reply: apologize, cancel/refund path, optional similar item.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "oos",
+        "service"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Alex",
+          "required": false
+        },
+        {
+          "key": "item_title",
+          "label": "Item title",
+          "example": "Wireless earbuds",
+          "required": true
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "similar_note",
+          "label": "Optional similar item note",
+          "example": "We can point you to a close match if you want.",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm-professional"
+      },
+      "preview": null,
+      "path": "buyer-messages/oos-polite",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nThanks for order {{order_id}} ({{item_title}}).\n\nThis one is no longer available to ship. I've started the full refund/cancel so you're not stuck waiting.\n\n{{similar_note}}\n\nSorry for the hassle,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.partial-refund",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Partial refund offer",
+      "summary": "Keep item + partial refund compromise.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "refund",
+        "negotiate"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Morgan",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "amount",
+          "label": "Partial amount",
+          "example": "$12.00",
+          "required": true
+        },
+        {
+          "key": "reason_short",
+          "label": "Why",
+          "example": "the cosmetic scuff you mentioned",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/partial-refund",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nThanks for the note on order **{{order_id}}**.\n\nI can issue a **{{amount}}** partial refund for {{reason_short}} so you can keep the item without a return.\n\nReply if that works and I'll process it today.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.partial-ship",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Partial shipment",
+      "summary": "Only part of multi-item order shipped.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "shipping",
+        "partial"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Jordan"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "shipped_part",
+          "label": "What shipped",
+          "example": "the hub and cable",
+          "required": true
+        },
+        {
+          "key": "pending_part",
+          "label": "What's pending",
+          "example": "the stand (ships tomorrow)",
+          "required": true
+        },
+        {
+          "key": "tracking",
+          "label": "Tracking for shipped part",
+          "example": "9400\u2026",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/partial-ship",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nOrder {{order_id}} is going out in two shipments.\n\nShipped today: {{shipped_part}}\nTracking: {{tracking}}\n\nStill coming: {{pending_part}}\n\nI'll send the second tracking as soon as it drops. Sorry for the split \u2014 both pieces will get to you.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.refund-full",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Full refund issued",
+      "summary": "Confirm full refund after return or cancellation.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "refund",
+        "service"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Alex",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "amount",
+          "label": "Refund amount",
+          "example": "$48.99",
+          "required": true
+        },
+        {
+          "key": "timeline",
+          "label": "When funds appear",
+          "example": "3\u20135 business days",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/refund-full",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nYour refund for order **{{order_id}}** has been issued for **{{amount}}**.\n\nIt usually shows on your original payment method within **{{timeline}}** (banks can take a little longer).\n\nIf you don't see it after that window, reply here and I'll help track it.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.request-photos",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Request buyer photos",
+      "summary": "Need photos before refund/replace.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "photos",
+        "defect"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Morgan"
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "what_photos",
+          "label": "What to photograph",
+          "example": "the item, the label, and the packaging",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. No corporate fluff. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "seller-direct"
+      },
+      "preview": null,
+      "path": "buyer-messages/request-photos",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nI can fix order {{order_id}} quickly \u2014 I just need photos of {{what_photos}} so I process the right solution (replace vs refund).\n\nAs soon as those land, I'll move same day.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.returns-howto",
+      "version": "1.1.0",
+      "kind": "buyer-message",
+      "title": "Returns how-to",
+      "summary": "Calm returns instructions with next steps.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "returns",
+        "service"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Jordan",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "return_window",
+          "label": "Return window",
+          "example": "30 days",
+          "required": true
+        },
+        {
+          "key": "next_step",
+          "label": "Next step for buyer",
+          "example": "Open a return request on eBay and I\u2019ll approve it same day.",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "helpful"
+      },
+      "preview": null,
+      "path": "buyer-messages/returns-howto",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nHappy to help with the return on order {{order_id}}.\n\nReturn window: {{return_window}} from delivery.\n\nNext step:\n{{next_step}}\n\nOnce it comes back in sellable condition, refund goes out promptly.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.shipping-update",
+      "version": "1.1.0",
+      "kind": "buyer-message",
+      "title": "Shipping update with tracking",
+      "summary": "Shipped notice with carrier, tracking, and ETA.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "amazon",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "shipping",
+        "tracking"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Sam",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "carrier",
+          "label": "Carrier",
+          "example": "USPS",
+          "required": true
+        },
+        {
+          "key": "tracking",
+          "label": "Tracking number",
+          "example": "9400...",
+          "required": true
+        },
+        {
+          "key": "eta",
+          "label": "ETA",
+          "example": "Thu, Jul 17",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "clear"
+      },
+      "preview": null,
+      "path": "buyer-messages/shipping-update",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nOrder {{order_id}} is on the way.\n\nCarrier: {{carrier}}\nTracking: {{tracking}}\nETA: {{eta}}\n\nTrack with the number above. If delivery day passes with no movement, reply here and I'll dig in.\n\nThanks,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.thanks-feedback",
+      "version": "1.1.0",
+      "kind": "buyer-message",
+      "title": "Thanks + soft feedback ask",
+      "summary": "Post-delivery thank you. Soft feedback invite, never pushy.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "feedback",
+        "thanks"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Casey",
+          "required": false
+        },
+        {
+          "key": "item_title",
+          "label": "Item title",
+          "example": "Travel backpack",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "eBay seller tone: short, calm, clear next step. No emoji. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "warm-short"
+      },
+      "preview": null,
+      "path": "buyer-messages/thanks-feedback",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nHope {{item_title}} arrived in good shape.\n\nIf anything's off, message me first \u2014 I'll fix it.\n\nIf you're happy and feel like leaving feedback, that helps other buyers. Totally optional.\n\nThanks for the order,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "message.wrong-item",
+      "version": "1.0.0",
+      "kind": "buyer-message",
+      "title": "Wrong item received",
+      "summary": "Apologize and offer replacement or refund path.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "messages",
+        "defect",
+        "service"
+      ],
+      "variables": [
+        {
+          "key": "buyer_name",
+          "label": "Buyer name",
+          "example": "Sam",
+          "required": false
+        },
+        {
+          "key": "order_id",
+          "label": "Order id",
+          "example": "12-34567-89012",
+          "required": true
+        },
+        {
+          "key": "next_step",
+          "label": "Next step",
+          "example": "I can send the correct item or issue a full refund \u2014 reply with your preference.",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep under 120 words. No emoji. Human seller tone. Preserve {{tokens}}.",
+        "variantsWanted": 3
+      },
+      "design": null,
+      "payload": {
+        "channel": "ebay-messages",
+        "bodyFile": "body.md",
+        "tone": "calm"
+      },
+      "preview": null,
+      "path": "buyer-messages/wrong-item",
+      "bodyFile": "body.md",
+      "body": "Hi {{buyer_name}},\n\nI'm sorry \u2014 it sounds like order **{{order_id}}** arrived with the wrong item.\n\nThat's on us. Here's the next step:\n{{next_step}}\n\nPlease keep the package as-is until we confirm the path so we can fix this cleanly.\n\nSorry again,\n{{seller_signoff}}\n"
+    },
+    {
+      "id": "workflow.end-of-day-sync",
+      "version": "1.0.0",
+      "kind": "workflow",
+      "title": "End of day sync + P&L",
+      "summary": "Pull state and review finance before logout.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "daily",
+        "finance"
+      ],
+      "variables": [],
+      "ai": {
+        "promptHint": "Only use Syndrax WORKFLOW module keys. Prefer eBay-live modules.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "quicksync",
+            "label": "Quick Sync"
+          },
+          {
+            "key": "finance",
+            "label": "eBay P&L"
+          },
+          {
+            "key": "dashboard",
+            "label": "Overview"
+          }
+        ],
+        "interval": "Daily",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/end-of-day-sync",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "workflow.list-only-bulk",
+      "version": "1.0.0",
+      "kind": "workflow",
+      "title": "Bulk list only",
+      "summary": "Skip research \u2014 go straight to list tools for known products.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "list",
+        "bulk"
+      ],
+      "variables": [],
+      "ai": {
+        "promptHint": "Only use Syndrax WORKFLOW module keys. Prefer eBay-live modules.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "seo",
+            "label": "SEO Generator"
+          },
+          {
+            "key": "description",
+            "label": "Description Builder"
+          },
+          {
+            "key": "images",
+            "label": "Image Pipeline"
+          },
+          {
+            "key": "lister",
+            "label": "Lister"
+          }
+        ],
+        "interval": "Manual",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/list-only-bulk",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "workflow.morning-health",
+      "version": "1.0.0",
+      "kind": "workflow",
+      "title": "Morning account health",
+      "summary": "Quick daily pass: sync + trust + messages.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "daily",
+        "health"
+      ],
+      "variables": [],
+      "ai": {
+        "promptHint": "Only use Syndrax WORKFLOW module keys. Prefer eBay-live modules.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "quicksync",
+            "label": "Quick Sync"
+          },
+          {
+            "key": "trust",
+            "label": "Trust Audit"
+          },
+          {
+            "key": "messages",
+            "label": "Message Tool"
+          }
+        ],
+        "interval": "Daily",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/morning-health",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "workflow.repricer-watch",
+      "version": "1.1.0",
+      "kind": "workflow",
+      "title": "Repricer watch",
+      "summary": "Longer watch loop: sync \u2192 reprice/optimize \u2192 trust check so aggressive pricing doesn't hurt the account.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "pricing",
+        "manage",
+        "trust"
+      ],
+      "variables": [],
+      "ai": {
+        "promptHint": "Only use Syndrax WORKFLOW module keys. Prefer eBay-live modules.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "quicksync",
+            "label": "Quick Sync"
+          },
+          {
+            "key": "pricing",
+            "label": "Pricing"
+          },
+          {
+            "key": "optimizer",
+            "label": "Optimizer"
+          },
+          {
+            "key": "trust",
+            "label": "Trust Audit"
+          }
+        ],
+        "interval": "Every 6 hours",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/repricer-watch",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "workflow.research-to-list",
+      "version": "1.0.0",
+      "kind": "workflow",
+      "title": "Research \u2192 List (eBay)",
+      "summary": "Find a product, vet it, build SEO title/description, list with pricing guardrails.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "research",
+        "list",
+        "starter"
+      ],
+      "variables": [
+        {
+          "key": "marketplace",
+          "label": "Marketplace",
+          "example": "ebay",
+          "required": true
+        },
+        {
+          "key": "min_margin_pct",
+          "label": "Min margin %",
+          "example": "25",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Only reorder/add steps that exist in Syndrax WORKFLOW modules. Prefer eBay-live modules first.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "research",
+            "label": "Research",
+            "tier": "live"
+          },
+          {
+            "key": "compliance",
+            "label": "Compliance check",
+            "tier": "todo"
+          },
+          {
+            "key": "seo",
+            "label": "SEO title",
+            "tier": "todo"
+          },
+          {
+            "key": "description",
+            "label": "Description Builder",
+            "tier": "todo",
+            "templateRef": "listing.clean-product-card"
+          },
+          {
+            "key": "images",
+            "label": "Image pipeline",
+            "tier": "todo"
+          },
+          {
+            "key": "lister",
+            "label": "Lister",
+            "tier": "live"
+          }
+        ],
+        "interval": "Manual",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/research-to-list",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "workflow.returns-triage",
+      "version": "1.0.0",
+      "kind": "workflow",
+      "title": "Returns triage",
+      "summary": "Trust + messages for defect/return pressure days.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "returns",
+        "service"
+      ],
+      "variables": [],
+      "ai": {
+        "promptHint": "Only use Syndrax WORKFLOW module keys. Prefer eBay-live modules.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "trust",
+            "label": "Trust Audit"
+          },
+          {
+            "key": "messages",
+            "label": "Message Tool"
+          },
+          {
+            "key": "lifecycle",
+            "label": "Inventory Lifecycle"
+          }
+        ],
+        "interval": "Manual",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/returns-triage",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "workflow.sync-reprice",
+      "version": "1.0.0",
+      "kind": "workflow",
+      "title": "Sync \u2192 Reprice",
+      "summary": "Pull live listings, reprice with margin floor, log job history.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "sync",
+        "pricing",
+        "manage"
+      ],
+      "variables": [
+        {
+          "key": "min_margin_pct",
+          "label": "Min margin %",
+          "example": "20",
+          "required": true
+        },
+        {
+          "key": "interval",
+          "label": "Schedule",
+          "example": "Every 6h",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep audit agent on. Do not invent marketplaces beyond ebay for now.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "quicksync",
+            "label": "QuickSync",
+            "tier": "live"
+          },
+          {
+            "key": "pricing",
+            "label": "Pricing",
+            "tier": "todo"
+          },
+          {
+            "key": "optimizer",
+            "label": "Optimizer",
+            "tier": "hub"
+          }
+        ],
+        "interval": "Every 6h",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/sync-reprice",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "workflow.trust-protect",
+      "version": "1.0.0",
+      "kind": "workflow",
+      "title": "Trust protect daily",
+      "summary": "Daily account health pass \u2014 trust audit + message tool for defects risk.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "workflow",
+        "trust",
+        "messages",
+        "daily"
+      ],
+      "variables": [
+        {
+          "key": "interval",
+          "label": "Schedule",
+          "example": "Daily 9:00",
+          "required": false
+        }
+      ],
+      "ai": {
+        "promptHint": "Safety-first. Prefer fewer steps over aggressive automation.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "steps": [
+          {
+            "key": "trust",
+            "label": "Trust Audit",
+            "tier": "hub"
+          },
+          {
+            "key": "messages",
+            "label": "Message Tool",
+            "tier": "hub",
+            "templateRef": "message.delay-honest"
+          },
+          {
+            "key": "warmup",
+            "label": "Warmup Agent",
+            "tier": "todo"
+          }
+        ],
+        "interval": "Daily",
+        "auditAgent": true
+      },
+      "preview": null,
+      "path": "workflows/trust-protect",
+      "bodyFile": null,
+      "body": null
+    },
+    {
+      "id": "inspo.automation-studio-archive",
+      "version": "1.0.0",
+      "kind": "inspo",
+      "title": "Automation Studio \u2192 Archive as template",
+      "summary": "Inspo for Oleg\u2019s studio archive handshake: successful run becomes a shareable automation template in Danish\u2019s library.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay",
+        "generic"
+      ],
+      "tags": [
+        "inspo",
+        "studio",
+        "archive",
+        "automation"
+      ],
+      "variables": [],
+      "ai": {
+        "promptHint": "Show straight-line workflow, not constellation graphs. Matches Automation Recorder V2 UI notes.",
+        "variantsWanted": 2
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "briefFile": "brief.md",
+        "imagePrompts": [
+          "Dark developer tool UI: left recorded steps list, center simple vertical workflow nodes (not fancy AI graph), right TypeScript code panel. Black background, white text, silver dividers, green success dots on completed steps. Button at bottom: Save as template. Product-quality software screenshot feel, 16:9.",
+          "Save as template modal: title field, tags chips, Share with team, marketplace eBay, version 1.0.0. Pure black modal, silver border, white primary button."
+        ]
+      },
+      "preview": {
+        "thumbnail": "/templates/inspo/studio-archive.png",
+        "inspoImages": [
+          "/templates/inspo/studio-archive.png"
+        ],
+        "status": "exploratory"
+      },
+      "path": "inspo/automation-studio-archive",
+      "bodyFile": "brief.md",
+      "body": "# Inspo \u00b7 Studio Archive \u2192 shared template\n\n## Ownership\n- **Oleg** builds Automation Studio (record \u2192 generate \u2192 run \u2192 archive).\n- **Danish** owns the **template library** that receives archived modules + all other packs.\n\n## Handshake end state\nWhen a recording **runs green**, studio one-click:\n\n**Save as template** \u2192 writes `kind: \"automation-module\"` into Danish\u2019s library schema.\n\n## Minimum fields (Danish defines; Oleg exports)\n- title\n- marketplace\n- steps[] (action type + selector summary + human label)\n- mutationHistory[] (empty until self-heal)\n- sharedWith[]\n- version\n\n## Danish does not rebuild studio\nKeep a clean import path + preview card for `automation-module`.  \nLibrary UI can show \u201cfrom Studio\u201d packs once Oleg\u2019s export lands.\n"
+    },
+    {
+      "id": "inspo.template-library-shell",
+      "version": "1.0.0",
+      "kind": "inspo",
+      "title": "Template Library shell (product UI)",
+      "summary": "Full-page inspo for a shared template library inside Syndrax app \u2014 black/silver product UI, not AI art.",
+      "status": "ready",
+      "createdBy": "danish",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "generic"
+      ],
+      "tags": [
+        "inspo",
+        "library",
+        "app-shell",
+        "share"
+      ],
+      "variables": [],
+      "ai": {
+        "promptHint": "When generating images, enforce colors black white silver green-live amber-warn only. Product-UI mockups only.",
+        "variantsWanted": 3
+      },
+      "design": {
+        "base": "#000",
+        "type": "#fff",
+        "accent": "silver",
+        "feel": "product-ui"
+      },
+      "payload": {
+        "briefFile": "brief.md",
+        "imagePrompts": [
+          "Dark product UI screenshot of a template library. Pure black background #000, white Inter text, thin silver borders. Left sidebar: categories Listing, Messages, Workflows, Automation. Main grid of 6 template cards with title, 3 tags, Ready pill in green, author avatar initials. Top bar: Search templates, New template, AI remix. No neon, no purple, no node graphs, no floating logos. Looks like Vercel dashboard mixed with Ramp. 16:9.",
+          "Same app, detail drawer open on right for a listing description template. Shows HTML preview pane, Variables list with {{title}} chips, Share with team toggle, Remix with AI button. Black/white/silver only. Crisp UI mock, not illustration.",
+          "Team share modal: checklist of teammates Oleg and Danish, visibility Shared, version 1.0.0, Export JSON. Minimal premium SaaS, pure black surface."
+        ]
+      },
+      "preview": {
+        "thumbnail": "/templates/inspo/library-shell.png",
+        "inspoImages": [
+          "/templates/inspo/library-shell.png"
+        ],
+        "status": "exploratory"
+      },
+      "path": "inspo/template-library-shell",
+      "bodyFile": "brief.md",
+      "body": "# Inspo \u00b7 Template Library shell\n\n## Goal\nA place inside Syndrax where the team **browses, remixes, and shares** templates:\n\n- Listing description HTML\n- Buyer messages\n- Workflows / saved automations\n- Automation Studio exports (`automation-module`)\n- Inspo packs (full improvement visions)\n\n## Layout (product UI)\n\n```\n\u250c Sidebar \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c Main \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 Search            \u2502 [Search templates\u2026]     [AI remix] [New]   \u2502\n\u2502 Listing (5)       \u2502 \u250c card \u2510 \u250c card \u2510 \u250c card \u2510                 \u2502\n\u2502 Messages (5)      \u2502 \u2502      \u2502 \u2502      \u2502 \u2502      \u2502                 \u2502\n\u2502 Workflows (3)     \u2502 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2518                 \u2502\n\u2502 Automation        \u2502                                            \u2502\n\u2502 Inspo             \u2502 Detail drawer \u2192 preview + variables + share\u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n```\n\n## States\n- **Ready** \u2014 green pill\n- **Draft** \u2014 silver/muted\n- **Shared** \u2014 white outline\n- **Archived** \u2014 dimmed\n\n## AI help (later)\n1. \u201cRemix this template\u201d \u2192 keep structure + tokens, 3 variants  \n2. \u201cGenerate from brief\u201d \u2192 new `template.json` + body  \n3. \u201cInspo from screenshot\u201d \u2192 vision \u2192 suggested UI improvements  \n\n## Do not\n- Rainbow gradients\n- Orbiting logos / neural node posters\n- Fake metrics walls\n\n## Wire targets (existing product)\n- `dashboard.js` Description Builder (todo)\n- Message Tool (todo)\n- Jobs \u2192 Templates / Saved automations (localStorage shell today)\n- Automation Recorder V2 Phase 7 Archive\n"
+    },
+    {
+      "id": "automation.ebay-open-search-type",
+      "version": "1.0.0",
+      "kind": "automation-module",
+      "title": "eBay open \u2192 search box \u2192 type (sample)",
+      "summary": "Sample Studio export for Oleg handshake. Danish library can import this JSON.",
+      "status": "ready",
+      "createdBy": "oleg",
+      "sharedWith": [
+        "oleg",
+        "danish"
+      ],
+      "marketplace": [
+        "ebay"
+      ],
+      "tags": [
+        "automation",
+        "sample",
+        "studio-export",
+        "handshake"
+      ],
+      "variables": [
+        {
+          "key": "query",
+          "label": "Search query",
+          "example": "wireless earbuds",
+          "required": true
+        }
+      ],
+      "ai": {
+        "promptHint": "Keep selectors human-readable. Do not invent marketplace APIs.",
+        "variantsWanted": 2
+      },
+      "design": null,
+      "payload": {
+        "interval": "Manual",
+        "actions": [
+          {
+            "key": "open",
+            "type": "navigate",
+            "label": "Open eBay",
+            "url": "https://www.ebay.com/",
+            "selectorSummary": "document"
+          },
+          {
+            "key": "focus-search",
+            "type": "click",
+            "label": "Focus search box",
+            "selectorSummary": "input[type=text][placeholder*=Search]"
+          },
+          {
+            "key": "type-query",
+            "type": "type",
+            "label": "Type query",
+            "text": "{{query}}",
+            "selectorSummary": "input[type=text][placeholder*=Search]"
+          }
+        ],
+        "steps": [
+          "open",
+          "focus-search",
+          "type-query"
+        ],
+        "mutationHistory": [],
+        "source": "automation-studio-sample"
+      },
+      "preview": null,
+      "path": "automation-modules/ebay-open-search-type",
+      "bodyFile": null,
+      "body": "Sample automation module\n1. Open https://www.ebay.com/\n2. Click search box\n3. Type {{query}}\n\nExported for library import handshake."
+    }
+  ]
+}

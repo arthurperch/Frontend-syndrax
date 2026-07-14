@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Syndrax Templates — Library</title>
+  <script src="/templates/engine.js"></script>
+  <style>
+    :root {
+      --bg: #000; --text: #fff; --muted: #a3a3a3; --line: #262626;
+      --panel: #0a0a0a; --silver: #d4d4d4; --live: #22c55e; --warn: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text);
+      font: 14px/1.45 Inter, Segoe UI, system-ui, sans-serif; }
+    .app { display: grid; grid-template-columns: 280px minmax(0,1fr); min-height: 100vh; }
+    aside { border-right: 1px solid var(--line); background: var(--panel); padding: 18px 14px;
+      display: flex; flex-direction: column; gap: 12px; }
+    .brand { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    h1 { margin: 4px 0 0; font-size: 18px; letter-spacing: -.02em; font-weight: 650; }
+    .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    input, select, textarea, button {
+      font: inherit; color: var(--text); background: #000; border: 1px solid var(--line); border-radius: 10px;
+    }
+    input, select { width: 100%; padding: 9px 11px; }
+    textarea { width: 100%; padding: 10px; min-height: 120px; }
+    input:focus, select:focus, textarea:focus { outline: 1px solid #525252; }
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tab { padding: 7px 10px; cursor: pointer; border-radius: 999px; background: #000; border: 1px solid var(--line); color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .tab.on { color: #000; background: #fff; border-color: #fff; font-weight: 700; }
+    .list { overflow: auto; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .card { text-align: left; padding: 10px 11px; cursor: pointer; background: #000; border: 1px solid var(--line); border-radius: 12px; color: var(--text); }
+    .card:hover { border-color: #404040; }
+    .card.active { border-color: var(--silver); background: #111; }
+    .card b { display: block; font-size: 13px; font-weight: 650; }
+    .card span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .meta-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .pill { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; color: var(--muted); }
+    .pill.ready, .pill.shared { color: var(--live); border-color: rgba(34,197,94,.35); }
+    .pill.draft { color: var(--silver); }
+    .pill.archived { color: var(--warn); border-color: rgba(245,158,11,.35); }
+    main { padding: 22px 24px 40px; min-width: 0; }
+    .empty { border: 1px dashed var(--line); border-radius: 14px; padding: 48px 24px; text-align: center; color: var(--muted); }
+    .head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 18px; }
+    .head h2 { margin: 0; font-size: 22px; letter-spacing: -.02em; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    button.btn { padding: 9px 14px; cursor: pointer; border-radius: 10px; background: #111; border: 1px solid #333; }
+    button.btn.primary { background: #fff; color: #000; border-color: #fff; font-weight: 650; }
+    button.btn:disabled { opacity: .4; cursor: not-allowed; }
+    .grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.1fr); gap: 16px; }
+    .panel { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 14px; }
+    .panel h3 { margin: 0 0 12px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .vars { display: grid; gap: 10px; }
+    .vars label, .share label { display: grid; gap: 5px; font-size: 12px; color: var(--muted); }
+    .preview { white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px; line-height: 1.55; color: #e5e5e5; max-height: 50vh; overflow: auto; }
+    .preview.html-mode { white-space: normal; font-family: Inter, Segoe UI, system-ui, sans-serif; background: #fff; color: #111; border-radius: 10px; padding: 12px; }
+    .status { font-size: 12px; color: var(--muted); margin-top: 10px; }
+    .err { color: var(--warn); }
+    .ok { color: var(--live); }
+    .variants { display: grid; gap: 10px; }
+    .variant { border: 1px solid var(--line); border-radius: 12px; padding: 10px; background: #000; }
+    .variant h4 { margin: 0 0 8px; font-size: 12px; color: var(--silver); }
+    .inspo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .inspo-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #000; }
+    .inspo-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: #111; }
+    .inspo-card .cap { padding: 10px; font-size: 12px; color: var(--muted); }
+    .checkline { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 13px; }
+    .checkline input { width: auto; }
+    @media (max-width: 960px) {
+      .app { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      aside { border-right: 0; border-bottom: 1px solid var(--line); max-height: 42vh; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div>
+        <div class="brand">Syndrax</div>
+        <h1>Template library</h1>
+        <div class="sub" id="countLine">Loading…</div>
+      </div>
+      <div class="tabs" id="modeTabs">
+        <button class="tab on" data-mode="browse">Browse</button>
+        <button class="tab" data-mode="share">Share</button>
+        <button class="tab" data-mode="remix">Remix</button>
+        <button class="tab" data-mode="inspo">Inspo</button>
+        <button class="tab" data-mode="import">Import</button>
+      </div>
+      <div class="filters" style="display:grid;gap:8px">
+        <input id="q" type="search" placeholder="Search title, tags, id" />
+        <select id="kind">
+          <option value="">All kinds</option>
+          <option value="buyer-message">Buyer messages</option>
+          <option value="listing-description">Listing descriptions</option>
+          <option value="workflow">Workflows</option>
+          <option value="automation-module">Automation modules</option>
+          <option value="inspo">Inspo</option>
+        </select>
+        <button class="btn primary" id="btnInstallAll" type="button" style="width:100%">Install all packs</button>
+        <div class="sub" id="installAllStatus" style="margin:0"></div>
+      </div>
+      <div class="list" id="list"></div>
+    </aside>
+    <main id="main">
+      <div class="empty">Pick a template. Steps 5–9: presets, share, remix, inspo, import.</div>
+    </main>
+  </div>
+  <script>
+    const ST = window.SyndraxTemplates;
+    const state = { catalog: null, selectedId: null, values: {}, mode: 'browse', remixes: null, importText: '' };
+
+    const $ = (id) => document.getElementById(id);
+    function esc(s) {
+      return String(s ?? '').replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[c]);
+    }
+
+    function current() {
+      return state.catalog?.templates.find((x) => x.id === state.selectedId) || null;
+    }
+
+    function withMeta(t) {
+      if (!t) return null;
+      const m = ST.getMeta(t);
+      return { ...t, status: m.status, sharedWith: m.sharedWith, notes: m.notes };
+    }
+
+    function filtered() {
+      const q = ($('q').value || '').trim().toLowerCase();
+      const kind = $('kind').value;
+      return (state.catalog?.templates || []).filter((raw) => {
+        const t = withMeta(raw);
+        if (kind && t.kind !== kind) return false;
+        if (!q) return true;
+        const hay = [t.id, t.title, t.summary, ...(t.tags || []), ...(t.sharedWith || [])].join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+    }
+
+    function renderList() {
+      const items = filtered();
+      $('countLine').textContent = `${items.length} shown · ${state.catalog?.count || 0} total`;
+      // If filter hides the current selection, jump to first visible item
+      if (items.length && !items.some((t) => t.id === state.selectedId)) {
+        select(items[0].id);
+        return; // select() re-renders list + main
+      }
+      if (!items.length) {
+        state.selectedId = null;
+      }
+      $('list').innerHTML = items.map((raw) => {
+        const t = withMeta(raw);
+        return `<button class="card${t.id === state.selectedId ? ' active' : ''}" data-id="${esc(t.id)}" type="button">
+          <b>${esc(t.title)}</b>
+          <span>${esc(t.summary || t.id)}</span>
+          <div class="meta-row">
+            <span class="pill">${esc(t.kind)}</span>
+            <span class="pill ${esc(t.status)}">${esc(t.status)}</span>
+          </div>
+        </button>`;
+      }).join('') || `<div class="empty" style="padding:20px">No matches.</div>`;
+      $('list').querySelectorAll('[data-id]').forEach((btn) => {
+        btn.onclick = () => select(btn.dataset.id);
+      });
+      if (!items.length) renderMain();
+    }
+
+    function select(id) {
+      state.selectedId = id;
+      const t = current();
+      state.values = {};
+      (t?.variables || []).forEach((v) => { state.values[v.key] = v.example || ''; });
+      if (t?.kind === 'buyer-message' && state.values.seller_signoff === undefined) {
+        state.values.seller_signoff = 'Syndrax seller';
+      }
+      state.remixes = null;
+      renderList();
+      renderMain();
+    }
+
+    function setMode(mode) {
+      state.mode = mode;
+      document.querySelectorAll('#modeTabs .tab').forEach((b) => b.classList.toggle('on', b.dataset.mode === mode));
+      renderMain();
+    }
+
+    function installWorkflow(t) {
+      try {
+        const autos = JSON.parse(localStorage.getItem('syndrax_automations_v1') || '[]');
+        const existing = autos.find((a) => a.fromTemplate === t.id);
+        if (existing) return existing;
+        const a = ST.automationFromWorkflow(t);
+        autos.unshift(a);
+        localStorage.setItem('syndrax_automations_v1', JSON.stringify(autos));
+        return a;
+      } catch (e) {
+        throw e;
+      }
+    }
+
+    function installModule(t) {
+      const autos = JSON.parse(localStorage.getItem('syndrax_automations_v1') || '[]');
+      const existing = autos.find((a) => a.fromTemplate === t.id);
+      if (existing) return existing;
+      const a = ST.automationFromModule(t);
+      autos.unshift(a);
+      localStorage.setItem('syndrax_automations_v1', JSON.stringify(autos));
+      return a;
+    }
+
+    /** Install every workflow + automation-module once (no duplicates). */
+    function installAllPacks() {
+      const packs = (state.catalog?.templates || []).filter(
+        (t) => t.kind === 'workflow' || t.kind === 'automation-module'
+      );
+      let added = 0;
+      let skipped = 0;
+      for (const t of packs) {
+        const before = JSON.parse(localStorage.getItem('syndrax_automations_v1') || '[]');
+        const had = before.some((a) => a.fromTemplate === t.id);
+        if (t.kind === 'workflow') installWorkflow(t);
+        else installModule(t);
+        if (had) skipped++;
+        else added++;
+      }
+      return { total: packs.length, added, skipped };
+    }
+
+    function renderBrowse(t) {
+      const isHtml = (t.bodyFile || '').endsWith('.html') || t.kind === 'listing-description';
+      const meta = ST.getMeta(t);
+      const steps = (t.payload && t.payload.steps) || [];
+      const stepKeys = steps.map((s) => (typeof s === 'string' ? s : (s.label || s.key))).filter(Boolean);
+
+      // Workflow packs: show steps + big install button (not message variables)
+      if (t.kind === 'workflow' || t.kind === 'automation-module') {
+        const actions = (t.payload && t.payload.actions) || [];
+        const lines = stepKeys.length
+          ? stepKeys
+          : actions.map((a, i) => a.label || a.type || ('Step ' + (i + 1)));
+        let already = false;
+        try {
+          const autos = JSON.parse(localStorage.getItem('syndrax_automations_v1') || '[]');
+          already = autos.some((a) => a.fromTemplate === t.id || a.label === t.title);
+        } catch {}
+        return `
+        <div class="head">
+          <div>
+            <div class="brand">${esc(t.id)}</div>
+            <h2>${esc(t.title)}</h2>
+            <div class="sub">${esc(t.summary || '')}</div>
+            <div class="meta-row" style="margin-top:10px">
+              <span class="pill">${esc(t.kind)}</span>
+              <span class="pill ${esc(meta.status)}">${esc(meta.status)}</span>
+              ${already ? '<span class="pill ready">installed</span>' : ''}
+              ${(t.marketplace || []).map((m) => `<span class="pill">${esc(m)}</span>`).join('')}
+            </div>
+          </div>
+          <div class="actions">
+            ${already
+              ? `<button class="btn primary" id="btnOpenApp" type="button">Open Workflows in app</button>
+                 <button class="btn" id="${t.kind === 'workflow' ? 'btnInstallWf' : 'btnInstallMod'}" type="button">Install again</button>`
+              : `<button class="btn primary" id="${t.kind === 'workflow' ? 'btnInstallWf' : 'btnInstallMod'}" type="button">Install this pack</button>`}
+          </div>
+        </div>
+        <div class="grid">
+          <section class="panel">
+            <h3>What this pack does</h3>
+            <p class="sub" style="margin:0 0 12px">A pack is a ready-made checklist of steps. Install = save it in this browser. You still need the app open (login or local preview) to see it under <b style="color:#e5e5e5">Workflows</b>.</p>
+            <div class="vars">
+              ${lines.length ? lines.map((label, i) => `
+                <div style="display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px">
+                  <span style="width:22px;height:22px;border-radius:50%;border:1px solid #404040;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted)">${i + 1}</span>
+                  <span style="color:#fff;font-size:13px">${esc(label)}</span>
+                </div>`).join('') : '<div class="sub">No steps listed.</div>'}
+            </div>
+            <div class="status ${already ? 'ok' : ''}" id="status">${already
+              ? 'Already installed in this browser. Open the app → Workflows to see it.'
+              : 'Click Install this pack, then open the app → Workflows.'}</div>
+          </section>
+          <section class="panel">
+            <h3>How to open the app (important)</h3>
+            <ol style="margin:0;padding-left:18px;color:var(--muted);line-height:1.7;font-size:13px">
+              <li>Go to <b style="color:#fff">http://localhost:3002/login</b></li>
+              <li>Click <b style="color:#fff">Enter app (local preview)</b> at the bottom (this PC only)</li>
+              <li>Left menu → <b style="color:#fff">Workflows</b></li>
+              <li>Find pack under <b style="color:#fff">Saved automations</b> / Template packs</li>
+            </ol>
+            <p class="sub" style="margin-top:12px">Normal email login needs a real Syndrax account. Local preview skips that on localhost only.</p>
+          </section>
+        </div>`;
+      }
+
+      const body = ST.fillBody(t.body || JSON.stringify(t.payload || {}, null, 2), state.values);
+      return `
+        <div class="head">
+          <div>
+            <div class="brand">${esc(t.id)}</div>
+            <h2>${esc(t.title)}</h2>
+            <div class="sub">${esc(t.summary || '')}</div>
+            <div class="meta-row" style="margin-top:10px">
+              <span class="pill">${esc(t.kind)}</span>
+              <span class="pill ${esc(meta.status)}">${esc(meta.status)}</span>
+              ${(t.marketplace || []).map((m) => `<span class="pill">${esc(m)}</span>`).join('')}
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="btnReset" type="button">Reset examples</button>
+            <button class="btn primary" id="btnCopy" type="button">Copy filled text</button>
+          </div>
+        </div>
+        <div class="grid">
+          <section class="panel">
+            <h3>Variables</h3>
+            <div class="vars" id="vars">
+              ${(t.variables || []).length ? (t.variables || []).map((v) => `
+                <label>${esc(v.label || v.key)}
+                  <input data-var="${esc(v.key)}" value="${esc(state.values[v.key] || '')}" />
+                </label>`).join('') : '<div class="sub">No variables.</div>'}
+              ${t.kind === 'buyer-message' ? `<label>Seller sign-off<input data-var="seller_signoff" value="${esc(state.values.seller_signoff || '')}" /></label>` : ''}
+            </div>
+            <div class="status" id="status">Edit fields → preview updates live. This is a message/listing template (not a workflow pack).</div>
+          </section>
+          <section class="panel">
+            <h3>Preview ${isHtml ? '(HTML)' : ''}</h3>
+            <div class="preview ${isHtml ? 'html-mode' : ''}" id="preview"></div>
+          </section>
+        </div>`;
+    }
+
+    function renderShare(t) {
+      const meta = ST.getMeta(t);
+      const team = ['danish', 'oleg'];
+      return `
+        <div class="head">
+          <div>
+            <div class="brand">Share · ${esc(t.id)}</div>
+            <h2>${esc(t.title)}</h2>
+            <div class="sub">Status + who can use this pack (saved in this browser).</div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" id="btnSaveShare" type="button">Save share settings</button>
+          </div>
+        </div>
+        <div class="grid">
+          <section class="panel share">
+            <h3>Status</h3>
+            <label>Visibility
+              <select id="shareStatus">
+                ${['draft','ready','shared','archived'].map(s => `<option value="${s}" ${meta.status===s?'selected':''}>${s}</option>`).join('')}
+              </select>
+            </label>
+            <h3 style="margin-top:16px">Team</h3>
+            ${team.map(u => `
+              <label class="checkline"><input type="checkbox" data-share-user="${u}" ${meta.sharedWith.includes(u)?'checked':''}/> ${u}</label>
+            `).join('')}
+            <label style="margin-top:14px">Notes
+              <textarea id="shareNotes" rows="3">${esc(meta.notes || '')}</textarea>
+            </label>
+            <div class="status" id="status">Changes stay local until you export / push catalog.</div>
+          </section>
+          <section class="panel">
+            <h3>Export JSON (this template + meta)</h3>
+            <textarea id="exportBox" rows="16" readonly></textarea>
+            <div class="actions" style="margin-top:10px">
+              <button class="btn" id="btnCopyExport" type="button">Copy export</button>
+            </div>
+          </section>
+        </div>`;
+    }
+
+    function renderRemix(t) {
+      const variants = state.remixes || [];
+      return `
+        <div class="head">
+          <div>
+            <div class="brand">Remix · local AI-style variants</div>
+            <h2>${esc(t.title)}</h2>
+            <div class="sub">Offline-safe: 3 variants from structure + promptHint (no keys in the browser). ${esc((t.ai&&t.ai.promptHint)||'')}</div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" id="btnRemix" type="button">Generate 3 variants</button>
+          </div>
+        </div>
+        <section class="panel">
+          <h3>Variants</h3>
+          <div class="variants" id="variantBox">
+            ${variants.length ? variants.map(v => `
+              <div class="variant">
+                <h4>${esc(v.label)} · ${esc(v.id)}</h4>
+                <pre class="preview" style="max-height:220px">${esc(v.body)}</pre>
+                <button class="btn" data-copy-var="${esc(v.id)}" type="button">Copy</button>
+              </div>`).join('') : '<div class="sub">Click Generate 3 variants.</div>'}
+          </div>
+          <div class="status" id="status"></div>
+        </section>`;
+    }
+
+    function renderInspo(t) {
+      const prompts = (t.payload && t.payload.imagePrompts) || [];
+      const images = (t.preview && t.preview.inspoImages) || [];
+      return `
+        <div class="head">
+          <div>
+            <div class="brand">Inspo</div>
+            <h2>${esc(t.title)}</h2>
+            <div class="sub">${esc(t.summary || '')} · exploratory images (not auto-inserted into app).</div>
+          </div>
+        </div>
+        <section class="panel">
+          <h3>Generated / linked images</h3>
+          <div class="inspo-grid">
+            ${images.length ? images.map((src, i) => `
+              <div class="inspo-card">
+                <img src="${esc(src)}" alt="inspo ${i+1}" />
+                <div class="cap">${esc(src)}</div>
+              </div>`).join('') : '<div class="sub">No images linked yet — generate from prompts offline, then drop under /templates/inspo/.</div>'}
+          </div>
+        </section>
+        <section class="panel" style="margin-top:14px">
+          <h3>Image prompts</h3>
+          ${prompts.length ? prompts.map((p, i) => `
+            <div class="variant" style="margin-bottom:8px">
+              <h4>Prompt ${i+1}</h4>
+              <div class="preview" style="max-height:120px">${esc(p)}</div>
+              <button class="btn" data-copy-prompt="${i}" type="button">Copy prompt</button>
+            </div>`).join('') : '<div class="sub">No prompts on this template. Pick an inspo pack.</div>'}
+          <div class="status" id="status">Status: exploratory until you approve for production.</div>
+        </section>`;
+    }
+
+    function renderImport() {
+      return `
+        <div class="head">
+          <div>
+            <div class="brand">Import · Oleg handshake</div>
+            <h2>Automation module / template JSON</h2>
+            <div class="sub">Paste Studio export or any template.json. Installs into Jobs automations when kind is workflow or automation-module.</div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="btnLoadSample" type="button">Load sample module</button>
+            <button class="btn primary" id="btnImport" type="button">Import</button>
+          </div>
+        </div>
+        <section class="panel">
+          <h3>JSON</h3>
+          <textarea id="importBox" rows="18" placeholder='{ "id": "...", "kind": "automation-module", ... }'>${esc(state.importText)}</textarea>
+          <div class="status" id="status"></div>
+        </section>`;
+    }
+
+    function renderMain() {
+      const main = $('main');
+      if (state.mode === 'import') {
+        main.innerHTML = renderImport();
+        wireImport();
+        return;
+      }
+      const raw = current();
+      if (!raw) {
+        main.className = 'empty';
+        main.textContent = 'Pick a template on the left.';
+        return;
+      }
+      main.className = '';
+      const t = withMeta(raw);
+      if (state.mode === 'share') main.innerHTML = renderShare(t);
+      else if (state.mode === 'remix') main.innerHTML = renderRemix(t);
+      else if (state.mode === 'inspo') main.innerHTML = renderInspo(t);
+      else main.innerHTML = renderBrowse(t);
+      wireDetail(t);
+    }
+
+    function wireDetail(t) {
+      const status = () => $('status');
+
+      if (state.mode === 'browse') {
+        const isHtml = (t.bodyFile || '').endsWith('.html') || t.kind === 'listing-description';
+        const preview = $('preview');
+        if (preview) {
+          const paintPrev = () => {
+            const body = ST.fillBody(t.body || JSON.stringify(t.payload || {}, null, 2), state.values);
+            if (isHtml) preview.innerHTML = body; else preview.textContent = body;
+          };
+          paintPrev();
+          document.querySelectorAll('[data-var]').forEach((input) => {
+            input.oninput = () => { state.values[input.dataset.var] = input.value; paintPrev(); };
+          });
+          const btnReset = $('btnReset'); if (btnReset) btnReset.onclick = () => select(t.id);
+          const btnCopy = $('btnCopy');
+          if (btnCopy) btnCopy.onclick = async () => {
+            const filled = ST.fillBody(t.body || JSON.stringify(t.payload || {}, null, 2), state.values);
+            try { await navigator.clipboard.writeText(filled); status().textContent = 'Copied.'; status().className = 'status ok'; }
+            catch { status().textContent = 'Clipboard blocked.'; status().className = 'status err'; }
+          };
+        }
+        const wf = $('btnInstallWf');
+        if (wf) wf.onclick = () => {
+          try {
+            const a = installWorkflow(t);
+            status().textContent = `Installed “${a.label}”. Now open login → Enter app (local preview) → Workflows.`;
+            status().className = 'status ok';
+            select(t.id); // refresh button to Installed state
+          } catch (e) { status().textContent = String(e); status().className = 'status err'; }
+        };
+        const mod = $('btnInstallMod');
+        if (mod) mod.onclick = () => {
+          try {
+            const a = installModule(t);
+            status().textContent = `Installed “${a.label}”. Now open login → Enter app (local preview) → Workflows.`;
+            status().className = 'status ok';
+            select(t.id);
+          } catch (e) { status().textContent = String(e); status().className = 'status err'; }
+        };
+        const openApp = $('btnOpenApp');
+        if (openApp) openApp.onclick = () => { window.location.href = '/login'; };
+      }
+
+      if (state.mode === 'share') {
+        const exportBox = $('exportBox');
+        const buildExport = () => {
+          const meta = {
+            status: $('shareStatus').value,
+            sharedWith: [...document.querySelectorAll('[data-share-user]:checked')].map(x => x.dataset.shareUser),
+            notes: $('shareNotes').value,
+          };
+          return JSON.stringify({ ...t, ...meta, sharedMeta: meta }, null, 2);
+        };
+        exportBox.value = buildExport();
+        ['shareStatus','shareNotes'].forEach(id => {
+          const el = $(id); if (el) el.oninput = () => { exportBox.value = buildExport(); };
+        });
+        document.querySelectorAll('[data-share-user]').forEach(c => c.onchange = () => { exportBox.value = buildExport(); });
+        $('btnSaveShare').onclick = () => {
+          const patch = {
+            status: $('shareStatus').value,
+            sharedWith: [...document.querySelectorAll('[data-share-user]:checked')].map(x => x.dataset.shareUser),
+            notes: $('shareNotes').value,
+          };
+          ST.setMeta(t.id, patch);
+          status().textContent = 'Share settings saved locally.';
+          status().className = 'status ok';
+          renderList();
+          exportBox.value = buildExport();
+        };
+        $('btnCopyExport').onclick = async () => {
+          try { await navigator.clipboard.writeText(exportBox.value); status().textContent = 'Export copied.'; status().className = 'status ok'; }
+          catch { status().textContent = 'Copy failed.'; status().className = 'status err'; }
+        };
+      }
+
+      if (state.mode === 'remix') {
+        $('btnRemix').onclick = () => {
+          state.remixes = ST.remixLocal(t, state.values);
+          renderMain();
+          const s = $('status');
+          if (s) { s.textContent = '3 variants ready (local remix).'; s.className = 'status ok'; }
+        };
+        document.querySelectorAll('[data-copy-var]').forEach(btn => {
+          btn.onclick = async () => {
+            const v = (state.remixes || []).find(x => x.id === btn.dataset.copyVar);
+            if (!v) return;
+            try { await navigator.clipboard.writeText(v.body); $('status').textContent = 'Variant copied.'; $('status').className = 'status ok'; }
+            catch { $('status').textContent = 'Copy failed.'; $('status').className = 'status err'; }
+          };
+        });
+      }
+
+      if (state.mode === 'inspo') {
+        const prompts = (t.payload && t.payload.imagePrompts) || [];
+        document.querySelectorAll('[data-copy-prompt]').forEach(btn => {
+          btn.onclick = async () => {
+            const p = prompts[+btn.dataset.copyPrompt];
+            try { await navigator.clipboard.writeText(p); $('status').textContent = 'Prompt copied.'; $('status').className = 'status ok'; }
+            catch { $('status').textContent = 'Copy failed.'; $('status').className = 'status err'; }
+          };
+        });
+      }
+    }
+
+    function wireImport() {
+      const box = $('importBox');
+      box.oninput = () => { state.importText = box.value; };
+      $('btnLoadSample').onclick = async () => {
+        const sample = (state.catalog?.templates || []).find(t => t.kind === 'automation-module');
+        if (sample) {
+          state.importText = JSON.stringify(sample, null, 2);
+          box.value = state.importText;
+          $('status').textContent = 'Sample automation-module loaded.';
+          $('status').className = 'status ok';
+        } else {
+          $('status').textContent = 'No sample in catalog.';
+          $('status').className = 'status err';
+        }
+      };
+      $('btnImport').onclick = () => {
+        try {
+          const list = ST.parseImportJson(box.value);
+          const imported = [];
+          for (const t of list) {
+            if (t.kind === 'workflow') imported.push(installWorkflow(t));
+            else if (t.kind === 'automation-module') {
+              const v = ST.validateAutomationModule(t);
+              if (!v.ok) throw new Error(v.errors.join('; '));
+              imported.push(installModule(t));
+            } else {
+              // stash meta only for other kinds
+              ST.setMeta(t.id, { status: t.status || 'draft', sharedWith: t.sharedWith || [] });
+            }
+          }
+          $('status').textContent = `Imported ${list.length} item(s). Jobs installs: ${imported.length}. Open /app → Jobs.`;
+          $('status').className = 'status ok';
+        } catch (e) {
+          $('status').textContent = String(e.message || e);
+          $('status').className = 'status err';
+        }
+      };
+    }
+
+    async function boot() {
+      const candidates = ['./templates/catalog.json', '/templates/catalog.json', './catalog.json', '/catalog.json'];
+      for (const url of candidates) {
+        try {
+          const res = await fetch(url, { cache: 'no-store' });
+          if (!res.ok) continue;
+          state.catalog = await res.json();
+          break;
+        } catch {}
+      }
+      if (!state.catalog) {
+        $('countLine').innerHTML = '<span class="err">Could not load catalog.json</span>';
+        return;
+      }
+      $('q').oninput = renderList;
+      $('kind').onchange = renderList;
+      document.querySelectorAll('#modeTabs .tab').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+      const allBtn = $('btnInstallAll');
+      if (allBtn) allBtn.onclick = () => {
+        const r = installAllPacks();
+        const el = $('installAllStatus');
+        if (el) {
+          el.className = 'sub ok';
+          el.textContent = `Done: ${r.added} new, ${r.skipped} already installed (${r.total} packs). Open /login → local preview → Workflows.`;
+        }
+        renderList();
+        if (state.selectedId) select(state.selectedId);
+      };
+      renderList();
+      // ?installAll=1 auto-runs once for agent/setup
+      if (new URLSearchParams(location.search).get('installAll') === '1') {
+        const r = installAllPacks();
+        const el = $('installAllStatus');
+        if (el) {
+          el.className = 'sub ok';
+          el.textContent = `Auto-install: ${r.added} new, ${r.skipped} skipped (${r.total} packs).`;
+        }
+      }
+      const first = state.catalog.templates.find(t => t.kind === 'buyer-message') || state.catalog.templates[0];
+      if (first) select(first.id);
+    }
+    boot();
+  </script>
+</body>
+</html>
